@@ -12,17 +12,21 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 import com.jadielsantiago.crossroadsvn.controller.GameManager;
+import com.jadielsantiago.crossroadsvn.model.Choice;
+import com.jadielsantiago.crossroadsvn.model.ChoiceOption;
 import com.jadielsantiago.crossroadsvn.model.DialogueLine;
+import com.jadielsantiago.crossroadsvn.model.Jules_Story;
+import com.jadielsantiago.crossroadsvn.model.Mayas_Story;
+import com.jadielsantiago.crossroadsvn.model.Noras_Story;
 
-import java.util.LinkedList;
 import java.util.Queue;
 
 public class Main extends Application {
-    
-    private GameManager gameManager; // The Controller
+    private GameManager gameManager;
     private Label speakerNameLabel;
     private Label dialogueTextLabel;
-    private StackPane root; // Made class-level to allow screen swapping
+    private VBox choiceBoxContainer; // Holds choice buttons
+    private StackPane root;
 
     public static void main(String[] args) {
         launch(args);
@@ -31,15 +35,12 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) {
         gameManager = new GameManager();
-        
-        // Root container that will hold either the Menu or the Dialogue UI
+
         root = new StackPane();
         root.setStyle("-fx-background-color: #2b2b2b;");
 
-        // Load the Main Menu initially
         showMainMenu();
 
-        // --- WINDOW SETUP ---
         Scene scene = new Scene(root, 800, 600);
         primaryStage.setTitle("Project Crossroads - VN Engine");
         primaryStage.setScene(scene);
@@ -47,11 +48,8 @@ public class Main extends Application {
     }
 
     private void showMainMenu() {
-        // Clear out any existing UI (like the dialogue box)
         root.getChildren().clear();
-        
-        // Remove dialogue click listener if coming back from a story
-        root.setOnMouseClicked(null); 
+        root.setOnMouseClicked(null);
 
         VBox menuBox = new VBox(20);
         menuBox.setAlignment(Pos.CENTER);
@@ -64,7 +62,6 @@ public class Main extends Application {
         Button mayaBtn = new Button("Play Maya's Story");
         Button noraBtn = new Button("Play Nora's Story");
 
-        // Simple inline styling for the buttons
         String btnStyle = "-fx-font-size: 16px; -fx-padding: 10 20; -fx-background-radius: 5; -fx-cursor: hand;";
         julesBtn.setStyle(btnStyle);
         mayaBtn.setStyle(btnStyle);
@@ -81,6 +78,7 @@ public class Main extends Application {
     private void showDialogueScreen() {
         root.getChildren().clear();
 
+        // Dialogue Box setup
         VBox dialogueBox = new VBox(10);
         dialogueBox.setStyle("-fx-background-color: rgba(255, 255, 255, 0.9); -fx-background-radius: 10;");
         dialogueBox.setPadding(new Insets(20));
@@ -91,74 +89,79 @@ public class Main extends Application {
         speakerNameLabel = new Label("Speaker");
         speakerNameLabel.setFont(new Font("Arial Bold", 18));
         speakerNameLabel.setTextFill(Color.DARKBLUE);
-        
+
         dialogueTextLabel = new Label("Text...");
         dialogueTextLabel.setFont(new Font("Arial", 16));
         dialogueTextLabel.setWrapText(true);
 
         dialogueBox.getChildren().addAll(speakerNameLabel, dialogueTextLabel);
-        root.getChildren().add(dialogueBox);
 
-        // Click anywhere on screen to advance
+        // Choice overlay container (centered on screen)
+        choiceBoxContainer = new VBox(15);
+        choiceBoxContainer.setAlignment(Pos.CENTER);
+        choiceBoxContainer.setVisible(false);
+
+        root.getChildren().addAll(dialogueBox, choiceBoxContainer);
+
         root.setOnMouseClicked(event -> advanceDialogue());
     }
 
     private void startStory(int storyId) {
-        // 1. Load the requested scene data into the GameManager
+        Queue<DialogueLine> scene = null;
+
         if (storyId == 1) {
-            loadJulesScene();
+            scene = Jules_Story.getScene();
         } else if (storyId == 2) {
-            loadMayaScene();
+            scene = Mayas_Story.getScene();
         } else if (storyId == 3) {
-            loadNoraScene();
+            scene = Noras_Story.getScene();
         }
 
-        // 2. Swap the UI to the dialogue screen
-        showDialogueScreen();
-
-        // 3. Kick off the first line of dialogue
-        advanceDialogue();
+        if (scene != null) {
+            gameManager.loadScene(scene);
+            showDialogueScreen();
+            advanceDialogue();
+        }
     }
 
     private void advanceDialogue() {
+        // Prevent advancing by clicking while a choice is pending on screen
+        if (choiceBoxContainer != null && choiceBoxContainer.isVisible()) {
+            return;
+        }
+
         DialogueLine nextLine = gameManager.getNextLine();
-        
+
         if (nextLine != null) {
             speakerNameLabel.setText(nextLine.getSpeaker());
             dialogueTextLabel.setText(nextLine.getText());
+
+            // If this line contains player choices, render them
+            if (nextLine instanceof Choice) {
+                presentChoices((Choice) nextLine);
+            }
         } else {
-            // Scene is over, return to main menu
             showMainMenu();
         }
     }
 
-    private void loadJulesScene() {
-        Queue<DialogueLine> scene = new LinkedList<>();
-        scene.add(new DialogueLine("Jules", "I've got three assignments due by midnight."));
-        scene.add(new DialogueLine("Maya", "You need to take a break, Jules. You're going to burn out."));
-        scene.add(new DialogueLine("Jules", "If I stop now, I lose my momentum. I just need coffee."));
-        scene.add(new DialogueLine("Maya", "Coffee isn't a substitute for sleep..."));
-        
-        gameManager.loadScene(scene);
-    }
+    private void presentChoices(Choice choice) {
+        choiceBoxContainer.getChildren().clear();
 
-    private void loadMayaScene() {
-        Queue<DialogueLine> scene = new LinkedList<>();
-        scene.add(new DialogueLine("Maya", "The campus is so quiet at this hour."));
-        scene.add(new DialogueLine("Maya", "I wonder if Nora is still at the studio."));
-        scene.add(new DialogueLine("Nora", "(From a distance) Hey! Over here!"));
-        scene.add(new DialogueLine("Maya", "Ah, speak of the devil."));
-        
-        gameManager.loadScene(scene);
-    }
+        for (ChoiceOption option : choice.getOptions()) {
+            Button optionBtn = new Button(option.getOptionText());
+            optionBtn.setStyle("-fx-font-size: 15px; -fx-padding: 10 25; -fx-background-color: #1e3d59; -fx-text-fill: white; -fx-background-radius: 8; -fx-cursor: hand;");
 
-    private void loadNoraScene() {
-        Queue<DialogueLine> scene = new LinkedList<>();
-        scene.add(new DialogueLine("Nora", "The composition is almost perfect, just needs more... red."));
-        scene.add(new DialogueLine("Nora", "No, wait. Cobalt blue. That's the mood."));
-        scene.add(new DialogueLine("Professor", "Fascinating choice, Nora. But does it fit the theme?"));
-        scene.add(new DialogueLine("Nora", "It doesn't just fit the theme, Professor. It redefines it."));
-        
-        gameManager.loadScene(scene);
+            optionBtn.setOnAction(e -> {
+                // Hide choice box and inject the selected branch
+                choiceBoxContainer.setVisible(false);
+                gameManager.branchScene(option.getResultingBranch());
+                advanceDialogue();
+            });
+
+            choiceBoxContainer.getChildren().add(optionBtn);
+        }
+
+        choiceBoxContainer.setVisible(true);
     }
 }
