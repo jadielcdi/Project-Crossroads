@@ -1,0 +1,21 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Run Crossroads (Main)",
+            "request": "launch",
+            "mainClass": "com.jadielsantiago.crossroadsvn.view.Main",
+            "projectName": "Project-Crossroads",
+            "vmArgs": "--module-path \"C:/JavaFX/javafx-sdk-17.0.20/lib\" --add-modules javafx.controls,javafx.fxml,javafx.graphics,javafx.media,javafx.swing,javafx.web --enable-native-access=javafx.graphics"
+        },
+        {
+            "type": "java",
+            "name": "Run Crossroads (Launcher)",
+            "request": "launch",
+            "mainClass": "com.jadielsantiago.crossroadsvn.view.Launcher",
+            "projectName": "Project-Crossroads",
+            "vmArgs": "--module-path \"C:/JavaFX/javafx-sdk-17.0.20/lib\" --add-modules javafx.controls,javafx.fxml,javafx.graphics,javafx.media,javafx.swing,javafx.web --enable-native-access=javafx.graphics"
+        }
+    ]
+}

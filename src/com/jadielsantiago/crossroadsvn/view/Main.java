@@ -12,6 +12,7 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 import com.jadielsantiago.crossroadsvn.controller.GameManager;
+import com.jadielsantiago.crossroadsvn.controller.MusicPlayer;
 import com.jadielsantiago.crossroadsvn.model.Choice;
 import com.jadielsantiago.crossroadsvn.model.ChoiceOption;
 import com.jadielsantiago.crossroadsvn.model.DialogueLine;
@@ -23,10 +24,18 @@ import java.util.Queue;
 
 public class Main extends Application {
     private GameManager gameManager;
+    private MusicPlayer musicPlayer;
     private Label speakerNameLabel;
     private Label dialogueTextLabel;
     private VBox choiceBoxContainer; // Holds choice buttons
     private StackPane root;
+
+    // Music file paths (relative to the working directory)
+    private static final String MUSIC_DIR = "bin/media/music/";
+    private static final String MENU_MUSIC = MUSIC_DIR + "MainMenu_Test.mp3";
+    private static final String JULES_MUSIC = MUSIC_DIR + "Jules_Test.mp3";
+    private static final String MAYA_MUSIC = MUSIC_DIR + "Maya_Test.mp3";
+    private static final String NORA_MUSIC = MUSIC_DIR + "Nora_Test.mp3";
 
     public static void main(String[] args) {
         launch(args);
@@ -35,6 +44,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) {
         gameManager = new GameManager();
+        musicPlayer = new MusicPlayer();
 
         root = new StackPane();
         root.setStyle("-fx-background-color: #2b2b2b;");
@@ -50,6 +60,9 @@ public class Main extends Application {
     private void showMainMenu() {
         root.getChildren().clear();
         root.setOnMouseClicked(null);
+
+        // Play main menu music
+        musicPlayer.play(MENU_MUSIC);
 
         VBox menuBox = new VBox(20);
         menuBox.setAlignment(Pos.CENTER);
@@ -119,6 +132,16 @@ public class Main extends Application {
 
         if (scene != null) {
             gameManager.loadScene(scene);
+
+            // Play the character's designated music track
+            if (storyId == 1) {
+                musicPlayer.play(JULES_MUSIC);
+            } else if (storyId == 2) {
+                musicPlayer.play(MAYA_MUSIC);
+            } else if (storyId == 3) {
+                musicPlayer.play(NORA_MUSIC);
+            }
+
             showDialogueScreen();
             advanceDialogue();
         }

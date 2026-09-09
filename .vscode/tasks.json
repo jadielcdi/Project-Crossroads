@@ -1,0 +1,24 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Build Project",
+            "type": "shell",
+            "command": "javac --release 17 --module-path \"C:/JavaFX/javafx-sdk-17.0.20/lib\" --add-modules javafx.controls,javafx.fxml,javafx.graphics,javafx.media,javafx.swing,javafx.web -d bin (Get-ChildItem -Recurse -Filter *.java src | ForEach-Object { $_.FullName })",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": "$javac"
+        },
+        {
+            "label": "Run Crossroads",
+            "type": "shell",
+            "command": "java --module-path \"C:/JavaFX/javafx-sdk-17.0.20/lib\" --add-modules javafx.controls,javafx.fxml,javafx.graphics,javafx.media,javafx.swing,javafx.web --enable-native-access=javafx.graphics -cp bin com.jadielsantiago.crossroadsvn.view.Main",
+            "dependsOn": [
+                "Build Project"
+            ],
+            "problemMatcher": []
+        }
+    ]
+}
