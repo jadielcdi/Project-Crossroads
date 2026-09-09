@@ -30,8 +30,8 @@ public class Main extends Application {
     private VBox choiceBoxContainer; // Holds choice buttons
     private StackPane root;
 
-    // Music file paths (relative to the working directory)
-    private static final String MUSIC_DIR = "bin/media/music/";
+    // Music resource paths (loaded from the classpath)
+    private static final String MUSIC_DIR = "/com/jadielsantiago/crossroadsvn/media/music/";
     private static final String MENU_MUSIC = MUSIC_DIR + "MainMenu_Test.mp3";
     private static final String JULES_MUSIC = MUSIC_DIR + "Jules_Test.mp3";
     private static final String MAYA_MUSIC = MUSIC_DIR + "Maya_Test.mp3";

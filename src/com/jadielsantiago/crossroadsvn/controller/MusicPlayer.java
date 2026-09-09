@@ -2,9 +2,8 @@ package com.jadielsantiago.crossroadsvn.controller;
 
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
-import javafx.util.Duration;
 
-import java.io.File;
+import java.net.URL;
 
 /**
  * Manages background music playback for the VN engine.
@@ -14,21 +13,21 @@ public class MusicPlayer {
     private MediaPlayer mediaPlayer;
 
     /**
-     * Plays the specified music file, stopping any currently playing track first.
+     * Plays the specified music resource, stopping any currently playing track first.
      * The track loops indefinitely until stopped or replaced.
      *
-     * @param filePath the absolute or relative path to the MP3 file
+     * @param resourcePath the classpath resource path (e.g., "/com/jadielsantiago/crossroadsvn/media/music/MainMenu_Test.mp3")
      */
-    public void play(String filePath) {
+    public void play(String resourcePath) {
         stop(); // Stop any currently playing track
 
-        File musicFile = new File(filePath);
-        if (!musicFile.exists()) {
-            System.err.println("Music file not found: " + filePath);
+        URL resourceUrl = getClass().getResource(resourcePath);
+        if (resourceUrl == null) {
+            System.err.println("Music resource not found: " + resourcePath);
             return;
         }
 
-        Media media = new Media(musicFile.toURI().toString());
+        Media media = new Media(resourceUrl.toExternalForm());
         mediaPlayer = new MediaPlayer(media);
         mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE); // Loop the track
         mediaPlayer.play();
