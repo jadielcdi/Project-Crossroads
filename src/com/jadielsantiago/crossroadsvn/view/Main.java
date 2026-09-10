@@ -184,6 +184,7 @@ public class Main extends Application {
         for (ChoiceOption option : choice.getOptions()) {
             Button optionBtn = new Button(option.getOptionText());
             optionBtn.setStyle("-fx-font-size: 15px; -fx-padding: 10 25; -fx-background-color: #1e3d59; -fx-text-fill: white; -fx-background-radius: 8; -fx-cursor: hand;");
+            optionBtn.setFocusTraversable(false); // Prevents accidental spacebar selection
 
             optionBtn.setOnAction(e -> {
                 // Hide choice box and inject the selected branch
