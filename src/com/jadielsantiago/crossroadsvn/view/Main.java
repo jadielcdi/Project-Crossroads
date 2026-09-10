@@ -60,6 +60,9 @@ public class Main extends Application {
     private void showMainMenu() {
         root.getChildren().clear();
         root.setOnMouseClicked(null);
+        if (root.getScene() != null) {
+            root.getScene().setOnKeyPressed(null);
+        }
 
         // Play main menu music
         musicPlayer.play(MENU_MUSIC);
@@ -117,6 +120,13 @@ public class Main extends Application {
         root.getChildren().addAll(dialogueBox, choiceBoxContainer);
 
         root.setOnMouseClicked(event -> advanceDialogue());
+        if (root.getScene() != null) {
+            root.getScene().setOnKeyPressed(event -> {
+                if (event.getCode() == javafx.scene.input.KeyCode.SPACE) {
+                    advanceDialogue();
+                }
+            });
+        }
     }
 
     private void startStory(int storyId) {
