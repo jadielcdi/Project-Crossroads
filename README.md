@@ -9,8 +9,26 @@ The initial commit includes the foundational architecture:
 * **MVC Separation:** Clean division between data models, game logic, and the JavaFX presentation layer.
 * **Dialogue Engine:** A lightweight, queue-based (`LinkedList`) dialogue progression system.
 * **UI Framework:** A modular JavaFX interface designed for scalable, kinetic-style storytelling.
+* **Audio System:** Classpath-based background music playback integrated with scene transitions.
 
 ## Upcoming Roadmap
-* Implementation of a custom text-file parser to separate narrative scripts from the codebase.
-* Save-state management via Java File I/O.
-* Integration of the complete narrative structure, following the intersecting campus lives of three main characters (Jules, Maya, and Nora).
+
+### 1. Visual Layer & Asset Specifications
+* **Background System:**
+  * **File Formats:** Supported formats include `.jpg` and `.png`.
+  * **Resolution & Scaling:** Target resolution based on standard 16:9 or window scaling (e.g., 1920x1080 / 1280x720) rendered on the base z-index layer behind sprites and UI.
+  * **Usage:** Managed via scene state changes to reflect campus locations, rooms, and time of day.
+* **Character Sprite & Pose System (DDLC-Style):**
+  * **File Format:** High-resolution `.png` files with transparent backgrounds.
+  * **Pose & Expression States:** Each character (Jules, Maya, Nora) possesses a baseline default model along with interchangeable poses and expressions (e.g., neutral, speaking, thinking, distressed, smiling) called dynamically per dialogue line or scene action.
+  * **Screen Positioning & Layering:** Rendered in front of the background layer and behind the dialogue/choice UI, supporting screen slot positioning (e.g., Left, Center, Right) for multiple characters.
+  * **Engine Integration:** Script commands and dialogue model nodes will specify `[Character] [Pose] [Position]` tags to update visible sprites seamlessly during conversation progression.
+
+### 2. Custom Script Parser
+* Implementation of a custom text-file parser to separate narrative scripts and visual cues from compiled Java code.
+
+### 3. Save-State Management
+* Persistent game-state tracking via Java File I/O.
+
+### 4. Complete Narrative Integration
+* Expanding all character storylines (Jules, Maya, Nora) and weaving their intersecting campus routes.
