@@ -4,7 +4,7 @@
         {
             "label": "Build Project",
             "type": "shell",
-            "command": "javac --release 17 --module-path \"C:/JavaFX/javafx-sdk-17.0.20/lib\" --add-modules javafx.controls,javafx.fxml,javafx.graphics,javafx.media,javafx.swing,javafx.web -d bin (Get-ChildItem -Recurse -Filter *.java src | ForEach-Object { $_.FullName })",
+            "command": "javac --release 17 --module-path \"C:/JavaFX/javafx-sdk-17.0.20/lib\" --add-modules javafx.controls,javafx.fxml,javafx.graphics,javafx.media,javafx.swing,javafx.web -d bin (Get-ChildItem -Recurse -Filter *.java src).FullName; Copy-Item -Path src/* -Destination bin -Recurse -Exclude *.java -Force",
             "group": {
                 "kind": "build",
                 "isDefault": true
@@ -14,7 +14,7 @@
         {
             "label": "Run Crossroads",
             "type": "shell",
-            "command": "java --module-path \"C:/JavaFX/javafx-sdk-17.0.20/lib\" --add-modules javafx.controls,javafx.fxml,javafx.graphics,javafx.media,javafx.swing,javafx.web --enable-native-access=javafx.graphics -cp bin com.jadielsantiago.crossroadsvn.view.Main",
+            "command": "java --module-path \"C:/JavaFX/javafx-sdk-17.0.20/lib\" --add-modules javafx.controls,javafx.fxml,javafx.graphics,javafx.media,javafx.swing,javafx.web --enable-native-access=javafx.graphics -cp bin com.jadielsantiago.crossroadsvn.view.Launcher",
             "dependsOn": [
                 "Build Project"
             ],
