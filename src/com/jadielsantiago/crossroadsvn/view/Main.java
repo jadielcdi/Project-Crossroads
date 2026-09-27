@@ -11,6 +11,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
+import com.jadielsantiago.crossroadsvn.controller.Background_Manager;
 import com.jadielsantiago.crossroadsvn.controller.GameManager;
 import com.jadielsantiago.crossroadsvn.controller.MusicPlayer;
 import com.jadielsantiago.crossroadsvn.model.Choice;
@@ -25,10 +26,12 @@ import java.util.Queue;
 public class Main extends Application {
     private GameManager gameManager;
     private MusicPlayer musicPlayer;
+    private Background_Manager backgroundManager;
     private Label speakerNameLabel;
     private Label dialogueTextLabel;
     private VBox choiceBoxContainer; // Holds choice buttons
     private StackPane root;
+    private StackPane uiLayer; // UI container layered on top of the background
 
     // Music resource paths (loaded from the classpath)
     private static final String MUSIC_DIR = "/com/jadielsantiago/crossroadsvn/media/music/";
@@ -36,6 +39,9 @@ public class Main extends Application {
     private static final String JULES_MUSIC = MUSIC_DIR + "Jules_Test.mp3";
     private static final String MAYA_MUSIC = MUSIC_DIR + "Maya_Test.mp3";
     private static final String NORA_MUSIC = MUSIC_DIR + "Nora_Test.mp3";
+
+    // Background resource paths
+    private static final String MENU_BACKGROUND = "Test_Background.jpg";
 
     public static void main(String[] args) {
         launch(args);
@@ -45,9 +51,16 @@ public class Main extends Application {
     public void start(Stage primaryStage) {
         gameManager = new GameManager();
         musicPlayer = new MusicPlayer();
+        backgroundManager = new Background_Manager();
 
         root = new StackPane();
         root.setStyle("-fx-background-color: #2b2b2b;");
+
+        uiLayer = new StackPane();
+        uiLayer.setPickOnBounds(false);
+
+        // Layer stack: base background layer -> UI layer (future sprite layer will sit between them)
+        root.getChildren().addAll(backgroundManager.getBackgroundPane(), uiLayer);
 
         showMainMenu();
 
@@ -58,17 +71,20 @@ public class Main extends Application {
     }
 
     private void showMainMenu() {
-        root.getChildren().clear();
+        uiLayer.getChildren().clear();
         root.setOnMouseClicked(null);
         if (root.getScene() != null) {
             root.getScene().setOnKeyPressed(null);
         }
 
-        // Play main menu music
+        // Set main menu background and play music
+        backgroundManager.setBackground(MENU_BACKGROUND);
         musicPlayer.play(MENU_MUSIC);
 
         VBox menuBox = new VBox(20);
         menuBox.setAlignment(Pos.CENTER);
+        menuBox.setMaxSize(420, 320);
+        menuBox.setStyle("-fx-background-color: rgba(20, 25, 35, 0.75); -fx-background-radius: 14; -fx-padding: 30;");
 
         Label titleLabel = new Label("Project Crossroads");
         titleLabel.setFont(new Font("Arial Bold", 36));
@@ -88,11 +104,11 @@ public class Main extends Application {
         noraBtn.setOnAction(e -> startStory(3));
 
         menuBox.getChildren().addAll(titleLabel, julesBtn, mayaBtn, noraBtn);
-        root.getChildren().add(menuBox);
+        uiLayer.getChildren().add(menuBox);
     }
 
     private void showDialogueScreen() {
-        root.getChildren().clear();
+        uiLayer.getChildren().clear();
 
         // Dialogue Box setup
         VBox dialogueBox = new VBox(10);
@@ -117,7 +133,7 @@ public class Main extends Application {
         choiceBoxContainer.setAlignment(Pos.CENTER);
         choiceBoxContainer.setVisible(false);
 
-        root.getChildren().addAll(dialogueBox, choiceBoxContainer);
+        uiLayer.getChildren().addAll(dialogueBox, choiceBoxContainer);
 
         root.setOnMouseClicked(event -> advanceDialogue());
         if (root.getScene() != null) {
