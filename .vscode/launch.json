@@ -3,6 +3,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Main",
+            "request": "launch",
+            "mainClass": "com.jadielsantiago.crossroadsvn.view.Main",
+            "projectName": "Project_Crossroads"
+        },
+        {
+            "type": "java",
             "name": "Run Crossroads (Main)",
             "request": "launch",
             "mainClass": "com.jadielsantiago.crossroadsvn.view.Main",
