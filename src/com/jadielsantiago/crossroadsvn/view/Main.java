@@ -1,37 +1,59 @@
 package com.jadielsantiago.crossroadsvn.view;
 
+import javafx.animation.FadeTransition;
+import javafx.animation.PauseTransition;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.util.Duration;
+import javafx.scene.image.WritableImage;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
 import com.jadielsantiago.crossroadsvn.controller.Background_Manager;
 import com.jadielsantiago.crossroadsvn.controller.GameManager;
 import com.jadielsantiago.crossroadsvn.controller.MusicPlayer;
-import com.jadielsantiago.crossroadsvn.model.Choice;
-import com.jadielsantiago.crossroadsvn.model.ChoiceOption;
-import com.jadielsantiago.crossroadsvn.model.DialogueLine;
-import com.jadielsantiago.crossroadsvn.model.Jules_Story;
-import com.jadielsantiago.crossroadsvn.model.Mayas_Story;
-import com.jadielsantiago.crossroadsvn.model.Noras_Story;
+import com.jadielsantiago.crossroadsvn.controller.SaveManager;
+import com.jadielsantiago.crossroadsvn.model.*;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Queue;
 
 public class Main extends Application {
+    // Pantone 347 C and Crossroads blue-adjacent/emerald palette
+    private static final String COLOR_PANTONE_347C = "#009A44";
+    private static final String COLOR_PANTONE_HOVER = "#00ba52";
+    private static final String COLOR_PANTONE_DARK = "#007A36";
+
     private GameManager gameManager;
     private MusicPlayer musicPlayer;
     private Background_Manager backgroundManager;
+    private VBox dialogueBox;
+    private Region dialogueHoverZone;
+    private boolean isDialogueHidden = false;
+    private PauseTransition hoverUnhideTimer;
     private Label speakerNameLabel;
     private Label dialogueTextLabel;
     private VBox choiceBoxContainer; // Holds choice buttons
     private StackPane root;
     private StackPane uiLayer; // UI container layered on top of the background
+
+    // Active gameplay state tracking
+    private int currentStoryId = 0; // 1 = Jules, 2 = Maya, 3 = Nora
+    private String currentMusicTrack = null;
+    private DialogueLine currentLine = null;
+    private String currentSceneHeading = "";
+    private SaveLoadView activeSaveLoadView = null;
+    private boolean isMenuOpen = false;
 
     // Music resource paths (loaded from the classpath)
     private static final String MUSIC_DIR = "/com/jadielsantiago/crossroadsvn/media/music/";
@@ -62,6 +84,9 @@ public class Main extends Application {
         // Layer stack: base background layer -> UI layer (future sprite layer will sit between them)
         root.getChildren().addAll(backgroundManager.getBackgroundPane(), uiLayer);
 
+        hoverUnhideTimer = new PauseTransition(Duration.seconds(2));
+        hoverUnhideTimer.setOnFinished(e -> setDialogueHidden(false));
+
         showMainMenu();
 
         Scene scene = new Scene(root, 800, 600);
@@ -71,6 +96,8 @@ public class Main extends Application {
     }
 
     private void showMainMenu() {
+        isMenuOpen = false;
+        activeSaveLoadView = null;
         uiLayer.getChildren().clear();
         root.setOnMouseClicked(null);
         if (root.getScene() != null) {
@@ -81,10 +108,10 @@ public class Main extends Application {
         backgroundManager.setBackground(MENU_BACKGROUND);
         musicPlayer.play(MENU_MUSIC);
 
-        VBox menuBox = new VBox(20);
+        VBox menuBox = new VBox(16);
         menuBox.setAlignment(Pos.CENTER);
-        menuBox.setMaxSize(420, 320);
-        menuBox.setStyle("-fx-background-color: rgba(20, 25, 35, 0.75); -fx-background-radius: 14; -fx-padding: 30;");
+        menuBox.setMaxSize(440, 360);
+        menuBox.setStyle("-fx-background-color: rgba(18, 30, 35, 0.85); -fx-background-radius: 16; -fx-padding: 30; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 18, 0, 0, 4);");
 
         Label titleLabel = new Label("Project Crossroads");
         titleLabel.setFont(new Font("Arial Bold", 36));
@@ -93,81 +120,321 @@ public class Main extends Application {
         Button julesBtn = new Button("Play Jules's Story");
         Button mayaBtn = new Button("Play Maya's Story");
         Button noraBtn = new Button("Play Nora's Story");
+        Button loadBtn = new Button("Load Game");
 
-        String btnStyle = "-fx-font-size: 16px; -fx-padding: 10 20; -fx-background-radius: 5; -fx-cursor: hand;";
+        String btnStyle = "-fx-font-size: 16px; -fx-padding: 10 24; -fx-background-radius: 8; -fx-cursor: hand; -fx-min-width: 220px;";
         julesBtn.setStyle(btnStyle);
         mayaBtn.setStyle(btnStyle);
         noraBtn.setStyle(btnStyle);
 
+        // PANTONE 347 C accent for the Load Game button on Main Menu
+        loadBtn.setStyle(btnStyle + " -fx-background-color: " + COLOR_PANTONE_347C + "; -fx-text-fill: white; -fx-font-weight: bold;");
+        loadBtn.setOnMouseEntered(e -> loadBtn.setStyle(btnStyle + " -fx-background-color: " + COLOR_PANTONE_HOVER + "; -fx-text-fill: white; -fx-font-weight: bold;"));
+        loadBtn.setOnMouseExited(e -> loadBtn.setStyle(btnStyle + " -fx-background-color: " + COLOR_PANTONE_347C + "; -fx-text-fill: white; -fx-font-weight: bold;"));
+
         julesBtn.setOnAction(e -> startStory(1));
         mayaBtn.setOnAction(e -> startStory(2));
         noraBtn.setOnAction(e -> startStory(3));
+        loadBtn.setOnAction(e -> openSaveLoadMenu(SaveLoadView.Mode.LOAD));
 
-        menuBox.getChildren().addAll(titleLabel, julesBtn, mayaBtn, noraBtn);
+        menuBox.getChildren().addAll(titleLabel, julesBtn, mayaBtn, noraBtn, loadBtn);
         uiLayer.getChildren().add(menuBox);
     }
 
     private void showDialogueScreen() {
         uiLayer.getChildren().clear();
+        isMenuOpen = false;
+        isDialogueHidden = false;
+        activeSaveLoadView = null;
+        if (hoverUnhideTimer != null) {
+            hoverUnhideTimer.stop();
+        }
 
-        // Dialogue Box setup
-        VBox dialogueBox = new VBox(10);
-        dialogueBox.setStyle("-fx-background-color: rgba(255, 255, 255, 0.9); -fx-background-radius: 10;");
-        dialogueBox.setPadding(new Insets(20));
-        dialogueBox.setMaxHeight(150);
+        // Dialogue Box setup with subtle Pantone 347 C border
+        dialogueBox = new VBox(8);
+        dialogueBox.setStyle("-fx-background-color: rgba(255, 255, 255, 0.94); -fx-background-radius: 12; -fx-border-color: rgba(0, 154, 68, 0.35); -fx-border-width: 1.5; -fx-border-radius: 12; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.35), 14, 0, 0, 3);");
+        dialogueBox.setPadding(new Insets(16, 20, 16, 20));
+        dialogueBox.setMaxHeight(160);
+        dialogueBox.setOpacity(1.0);
+        dialogueBox.setVisible(true);
         StackPane.setAlignment(dialogueBox, Pos.BOTTOM_CENTER);
         StackPane.setMargin(dialogueBox, new Insets(20));
 
-        speakerNameLabel = new Label("Speaker");
-        speakerNameLabel.setFont(new Font("Arial Bold", 18));
-        speakerNameLabel.setTextFill(Color.DARKBLUE);
+        speakerNameLabel = new Label(currentLine != null ? currentLine.getSpeaker() : "Speaker");
+        speakerNameLabel.setFont(Font.font("Segoe UI", FontWeight.BOLD, 19));
+        speakerNameLabel.setTextFill(Color.web("#14384a"));
 
-        dialogueTextLabel = new Label("Text...");
-        dialogueTextLabel.setFont(new Font("Arial", 16));
+        // Dialogue Text
+        dialogueTextLabel = new Label(currentLine != null ? currentLine.getText() : "Text...");
+        dialogueTextLabel.setFont(Font.font("Segoe UI", 16));
         dialogueTextLabel.setWrapText(true);
 
         dialogueBox.getChildren().addAll(speakerNameLabel, dialogueTextLabel);
+
+        // Invisible Hover Zone: Detects mouse hover over where the dialogue box is supposed to be when hidden
+        dialogueHoverZone = new Region();
+        dialogueHoverZone.setMaxHeight(160);
+        dialogueHoverZone.setPrefHeight(160);
+        dialogueHoverZone.setPickOnBounds(true);
+        dialogueHoverZone.setVisible(false); // Only active while dialogue is hidden
+        StackPane.setAlignment(dialogueHoverZone, Pos.BOTTOM_CENTER);
+        StackPane.setMargin(dialogueHoverZone, new Insets(20));
+
+        dialogueHoverZone.setOnMouseEntered(e -> {
+            if (isDialogueHidden) {
+                hoverUnhideTimer.playFromStart();
+            }
+        });
+
+        dialogueHoverZone.setOnMouseExited(e -> {
+            hoverUnhideTimer.stop();
+        });
 
         // Choice overlay container (centered on screen)
         choiceBoxContainer = new VBox(15);
         choiceBoxContainer.setAlignment(Pos.CENTER);
         choiceBoxContainer.setVisible(false);
 
-        uiLayer.getChildren().addAll(dialogueBox, choiceBoxContainer);
+        // Top-Right Menu Area: Transparent until hovering over that part of the screen
+        StackPane menuHitArea = new StackPane();
+        menuHitArea.setPrefSize(140, 65);
+        menuHitArea.setMaxSize(140, 65);
+        StackPane.setAlignment(menuHitArea, Pos.TOP_RIGHT);
 
-        root.setOnMouseClicked(event -> advanceDialogue());
+        Button topMenuBtn = new Button("☰ Menu");
+        topMenuBtn.setFocusTraversable(false);
+        topMenuBtn.setOpacity(0.0); // Transparent until hover
+
+        String normalStyle = "-fx-background-color: rgba(14, 38, 30, 0.85); -fx-text-fill: #cbf0de; -fx-font-size: 14px; -fx-font-weight: bold; -fx-padding: 7 18; -fx-background-radius: 18; -fx-cursor: hand; -fx-border-color: " + COLOR_PANTONE_347C + "; -fx-border-radius: 18; -fx-border-width: 1.5;";
+        String hoverStyle = "-fx-background-color: " + COLOR_PANTONE_347C + "; -fx-text-fill: white; -fx-font-size: 14px; -fx-font-weight: bold; -fx-padding: 7 18; -fx-background-radius: 18; -fx-cursor: hand; -fx-effect: dropshadow(gaussian, " + COLOR_PANTONE_347C + ", 10, 0.5, 0, 0);";
+
+        topMenuBtn.setStyle(normalStyle);
+
+        FadeTransition fadeIn = new FadeTransition(Duration.millis(200), topMenuBtn);
+        fadeIn.setToValue(1.0);
+
+        FadeTransition fadeOut = new FadeTransition(Duration.millis(250), topMenuBtn);
+        fadeOut.setToValue(0.0);
+
+        menuHitArea.setOnMouseEntered(e -> {
+            fadeOut.stop();
+            fadeIn.playFromStart();
+        });
+
+        menuHitArea.setOnMouseExited(e -> {
+            fadeIn.stop();
+            fadeOut.playFromStart();
+        });
+
+        topMenuBtn.setOnMouseEntered(e -> topMenuBtn.setStyle(hoverStyle));
+        topMenuBtn.setOnMouseExited(e -> topMenuBtn.setStyle(normalStyle));
+        topMenuBtn.setOnAction(e -> openSaveLoadMenu(SaveLoadView.Mode.SAVE));
+
+        menuHitArea.getChildren().add(topMenuBtn);
+        StackPane.setMargin(topMenuBtn, new Insets(16, 20, 0, 0));
+
+        uiLayer.getChildren().addAll(dialogueHoverZone, dialogueBox, choiceBoxContainer, menuHitArea);
+
+        // Click on background: if dialogue is hidden, unhide it; otherwise advance dialogue
+        root.setOnMouseClicked(event -> {
+            if (isDialogueHidden) {
+                setDialogueHidden(false);
+                return;
+            }
+            if (!isMenuOpen) {
+                advanceDialogue();
+            }
+        });
+
+        // Key bindings: SPACE advances dialogue, ESCAPE toggles menu, V toggles dialogue visibility
         if (root.getScene() != null) {
             root.getScene().setOnKeyPressed(event -> {
-                if (event.getCode() == javafx.scene.input.KeyCode.SPACE) {
-                    advanceDialogue();
+                if (event.getCode() == KeyCode.ESCAPE) {
+                    if (isMenuOpen) {
+                        closeSaveLoadMenu();
+                    } else {
+                        if (isDialogueHidden) {
+                            setDialogueHidden(false);
+                        }
+                        openSaveLoadMenu(SaveLoadView.Mode.SAVE);
+                    }
+                } else if (event.getCode() == KeyCode.V) {
+                    if (!isMenuOpen) {
+                        toggleDialogueHidden();
+                    }
+                } else if (event.getCode() == KeyCode.SPACE) {
+                    if (isDialogueHidden) {
+                        setDialogueHidden(false);
+                    } else if (!isMenuOpen) {
+                        advanceDialogue();
+                    }
                 }
             });
         }
     }
 
+    private void setDialogueHidden(boolean hidden) {
+        this.isDialogueHidden = hidden;
+        if (hoverUnhideTimer != null) {
+            hoverUnhideTimer.stop();
+        }
+
+        if (dialogueBox != null) {
+            FadeTransition ft = new FadeTransition(Duration.millis(200), dialogueBox);
+            ft.setToValue(hidden ? 0.0 : 1.0);
+            ft.setOnFinished(e -> {
+                if (hidden) {
+                    dialogueBox.setVisible(false);
+                }
+            });
+            if (!hidden) {
+                dialogueBox.setVisible(true);
+            }
+            ft.play();
+        }
+
+        if (choiceBoxContainer != null && choiceBoxContainer.isVisible()) {
+            choiceBoxContainer.setOpacity(hidden ? 0.0 : 1.0);
+        }
+
+        if (dialogueHoverZone != null) {
+            dialogueHoverZone.setVisible(hidden);
+        }
+    }
+
+    private void toggleDialogueHidden() {
+        setDialogueHidden(!isDialogueHidden);
+    }
+
+    private void openSaveLoadMenu(SaveLoadView.Mode mode) {
+        if (isMenuOpen && activeSaveLoadView != null) {
+            activeSaveLoadView.setMode(mode);
+            return;
+        }
+
+        isMenuOpen = true;
+
+        // Capture screenshot of the game frame for visual thumbnail preview
+        WritableImage frameSnapshot = null;
+        try {
+            frameSnapshot = root.snapshot(null, null);
+        } catch (Exception e) {
+            System.err.println("Snapshot capture error: " + e.getMessage());
+        }
+
+        final WritableImage snapshotToSave = frameSnapshot;
+
+        activeSaveLoadView = new SaveLoadView(
+                mode,
+                slotIndex -> handleSaveSlot(slotIndex, snapshotToSave),
+                this::handleLoadSlot,
+                this::closeSaveLoadMenu,
+                this::showMainMenu,
+                Platform::exit
+        );
+
+        uiLayer.getChildren().add(activeSaveLoadView);
+    }
+
+    private void closeSaveLoadMenu() {
+        if (activeSaveLoadView != null) {
+            uiLayer.getChildren().remove(activeSaveLoadView);
+            activeSaveLoadView = null;
+        }
+        isMenuOpen = false;
+
+        // If returned while in main menu and nothing else was loaded
+        if (currentStoryId == 0) {
+            showMainMenu();
+        }
+    }
+
+    private void handleSaveSlot(int slotIndex, WritableImage screenshot) {
+        String storyName = switch (currentStoryId) {
+            case 1 -> "Jules's Story";
+            case 2 -> "Maya's Story";
+            case 3 -> "Nora's Story";
+            default -> "Project Crossroads";
+        };
+
+        String time = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+        boolean isChoice = choiceBoxContainer != null && choiceBoxContainer.isVisible();
+
+        SaveState state = new SaveState(
+                slotIndex,
+                currentStoryId,
+                storyName,
+                time,
+                currentSceneHeading,
+                speakerNameLabel != null ? speakerNameLabel.getText() : "Speaker",
+                dialogueTextLabel != null ? dialogueTextLabel.getText() : "",
+                currentMusicTrack,
+                backgroundManager.getCurrentBackgroundPath(),
+                currentLine,
+                gameManager.getCurrentSceneQueue(),
+                isChoice
+        );
+
+        SaveManager.saveGame(slotIndex, state, screenshot);
+    }
+
+    private void handleLoadSlot(int slotIndex) {
+        SaveState state = SaveManager.loadGame(slotIndex);
+        if (state == null) {
+            return;
+        }
+
+        closeSaveLoadMenu();
+
+        // Restore game state
+        this.currentStoryId = state.getStoryId();
+        this.currentMusicTrack = state.getCurrentMusic();
+        this.currentSceneHeading = state.getSceneHeading();
+        this.currentLine = state.getCurrentLine();
+
+        if (currentMusicTrack != null) {
+            musicPlayer.play(currentMusicTrack);
+        }
+
+        if (state.getCurrentBackground() != null) {
+            backgroundManager.setBackground(state.getCurrentBackground());
+        }
+
+        gameManager.setCurrentSceneQueue(state.getRemainingQueue());
+
+        showDialogueScreen();
+
+        speakerNameLabel.setText(state.getCurrentSpeaker());
+        dialogueTextLabel.setText(state.getCurrentText());
+
+        if (state.isChoiceActive() && currentLine instanceof Choice) {
+            presentChoices((Choice) currentLine);
+        } else {
+            choiceBoxContainer.setVisible(false);
+        }
+    }
+
     private void startStory(int storyId) {
+        this.currentStoryId = storyId;
+        this.currentSceneHeading = "";
         Queue<DialogueLine> scene = null;
 
         if (storyId == 1) {
             scene = Jules_Story.getScene();
+            currentMusicTrack = JULES_MUSIC;
         } else if (storyId == 2) {
             scene = Mayas_Story.getScene();
+            currentMusicTrack = MAYA_MUSIC;
         } else if (storyId == 3) {
             scene = Noras_Story.getScene();
+            currentMusicTrack = NORA_MUSIC;
         }
 
         if (scene != null) {
             gameManager.loadScene(scene);
-
-            // Play the character's designated music track
-            if (storyId == 1) {
-                musicPlayer.play(JULES_MUSIC);
-            } else if (storyId == 2) {
-                musicPlayer.play(MAYA_MUSIC);
-            } else if (storyId == 3) {
-                musicPlayer.play(NORA_MUSIC);
+            if (currentMusicTrack != null) {
+                musicPlayer.play(currentMusicTrack);
             }
-
             showDialogueScreen();
             advanceDialogue();
         }
@@ -180,8 +447,18 @@ public class Main extends Application {
         }
 
         DialogueLine nextLine = gameManager.getNextLine();
+        this.currentLine = nextLine;
 
         if (nextLine != null) {
+            // Track scene headings for save state labels
+            String text = nextLine.getText();
+            if (text != null && text.startsWith("[Scene")) {
+                int closingBracket = text.indexOf(']');
+                if (closingBracket != -1) {
+                    currentSceneHeading = text.substring(1, closingBracket);
+                }
+            }
+
             speakerNameLabel.setText(nextLine.getSpeaker());
             dialogueTextLabel.setText(nextLine.getText());
 

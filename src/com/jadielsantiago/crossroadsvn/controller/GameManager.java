@@ -36,4 +36,32 @@ public class GameManager {
             this.currentSceneQueue = new LinkedList<>(branchQueue);
         }
     }
+
+    public LinkedList<DialogueLine> getCurrentSceneQueue() {
+        return new LinkedList<>(currentSceneQueue);
+    }
+
+    public void setCurrentSceneQueue(LinkedList<DialogueLine> queue) {
+        this.currentSceneQueue = queue != null ? new LinkedList<>(queue) : new LinkedList<>();
+    }
+
+    public String getCurrentCharacter() {
+        return currentCharacter;
+    }
+
+    public void setCurrentCharacter(String currentCharacter) {
+        this.currentCharacter = currentCharacter;
+    }
+
+    public int getCurrentDay() {
+        return currentDay;
+    }
+
+    public void setCurrentDay(int currentDay) {
+        this.currentDay = currentDay;
+    }
+
+    public void clearQueue() {
+        currentSceneQueue.clear();
+    }
 }

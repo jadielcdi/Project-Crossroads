@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Queue;
 
 public class Choice extends DialogueLine {
+    private static final long serialVersionUID = 1L;
     private List<ChoiceOption> options;
 
     public Choice(String promptSpeaker, String promptText, List<ChoiceOption> options) {

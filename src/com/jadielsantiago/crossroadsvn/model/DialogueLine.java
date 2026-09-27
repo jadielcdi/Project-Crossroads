@@ -1,6 +1,9 @@
 package com.jadielsantiago.crossroadsvn.model;
 
-public class DialogueLine {
+import java.io.Serializable;
+
+public class DialogueLine implements Serializable {
+    private static final long serialVersionUID = 1L;
     private String speaker;
     private String text;
 
