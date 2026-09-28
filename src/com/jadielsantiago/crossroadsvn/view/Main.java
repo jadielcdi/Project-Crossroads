@@ -1,4 +1,11 @@
+/*
+ * Copyright (c) 2026 Jadiel Santiago. All rights reserved.
+ *
+ * This software is licensed under the MIT License.
+ * See COPYRIGHT.txt in the project root for full license details.
+ */
 package com.jadielsantiago.crossroadsvn.view;
+
 
 import javafx.animation.FadeTransition;
 import javafx.animation.PauseTransition;
@@ -20,6 +27,7 @@ import javafx.stage.Stage;
 
 import com.jadielsantiago.crossroadsvn.controller.Background_Manager;
 import com.jadielsantiago.crossroadsvn.controller.GameManager;
+import com.jadielsantiago.crossroadsvn.controller.JSCParser;
 import com.jadielsantiago.crossroadsvn.controller.MusicPlayer;
 import com.jadielsantiago.crossroadsvn.controller.SaveManager;
 import com.jadielsantiago.crossroadsvn.model.*;
@@ -417,17 +425,23 @@ public class Main extends Application {
     private void startStory(int storyId) {
         this.currentStoryId = storyId;
         this.currentSceneHeading = "";
-        Queue<DialogueLine> scene = null;
+        JSCParser.StoryMetadata meta = JSCParser.getStoryMetadata(storyId);
+        Queue<DialogueLine> scene = JSCParser.loadStory(storyId);
 
-        if (storyId == 1) {
-            scene = Jules_Story.getScene();
-            currentMusicTrack = JULES_MUSIC;
-        } else if (storyId == 2) {
-            scene = Mayas_Story.getScene();
-            currentMusicTrack = MAYA_MUSIC;
-        } else if (storyId == 3) {
-            scene = Noras_Story.getScene();
-            currentMusicTrack = NORA_MUSIC;
+        // Fallback to legacy hardcoded classes if JSC script could not be loaded
+        if (scene == null || scene.isEmpty()) {
+            if (storyId == 1) {
+                scene = Jules_Story.getScene();
+                currentMusicTrack = JULES_MUSIC;
+            } else if (storyId == 2) {
+                scene = Mayas_Story.getScene();
+                currentMusicTrack = MAYA_MUSIC;
+            } else if (storyId == 3) {
+                scene = Noras_Story.getScene();
+                currentMusicTrack = NORA_MUSIC;
+            }
+        } else if (meta != null && meta.getDefaultMusic() != null) {
+            currentMusicTrack = meta.getDefaultMusic();
         }
 
         if (scene != null) {

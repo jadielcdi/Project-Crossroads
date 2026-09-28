@@ -32,3 +32,6 @@ The initial commit includes the foundational architecture:
 
 ### 4. Complete Narrative Integration
 * Expanding all character storylines (Jules, Maya, Nora) and weaving their intersecting campus routes.
+
+## License & Copyright
+Crossroads is a free-to-play visual novel. The custom engine code is open source under the MIT License. All game assets (narrative storylines, scripts, character concepts, artwork, and audio) are strictly **Non-Commercial (No Monetary Gain)** under Creative Commons Attribution-NonCommercial 4.0 International (CC BY-NC 4.0). Under no circumstances may any assets be used for commercial purposes or monetization. See [COPYRIGHT.txt](COPYRIGHT.txt) for full license terms and attribution requirements.

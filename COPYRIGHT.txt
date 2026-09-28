@@ -1,0 +1,139 @@
+================================================================================
+CROSSROADS VISUAL NOVEL & ENGINE - COPYRIGHT & LICENSE NOTICE
+================================================================================
+
+Project: Crossroads Visual Novel / Crossroads VN Engine
+Creator / Lead Developer: Jadiel Santiago (jadielcdi)
+Repository: https://github.com/jadielcdi/Project-Crossroads
+Year: 2026
+
+********************************************************************************
+IMPORTANT NOTICE: STRICT NON-COMMERCIAL RESTRICTION ON ASSETS
+ALL GAME ASSETS (NARRATIVE SCRIPTS, CHARACTERS, DIALOGUE, ARTWORK, AND AUDIO)
+ARE STRICTLY PROHIBITED FROM ANY COMMERCIAL USE OR MONETARY GAIN.
+********************************************************************************
+
+--------------------------------------------------------------------------------
+1. GENERAL OVERVIEW & TERMS OF USE
+--------------------------------------------------------------------------------
+
+Crossroads is a free-to-play visual novel and open visual novel engine developed
+from scratch using Java and JavaFX.
+
+You are welcome to study, modify, expand, or repurpose this project subject to
+the following strict terms:
+
+  1. NON-COMMERCIAL USE ONLY (NO MONETARY GAIN FOR ASSETS):
+     It is absolutely imperative that NO assets from this project (including
+     narrative scripts, story text, character concepts, dialogues, artwork,
+     and audio tracks) are used for any commercial purpose, monetary gain,
+     paid distribution, paywalled access, or financial profit.
+
+  2. ATTRIBUTION REQUIREMENT:
+     You MUST provide proper credit to the creator of the engine code
+     (Jadiel Santiago) and respect/credit the respective copyright owners for
+     any third-party or placeholder assets.
+
+--------------------------------------------------------------------------------
+2. ENGINE SOURCE CODE LICENSE (MIT LICENSE)
+--------------------------------------------------------------------------------
+
+All Java source code located within `src/com/jadielsantiago/crossroadsvn/`
+(including the MVC controllers, dialogue managers, save system, background
+manager, music player, and JSC script parser) is licensed under the MIT License:
+
+Copyright (c) 2026 Jadiel Santiago
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+--------------------------------------------------------------------------------
+3. NARRATIVE, SCRIPTS & CREATIVE ASSETS LICENSE (CC BY-NC 4.0)
+--------------------------------------------------------------------------------
+
+All original narrative content, character concepts (Jules, Maya, Nora), story
+branches, dialogues, and script files (.jsc) written for Crossroads are protected
+by copyright and licensed under the Creative Commons Attribution-NonCommercial 4.0
+International License (CC BY-NC 4.0).
+
+Under this license, you are free to:
+  * Share — copy and redistribute the material in any medium or format.
+  * Adapt — remix, transform, and build upon the material.
+
+Under the following imperative conditions:
+  * NonCommercial — You may NOT use the material for commercial purposes or any
+    form of monetary gain. Selling the assets, charging access fees, monetizing
+    through paywalls, paid DLC, microtransactions, or advertisements is strictly
+    prohibited.
+  * Attribution — You must give appropriate credit to Jadiel Santiago, provide
+    a link to the license, and indicate if changes were made. You may do so in
+    any reasonable manner, but not in any way that suggests the licensor endorses
+    you or your use.
+
+For the full legal code of CC BY-NC 4.0, please visit:
+https://creativecommons.org/licenses/by-nc/4.0/legalcode
+
+--------------------------------------------------------------------------------
+4. THIRD-PARTY & PLACEHOLDER ASSETS NOTICE
+--------------------------------------------------------------------------------
+
+This project includes certain media files currently utilized as beta/test
+placeholders during active development:
+
+  A. Background Music Tracks (`src/.../media/music/`):
+     - `MainMenu_Test.mp3`
+     - `Jules_Test.mp3`
+     - `Maya_Test.mp3`
+     - `Nora_Test.mp3`
+     These audio tracks are placeholder compositions used for testing and preview
+     purposes. All copyrights, master rights, and intellectual property remain
+     with their respective original composers and owners. These tracks MUST NOT
+     be used for commercial purposes. Any public redistribution or standalone
+     release requires either proper attribution to the original music creators
+     or replacement with your own licensed/original audio.
+
+  B. Background Art & Visuals (`src/.../media/images/backgrounds/`):
+     - `Test_Background.jpg`
+     - Any future placeholder character sprites or UI icons.
+     Test background images and placeholder artwork remain the property of their
+     respective artists/creators and are strictly non-commercial.
+
+  C. Runtime Frameworks & Libraries:
+     - OpenJFX / JavaFX (https://openjfx.io/):
+       Licensed under the GNU General Public License, version 2, with the
+       Classpath Exception (GPLv2 + CE).
+     - Java SE / OpenJDK (https://openjdk.org/):
+       Licensed under the GNU General Public License, version 2, with the
+       Classpath Exception (GPLv2 + CE).
+
+--------------------------------------------------------------------------------
+5. HOW TO CREDIT THIS PROJECT
+--------------------------------------------------------------------------------
+
+If you use this engine, source code, or narrative framework in your own
+non-commercial project, please include an attribution statement in your project's
+credits screen, README, or documentation.
+
+Example Attribution Notice:
+--------------------------------------------------------------------------------
+"Engine and custom visual novel architecture based on Crossroads VN Engine,
+developed by Jadiel Santiago (https://github.com/jadielcdi/Project-Crossroads).
+Code licensed under the MIT License. Narrative, scripts, and original assets
+licensed under Creative Commons Attribution-NonCommercial 4.0 International
+(CC BY-NC 4.0) — Strictly Non-Commercial / No Monetary Gain."
+--------------------------------------------------------------------------------
