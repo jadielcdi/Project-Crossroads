@@ -68,7 +68,7 @@ public class Mayas_Story {
         scene.add(new DialogueLine("Narrator", "Maya jumps, shoving her phone into her pocket. Nora Vance, a biotech major who shares the crossover lab space, doesn't look up from her rack of Eppendorf tubes. Nora is brilliant, chronically under-caffeinated, and carries an air of casual exhaustion."));
         scene.add(new DialogueLine("Maya", "I wasn't staring. I was reviewing."));
         scene.add(new DialogueLine("Nora", "Right. Reviewing. Like I'm just 'reviewing' this restriction enzyme."));
-        scene.add(new DialogueLine("Narrator", "Nora's phone buzzes violently on the counter. The screen lights up: *Chloe <3: Are we actually going to talk tonight or are you hiding in the lab again?*\nNora’s eyes flick to the screen. Her expression goes completely blank. Without missing a beat, she reaches over, flips the phone face down, and goes back to her pipetting. The mechanical click of the pipette echoes loudly."));
+        scene.add(new DialogueLine("Narrator", "Nora's phone buzzes violently on the counter. The screen lights up: *Camille <3: Are we actually going to talk tonight or are you hiding in the lab again?*\nNora’s eyes flick to the screen. Her expression goes completely blank. Without missing a beat, she reaches over, flips the phone face down, and goes back to her pipetting. The mechanical click of the pipette echoes loudly."));
         scene.add(new DialogueLine("Narrator", "[Nora's voice painfully detached]"));
         scene.add(new DialogueLine("Nora", "Institutional validation is a trap, you know. I see it on your face. You're worried the committee is going to look at some piece of paper and decide you don't belong in the barn. But they don't grade your soul, Maya. Just the paper."));
 
@@ -79,7 +79,7 @@ public class Mayas_Story {
                 new DialogueLine("Narrator", "[Nora softening, leaning against the counter]"),
                 new DialogueLine("Nora", "Imposter syndrome implies you tricked someone to get here. You didn't trick the cows into getting pregnant, Maya. You did the work. Hale is just a guy in a tweed jacket who probably hasn't touched actual manure in twenty years. Don't let a ghost evict you from a house you built."),
                 new DialogueLine("System", "[STAT_UPDATE: +Confidence, +Energy]"),
-                new DialogueLine("Maya", "Thanks, Nora. Hey... are you okay? With Chloe?"),
+                new DialogueLine("Maya", "Thanks, Nora. Hey... are you okay? With Camille?"),
                 new DialogueLine("Narrator", "Nora chuckles, a hollow sound."),
                 new DialogueLine("Nora", "I'm surviving. We're surviving. Let's just focus on surviving Friday first.")
             )),

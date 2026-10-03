@@ -55,15 +55,33 @@ public class Noras_Story {
 
         // Scene 2
         scene.add(new DialogueLine("Narrator", "[Scene 2: Tuesday - The Metronome & The Grind]"));
-        scene.add(new DialogueLine("Narrator", "[BACKGROUND: The 24-hour campus café, 11:30 PM. The neon sign buzzes against the dark window. The tables are sticky, and the air smells like burnt espresso grounds and desperation.]"));
-        scene.add(new DialogueLine("Narrator", "[AUDIO: Lo-fi hip-hop beats playing quietly over the speakers, mixed with the rapid-fire clicking of a mechanical keyboard.]"));
-        scene.add(new DialogueLine("Narrator", "Maya made good on her promise. Earlier that morning, she had perched on Nora's lab stool, bringing coffee and observing Nora’s unflappable calm. *“You sigh like a metronome,”* Maya had joked. *“How are you like this?”* Nora had admitted the truth: she compartmentalized because her long-distance girlfriend gave her no other choice."));
-        scene.add(new DialogueLine("Narrator", "Now, late Tuesday night, Nora is hunting for a working printer for her poster proofs. She ducks into the 24-hour café near the engineering quad and nearly misses Jules entirely."));
-        scene.add(new DialogueLine("Narrator", "Julian \"Jules\" Rivera is folded into a corner booth behind a fortress of color-coded flashcards and three portable monitors."));
-        scene.add(new DialogueLine("Narrator", "[Jules not looking up, her voice tight and caffeinated]"));
+        scene.add(new DialogueLine("Narrator", "[BACKGROUND: The shared biotechnology laboratory, Tuesday, 2:15 p.m. Golden afternoon sunlight angles across black resin countertops and racks of scintillation vials.]"));
+        scene.add(new DialogueLine("Narrator", "[AUDIO: The soft, steady hum of the air scrubbers and the periodic whirr of a vortex mixer.]"));
+        scene.add(new DialogueLine("Narrator", "Maya makes good on her promise early Tuesday afternoon. She slides onto a high swivel stool at the end of Nora's bench, setting down a cup of dark roast and a cold can of Monster Energy with a faint, conspiratorial grin."));
+        scene.add(new DialogueLine("Maya", "Payment for services rendered. One caffeinated lifeline."));
+        scene.add(new DialogueLine("Nora", "(smiling, cracking open the tab) You didn't have to do that, Sterling."));
+        scene.add(new DialogueLine("Maya", "Are you kidding? My plate reader scans came out clean. If you hadn't badged me into your suite, Dr. Hale would already be carving up my transcript."));
+        scene.add(new DialogueLine("Narrator", "For twenty minutes, Maya perches on the stool while Nora cleans up data plots on her laptop for Thursday's symposium poster. Maya watches the rhythmic, machine-like consistency of Nora's movements—aligning graphs, logging fluorescence intensities, and quietly exhaling at steady, predictable intervals."));
+        scene.add(new DialogueLine("Maya", "You know, watching you work is kind of eerie. You sigh like a metronome. Tick, tick, tick. Every sixty seconds, right on schedule. How are you like this?"));
+        scene.add(new DialogueLine("Nora", "Like what?"));
+        scene.add(new DialogueLine("Maya", "So completely unshakeable. You're up for the Callahan Prize in forty-eight hours, and your heart rate looks like it hasn't broken fifty all semester."));
+        scene.add(new DialogueLine("Narrator", "Nora pauses, looking down at her screen. For a second, the mask slips—not into panic, but into the quiet, wearisome honesty of someone who has carried an anchor alone for too long."));
+        scene.add(new DialogueLine("Nora", "I compartmentalize. In here, if you follow the protocol, the assay works. It's clean. Outside the lab... my girlfriend's four hundred miles away having three crises a day, and my family doesn't remember what my major is called. If I don't build an airlock, the water gets in."));
+        scene.add(new DialogueLine("Narrator", "Maya nods slowly, her gaze softening with immediate understanding."));
+        scene.add(new DialogueLine("Maya", "Well. If the airlock ever leaks, there's always the dairy barn. Cows don't send passive-aggressive texts."));
+        scene.add(new DialogueLine("Narrator", "Nora laughs—a real, genuine sound. When Maya heads back to the animal facility, Nora spends the rest of Tuesday afternoon finalizing her poster proof with Dr. Okafor."));
+        scene.add(new DialogueLine("Narrator", "But when the campus print center's large-format plotter jams right at five o'clock, the student clerk shrugs and locks the door for the night."));
+        scene.add(new DialogueLine("Nora", "(sighing to herself) Of course. Nothing is ever simple."));
+        scene.add(new DialogueLine("Narrator", "That leaves only one machine on campus capable of handling heavyweight proof prints after hours: the ancient laser printer tucked away in the back of The Mill."));
+        scene.add(new DialogueLine("Narrator", "By the time Nora catches a breath, has dinner, and gathers her revised graphics files, Tuesday night has slipped entirely away into the early hours of Wednesday."));
+        scene.add(new DialogueLine("Narrator", "[BACKGROUND: The 24-hour campus café, 1:45 AM Wednesday. The neon sign buzzes against the dark window. The tables are sticky, and the air smells like burnt dark roast and stale adrenaline.]"));
+        scene.add(new DialogueLine("Narrator", "[AUDIO: The steady, low hum of an ancient laser printer churning in the back corner.]"));
+        scene.add(new DialogueLine("Narrator", "Nora Vance arrives hauling a cardboard tube of poster proofs toward the café's laser printer, completely unbothered by the hour."));
+        scene.add(new DialogueLine("Narrator", "Julian \"Jules\" Rivera is folded into a corner booth behind a defensive perimeter of color-coded flashcards, three portable monitors, and an empty army of espresso cups. He has a yellow highlighter tucked behind each ear like antennae."));
+        scene.add(new DialogueLine("Narrator", "[Jules not looking up, his voice tight and caffeinated]"));
         scene.add(new DialogueLine("Jules", "Vance. Let me guess. Symposium poster."));
         scene.add(new DialogueLine("Nora", "Guilty."));
-        scene.add(new DialogueLine("Narrator", "Nora drops into the seat across from her. Jules looks like she hasn't slept since spring break. She has a highlighter behind each ear and a terrifyingly intense look in her bloodshot eyes."));
+        scene.add(new DialogueLine("Narrator", "Nora drops into the seat across from her. Jules looks like he hasn't slept since spring break. He has a highlighter behind each ear and a terrifyingly intense look in his bloodshot eyes."));
         scene.add(new DialogueLine("Jules", "How is your data even done already? I've redone my discussion section six times. Six. My advisor hasn't even seen a full draft. If this compiling fails, my grade drops. If my grade drops, the Lockheed interview is gone."));
 
         scene.add(new Choice("Narrator", "How does Nora respond to Jules's suffocating academic terror?", List.of(
@@ -71,14 +89,14 @@ public class Noras_Story {
                 new DialogueLine("Jules", "Do you not feel behind, ever? Like something's about to fall apart?"),
                 new DialogueLine("Narrator", "Jules asks, staring at her."),
                 new DialogueLine("Nora", "Sometimes. But usually about the stuff outside the lab. The work itself doesn't feel like something to survive. I actually like doing it. Maybe try one class you don't need to be perfect in. See what's left when the fear's not doing the driving."),
-                new DialogueLine("Narrator", "Jules snorts, a harsh, defensive sound. But slowly, her shoulders drop a fraction of an inch. She picks up a pen and writes something down on the corner of a flashcard. Nora suspects it isn't an assignment."),
+                new DialogueLine("Narrator", "Jules snorts, a harsh, defensive sound. But slowly, his shoulders drop a fraction of an inch. He picks up a blank white flashcard and writes deliberate words across the card. Nora suspects it isn't an assignment."),
                 new DialogueLine("System", "[STAT_UPDATE: +Chosen Family, +Self-Respect]")
             )),
             new ChoiceOption("\"I get it. The pressure is insane. You just have to survive it.\" (Validate the stress)", branch(
                 new DialogueLine("Jules", "Do you not feel behind, ever? Like something's about to fall apart?"),
                 new DialogueLine("Narrator", "Jules asks, staring at her."),
                 new DialogueLine("Nora", "Of course I do. The pressure is insane. You just have to build a wall, put your head down, and survive the week. That's what I'm doing."),
-                new DialogueLine("Narrator", "[Jules nodding grimly, gripping her coffee cup]"),
+                new DialogueLine("Narrator", "[Jules nodding grimly, gripping his coffee cup]"),
                 new DialogueLine("Jules", "Exactly. Sympathy is a luxury we can't afford right now. It's a shark tank. Just keep swimming or drown."),
                 new DialogueLine("Narrator", "They sit in a heavy, anxious silence, two people trapped in their own separate survival modes."),
                 new DialogueLine("System", "[STAT_UPDATE: -Energy]")
@@ -132,7 +150,7 @@ public class Noras_Story {
         scene.add(new DialogueLine("Narrator", "She looks for her mother in the crowd, out of habit more than hope, and doesn't find her either."));
         scene.add(new DialogueLine("Narrator", "But what she hasn't braced for is Maya."));
         scene.add(new DialogueLine("Narrator", "[Maya standing three rows back, grinning wildly]"));
-        scene.add(new DialogueLine("Narrator", "Maya is holding a bouquet of cheap, plastic-wrapped gas-station carnations like they are something precious. Next to her is Jules, holding her phone up, filming the entire presentation without asking."));
+        scene.add(new DialogueLine("Narrator", "Maya is holding a bouquet of cheap, plastic-wrapped gas-station carnations like they are something precious. Next to her is Jules, holding his phone up, filming the entire presentation without asking."));
         scene.add(new DialogueLine("Narrator", "The judges announce the finalists' scores at four o'clock.\nNora places second for the Callahan Prize. Second out of forty projects."));
         scene.add(new DialogueLine("Narrator", "As she steps away from the podium, the ribbon warm in her hand, her phone buzzes twice in rapid succession."));
         scene.add(new DialogueLine("Narrator", "*Camille: omg I'm so sorry I completely spaced, today has been such a disaster with my advisor, I'll call you tonight?? how'd it go*"));
@@ -140,8 +158,8 @@ public class Noras_Story {
         scene.add(new DialogueLine("Narrator", "Nora stands by her poster. She reads the texts. Sixty-one words about Daniel. Six about her. No apology from Camille that isn't really just about herself."));
         scene.add(new DialogueLine("Narrator", "Maya steps up beside her, shoulder to shoulder, the way you stand next to someone at a window when the weather's bad."));
         scene.add(new DialogueLine("Maya", "You did something really good today. Yours was the only poster I actually understood."));
-        scene.add(new DialogueLine("Narrator", "Jules walks over, lowering her phone. Jules catches the devastated, hollow look on Nora's face."));
-        scene.add(new DialogueLine("Narrator", "[Jules's voice surprisingly soft, completely stripped of her usual frantic edge]"));
+        scene.add(new DialogueLine("Narrator", "Jules walks over, lowering his phone. Jules catches the devastated, hollow look on Nora's face."));
+        scene.add(new DialogueLine("Narrator", "[Jules's voice surprisingly soft, completely stripped of his usual frantic edge]"));
         scene.add(new DialogueLine("Jules", "Do you want to get out of here?"));
 
         scene.add(new Choice("Narrator", "It's the breaking point. What does Nora choose?", List.of(
@@ -162,7 +180,7 @@ public class Noras_Story {
         lines.add(new DialogueLine("Nora", "Yeah. Let's go."));
         lines.add(new DialogueLine("Narrator", "They end up at the 24-hour café. Three coffees and a shared plate of fries nobody ordered but somebody needed. Nora finally says it out loud, without editing it to make it palatable."));
         lines.add(new DialogueLine("Nora", "My family hasn't watched me finish a sentence in ten years. And my girlfriend hasn't asked me a real question since February."));
-        lines.add(new DialogueLine("Narrator", "Jules slides her phone across the table. The video of Nora's presentation is queued up."));
+        lines.add(new DialogueLine("Narrator", "Jules slides his phone across the table. The video of Nora's presentation is queued up."));
         lines.add(new DialogueLine("Jules", "For what it's worth, you have proof of what you did today. No matter what anyone else was busy doing instead."));
         lines.add(new DialogueLine("Narrator", "Nora laughs, a wet, surprised sound. It is the beginning of a new foundation."));
         lines.add(new DialogueLine("System", "[STAT_UPDATE: Chosen Family MAXED, Self-Respect MAXED]"));
@@ -177,7 +195,7 @@ public class Noras_Story {
         lines.add(new DialogueLine("Nora", "I know you have. But I don't think this is working for me anymore. Not the distance. The balance. I can't keep being the only one holding this up."));
         lines.add(new DialogueLine("Narrator", "When the call ends, it hurts. But underneath the hurt is something steadier, like putting a heavy bag down after carrying it three miles too far."));
         lines.add(new DialogueLine("Narrator", "She doesn't call her mother. She sends a single text: *Congrats to Daniel. I got second place at the symposium. Talk soon.* No exclamation points. No performance."));
-        lines.add(new DialogueLine("Narrator", "Her phone buzzes. A location pin from Maya.\n*Maya: Cafe. 10 AM. Jules made a color-coded itinerary for us to actually leave campus this weekend. Please come save me from her spreadsheets.*"));
+        lines.add(new DialogueLine("Narrator", "Her phone buzzes. A location pin from Maya.\n*Maya: Cafe. 10 AM. Jules made a color-coded itinerary for us to actually leave campus this weekend. Please come save me from his spreadsheets.*"));
         lines.add(new DialogueLine("Narrator", "Nora smiles. She thinks about the biosensor—about guide RNA finding precisely the sequence it was built for, ignoring all the noise around it. That is the trick. Not aiming for less love, but aiming it precisely at the people who can actually receive it."));
         lines.add(new DialogueLine("Narrator", "She stands up and walks toward the café. She has enough thread to build something real. She'll take it from here."));
         lines.add(new DialogueLine("System", "*Ending A: The New Horizon*"));
@@ -188,7 +206,7 @@ public class Noras_Story {
         List<DialogueLine> lines = new LinkedList<>();
         lines.add(new DialogueLine("Narrator", "Nora swallows hard, the familiar, suffocating blanket of accommodation wrapping around her."));
         lines.add(new DialogueLine("Nora", "I should stay. Camille is having a breakdown over her thesis, I need to call her. And I should call my mom to congratulate Daniel."));
-        lines.add(new DialogueLine("Narrator", "Maya’s smile falters, the carnations lowering slightly. Jules frowns, pocketing her phone."));
+        lines.add(new DialogueLine("Narrator", "Maya’s smile falters, the carnations lowering slightly. Jules frowns, pocketing his phone."));
         lines.add(new DialogueLine("Jules", "Nora... you just won second place."));
         lines.add(new DialogueLine("Nora", "I know. It's fine. Really. Thank you guys for coming, I just... I have to handle this."));
         lines.add(new DialogueLine("Narrator", "Maya hands her the carnations, her eyes full of a sad, quiet understanding. They leave her standing alone in the clearing atrium. Nora dials Camille's number, bracing herself to spend the rest of her triumph comforting someone else."));

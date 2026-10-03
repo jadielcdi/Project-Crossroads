@@ -428,29 +428,27 @@ public class Main extends Application {
         JSCParser.StoryMetadata meta = JSCParser.getStoryMetadata(storyId);
         Queue<DialogueLine> scene = JSCParser.loadStory(storyId);
 
-        // Fallback to legacy hardcoded classes if JSC script could not be loaded
-        if (scene == null || scene.isEmpty()) {
+        if (meta != null && meta.getDefaultMusic() != null) {
+            currentMusicTrack = meta.getDefaultMusic();
+        } else {
             if (storyId == 1) {
-                scene = Jules_Story.getScene();
                 currentMusicTrack = JULES_MUSIC;
             } else if (storyId == 2) {
-                scene = Mayas_Story.getScene();
                 currentMusicTrack = MAYA_MUSIC;
             } else if (storyId == 3) {
-                scene = Noras_Story.getScene();
                 currentMusicTrack = NORA_MUSIC;
             }
-        } else if (meta != null && meta.getDefaultMusic() != null) {
-            currentMusicTrack = meta.getDefaultMusic();
         }
 
-        if (scene != null) {
+        if (scene != null && !scene.isEmpty()) {
             gameManager.loadScene(scene);
             if (currentMusicTrack != null) {
                 musicPlayer.play(currentMusicTrack);
             }
             showDialogueScreen();
             advanceDialogue();
+        } else {
+            System.err.println("[Main] Failed to load story script for ID: " + storyId);
         }
     }
 
