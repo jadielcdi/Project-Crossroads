@@ -1,0 +1,331 @@
+/*
+ * Copyright (c) 2026 Jadiel Santiago. All rights reserved.
+ *
+ * Glassmorphism Main Menu Design System for Project Crossroads
+ * Palette: Pantone 347 C (#009A44), Frosted Emerald, Translucent Dark Glass
+ */
+
+.root {
+    -fx-font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+}
+
+/* Floating Frosted Glass Card */
+.glass-menu-card {
+    -fx-background-color: linear-gradient(to bottom right, rgba(18, 34, 29, 0.78), rgba(10, 20, 17, 0.86));
+    -fx-background-radius: 26;
+    -fx-border-color: linear-gradient(to bottom right, rgba(255, 255, 255, 0.32), rgba(0, 154, 68, 0.38), rgba(255, 255, 255, 0.12));
+    -fx-border-width: 1.5;
+    -fx-border-radius: 26;
+    -fx-padding: 34 36 28 36;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.65), 36, 0.28, 0, 14);
+}
+
+/* Inner Glass Sub-panels */
+.glass-sub-panel {
+    -fx-background-color: rgba(255, 255, 255, 0.05);
+    -fx-background-radius: 16;
+    -fx-border-color: rgba(255, 255, 255, 0.12);
+    -fx-border-width: 1;
+    -fx-border-radius: 16;
+    -fx-padding: 14 18;
+}
+
+/* Header Emblem Badge */
+.glass-badge {
+    -fx-background-color: rgba(0, 154, 68, 0.24);
+    -fx-background-radius: 18;
+    -fx-border-color: rgba(0, 154, 68, 0.55);
+    -fx-border-width: 1;
+    -fx-border-radius: 18;
+    -fx-padding: 3 12;
+    -fx-text-fill: #5fe09a;
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+}
+
+/* Main Title */
+.glass-title {
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 30px;
+    -fx-font-weight: 800;
+    -fx-effect: dropshadow(gaussian, rgba(0, 154, 68, 0.6), 14, 0.35, 0, 0);
+}
+
+/* Subtitle */
+.glass-subtitle {
+    -fx-text-fill: #a2bdb4;
+    -fx-font-size: 12.5px;
+    -fx-font-weight: normal;
+}
+
+/* Frosted Divider */
+.glass-divider {
+    -fx-background-color: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.28), rgba(0, 154, 68, 0.45), transparent);
+    -fx-min-height: 1;
+    -fx-pref-height: 1;
+    -fx-max-height: 1;
+}
+
+/* Primary Glass Button (Start Action) */
+.glass-button-primary {
+    -fx-background-color: linear-gradient(to bottom right, rgba(0, 154, 68, 0.88), rgba(0, 122, 54, 0.92));
+    -fx-background-radius: 14;
+    -fx-border-color: linear-gradient(to bottom right, rgba(160, 255, 200, 0.7), rgba(0, 154, 68, 0.35));
+    -fx-border-width: 1.4;
+    -fx-border-radius: 14;
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-padding: 12 24;
+    -fx-cursor: hand;
+    -fx-alignment: CENTER_LEFT;
+    -fx-effect: dropshadow(gaussian, rgba(0, 154, 68, 0.5), 16, 0.3, 0, 4);
+}
+
+.glass-button-primary:hover {
+    -fx-background-color: linear-gradient(to bottom right, #00ba52, #009A44);
+    -fx-border-color: #85f3ba;
+    -fx-text-fill: #ffffff;
+    -fx-effect: dropshadow(gaussian, rgba(0, 230, 118, 0.7), 22, 0.45, 0, 0);
+}
+
+.glass-button-primary:pressed {
+    -fx-background-color: #007A36;
+}
+
+/* Standard Secondary Glass Buttons (Load, Settings, Quit) */
+.glass-button {
+    -fx-background-color: linear-gradient(to bottom right, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.03));
+    -fx-background-radius: 14;
+    -fx-border-color: linear-gradient(to bottom right, rgba(255, 255, 255, 0.22), rgba(255, 255, 255, 0.08));
+    -fx-border-width: 1.2;
+    -fx-border-radius: 14;
+    -fx-text-fill: #e0f2ea;
+    -fx-font-size: 14.5px;
+    -fx-font-weight: bold;
+    -fx-padding: 11 22;
+    -fx-cursor: hand;
+    -fx-alignment: CENTER_LEFT;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 8, 0, 0, 2);
+}
+
+.glass-button:hover {
+    -fx-background-color: linear-gradient(to bottom right, rgba(0, 154, 68, 0.32), rgba(255, 255, 255, 0.14));
+    -fx-border-color: rgba(0, 186, 82, 0.85);
+    -fx-text-fill: #ffffff;
+    -fx-effect: dropshadow(gaussian, rgba(0, 186, 82, 0.45), 16, 0.35, 0, 0);
+}
+
+.glass-button:pressed {
+    -fx-background-color: rgba(0, 122, 54, 0.4);
+    -fx-border-color: #007A36;
+}
+
+/* Route Selection Buttons */
+.glass-route-button {
+    -fx-background-color: linear-gradient(to right, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.03));
+    -fx-background-radius: 14;
+    -fx-border-color: rgba(255, 255, 255, 0.18);
+    -fx-border-width: 1.2;
+    -fx-border-radius: 14;
+    -fx-padding: 10 18;
+    -fx-cursor: hand;
+    -fx-alignment: CENTER_LEFT;
+}
+
+.glass-route-button:hover {
+    -fx-background-color: linear-gradient(to right, rgba(0, 154, 68, 0.3), rgba(255, 255, 255, 0.12));
+    -fx-border-color: #00ba52;
+    -fx-effect: dropshadow(gaussian, rgba(0, 186, 82, 0.4), 14, 0.25, 0, 0);
+}
+
+.glass-route-button:pressed {
+    -fx-background-color: rgba(0, 122, 54, 0.4);
+}
+
+/* Modal Overlay (Frosted Dimming) */
+.glass-modal-overlay {
+    -fx-background-color: rgba(6, 15, 12, 0.72);
+}
+
+/* Modal Card */
+.glass-modal-card {
+    -fx-background-color: linear-gradient(to bottom right, rgba(18, 34, 29, 0.94), rgba(10, 20, 17, 0.96));
+    -fx-background-radius: 22;
+    -fx-border-color: linear-gradient(to bottom right, rgba(255, 255, 255, 0.32), rgba(0, 154, 68, 0.42), rgba(255, 255, 255, 0.12));
+    -fx-border-width: 1.5;
+    -fx-border-radius: 22;
+    -fx-padding: 28 32;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.75), 40, 0.32, 0, 16);
+}
+
+/* Subtle footer text */
+.glass-footer-text {
+    -fx-text-fill: #6e8a80;
+    -fx-font-size: 11px;
+}
+
+/* Slider Custom Styling */
+.glass-slider .track {
+    -fx-background-color: rgba(255, 255, 255, 0.15);
+    -fx-background-radius: 5;
+    -fx-pref-height: 6;
+}
+
+.glass-slider .thumb {
+    -fx-background-color: #00ba52;
+    -fx-background-radius: 10;
+    -fx-pref-width: 18;
+    -fx-pref-height: 18;
+    -fx-effect: dropshadow(gaussian, rgba(0, 186, 82, 0.6), 8, 0.4, 0, 0);
+    -fx-cursor: hand;
+}
+
+.glass-slider .thumb:hover {
+    -fx-background-color: #5fe09a;
+}
+
+/* ==========================================================================
+   Save / Load Archive View Glassmorphism Styling
+   ========================================================================== */
+
+/* Left Sidebar Card */
+.glass-sidebar-card {
+    -fx-background-color: linear-gradient(to bottom right, rgba(18, 34, 29, 0.85), rgba(10, 20, 17, 0.90));
+    -fx-background-radius: 20;
+    -fx-border-color: linear-gradient(to bottom right, rgba(255, 255, 255, 0.28), rgba(0, 154, 68, 0.35), rgba(255, 255, 255, 0.10));
+    -fx-border-width: 1.5;
+    -fx-border-radius: 20;
+    -fx-padding: 22 18 20 18;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.6), 30, 0.25, 0, 10);
+}
+
+/* Right Content Area Card */
+.glass-content-card {
+    -fx-background-color: linear-gradient(to bottom right, rgba(16, 30, 26, 0.82), rgba(10, 20, 17, 0.88));
+    -fx-background-radius: 20;
+    -fx-border-color: linear-gradient(to bottom right, rgba(255, 255, 255, 0.26), rgba(0, 154, 68, 0.30), rgba(255, 255, 255, 0.08));
+    -fx-border-width: 1.5;
+    -fx-border-radius: 20;
+    -fx-padding: 18 24 18 24;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.6), 30, 0.25, 0, 10);
+}
+
+/* Navigation items in Sidebar */
+.glass-nav-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: #b2cfc4;
+    -fx-font-size: 14.5px;
+    -fx-font-weight: bold;
+    -fx-padding: 8 12;
+    -fx-cursor: hand;
+    -fx-background-radius: 10;
+    -fx-alignment: CENTER_LEFT;
+}
+
+.glass-nav-button:hover {
+    -fx-background-color: rgba(255, 255, 255, 0.08);
+    -fx-text-fill: #ffffff;
+    -fx-border-color: rgba(0, 186, 82, 0.5);
+    -fx-border-radius: 10;
+    -fx-border-width: 1;
+}
+
+/* Empty Slot Frame */
+.glass-slot-empty {
+    -fx-background-color: rgba(255, 255, 255, 0.04);
+    -fx-background-radius: 12;
+    -fx-border-color: rgba(255, 255, 255, 0.14);
+    -fx-border-radius: 12;
+    -fx-border-width: 1.2;
+}
+
+.glass-slot-empty:hover {
+    -fx-background-color: rgba(0, 154, 68, 0.12);
+    -fx-border-color: #00ba52;
+    -fx-effect: dropshadow(gaussian, rgba(0, 186, 82, 0.45), 14, 0.3, 0, 0);
+}
+
+/* Occupied Slot Frame */
+.glass-slot-occupied {
+    -fx-background-color: rgba(10, 22, 18, 0.85);
+    -fx-background-radius: 12;
+    -fx-border-color: rgba(0, 154, 68, 0.5);
+    -fx-border-radius: 12;
+    -fx-border-width: 1.4;
+}
+
+.glass-slot-occupied:hover {
+    -fx-border-color: #00ba52;
+    -fx-effect: dropshadow(gaussian, rgba(0, 186, 82, 0.55), 16, 0.35, 0, 0);
+}
+
+/* Page Indicator & Buttons */
+.glass-page-btn {
+    -fx-background-color: rgba(255, 255, 255, 0.07);
+    -fx-background-radius: 8;
+    -fx-border-color: rgba(255, 255, 255, 0.12);
+    -fx-border-radius: 8;
+    -fx-border-width: 1;
+    -fx-text-fill: #97b8ac;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-padding: 4 10;
+    -fx-cursor: hand;
+}
+
+.glass-page-btn:hover {
+    -fx-background-color: rgba(0, 154, 68, 0.25);
+    -fx-border-color: #00ba52;
+    -fx-text-fill: #ffffff;
+}
+
+.glass-page-btn-active {
+    -fx-background-color: #009A44;
+    -fx-background-radius: 8;
+    -fx-border-color: #5fe09a;
+    -fx-border-radius: 8;
+    -fx-border-width: 1.2;
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 12px;
+    -fx-font-weight: 800;
+    -fx-padding: 4 10;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(0, 186, 82, 0.6), 10, 0.4, 0, 0);
+}
+
+/* Glass Delete Button */
+.glass-delete-btn {
+    -fx-background-color: rgba(18, 30, 26, 0.85);
+    -fx-background-radius: 8;
+    -fx-border-color: rgba(255, 255, 255, 0.2);
+    -fx-border-radius: 8;
+    -fx-border-width: 1;
+    -fx-text-fill: #e8d0d0;
+    -fx-font-size: 10px;
+    -fx-font-weight: bold;
+    -fx-padding: 2 6;
+    -fx-cursor: hand;
+}
+
+.glass-delete-btn:hover {
+    -fx-background-color: rgba(200, 40, 40, 0.9);
+    -fx-border-color: #ff6b6b;
+    -fx-text-fill: white;
+    -fx-effect: dropshadow(gaussian, rgba(255, 80, 80, 0.6), 8, 0.4, 0, 0);
+}
+
+/* Toast Notification */
+.glass-toast {
+    -fx-background-color: linear-gradient(to right, rgba(0, 154, 68, 0.95), rgba(0, 186, 82, 0.95));
+    -fx-background-radius: 20;
+    -fx-border-color: rgba(160, 255, 200, 0.6);
+    -fx-border-radius: 20;
+    -fx-border-width: 1.2;
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-padding: 8 24;
+    -fx-effect: dropshadow(gaussian, rgba(0, 186, 82, 0.6), 16, 0.4, 0, 4);
+}
+

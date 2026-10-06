@@ -78,8 +78,8 @@ Maya: How did you know that?
 Nora: The blue screw-caps with the white labeling gaskets. That's the Caymen Chemical panel, right? My PI used to run the same protocol before we shifted our focus to CRISPR diagnostics. Are you trying to use the plate reader on this hall?
 Maya: (groaning softly) Trying being the operative word. The software on the Life Sciences unit froze three times before lunch. It has a personal vendetta against me.
 Narrator: Nora offers a dry, knowing smirk.
-Nora: That machine was built during the Bush administration. Come on. Our suite's plate reader in Biotech 200 is calibrated daily. I'll badge you in.
-Maya: You're an actual lifesaver. Seriously. I'm Maya, by the way. Animal Sci.
+Nora: That machine was built during the Pedro Roselló administration. Come on. Our suite's plate reader in Biotech 200 is calibrated daily. I'll badge you in.
+Maya: [relief washing over her face] You're an actual lifesaver. Seriously. I'm Maya, by the way. Animal Sci.
 Nora: Nora. Biotech. And don't worry about it—nobody should lose a whole week of work to faulty hardware.
 Narrator: As they walk toward the elevator, Nora's phone buzzes in her pocket. Nora doesn't look at it, but Maya notices the sharp, automatic tightening of Nora's jaw—a quiet, familiar brace against whatever sits on the other end of the screen.
 Maya: Everything okay?
@@ -109,7 +109,7 @@ Nora: Institutional validation is a trap, you know. I see it on your face. You'r
         Narrator: [Nora softening, leaning against the counter]
         Nora: Imposter syndrome implies you tricked someone to get here. You didn't trick the cows into getting pregnant, Maya. You did the work. Hale is just a guy in a tweed jacket who probably hasn't touched actual manure in twenty years. Don't let a ghost evict you from a house you built.
         System: [STAT_UPDATE: +Confidence, +Energy]
-        Maya: Thanks, Nora. Hey... are you okay? With Camille?
+        Maya: Thanks, Nora. Hey... are you okay? With umm... Camille?
         Narrator: Nora chuckles, a hollow sound.
         Nora: I'm surviving. We're surviving. Let's just focus on surviving Friday first.
     > "I just need to prep harder. No room for error." (Defensive workaholic)
@@ -134,27 +134,27 @@ Maya: Rude much?
 Jules: Maybe. But that's why you have a hundred extra words. You're building a case twice because you don't trust the first version to land.
 Maya: You build a lot of cases twice, or is this a you-specific thing you're handing out for free tonight?
 Narrator: Jules pauses. His fingers hover above a keyboard glowing with terminal warnings. He looks like a guy trying to defuse a bomb with a toothpick.
-Jules: When the compiler fails, my grade drops. When my grade drops, my GPA drops. My dad has told everyone on his shift about the Lockheed interview on Monday. Flawless execution is the only thing that keeps the floor under your feet.
+Jules: When the compiler fails, my grade drops. When my grade drops, my GPA drops. My dad has told everyone on his shift about the RTX interview on Monday. Flawless execution is the only thing that keeps the floor under your feet.
 Narrator: Maya stares down at her screen. She highlights the second paragraph, holds her breath, and hits delete. The count drops to 751. Exactly one word over.
 Maya: (wryly) Whichever version of that advice you believe, Rivera, I hope it's the one that lets you sleep tonight.
 Narrator: Before Jules can fire back a dry retort, Maya’s phone buzzes against the wood.
 Narrator: *Jordan: Maya, please. I just took the practice quiz for Thursday. 20%. If I fail this quiz, I lose my scholarship and have to withdraw. Can we do a three-hour review Thursday night? Please? I'm begging.*
 Narrator: Jules leans back just far enough to catch the frantic glow of the text. His brow furrows, his voice hardening into a defensive shell.
-Jules: Tell him no. You're bleeding out for someone who didn't read the syllabus. You give them an inch, Maya, they take your GPA. Thursday night is your interview eve. Protect your own oxygen mask first.
+Jules: Tell him no. You're bleeding out for someone who didn't read the syllabus. You give them an inch, Maya, they take your time, effort and even your GPA. Thursday night is your interview eve. Protect your own oxygen mask first.
 
 ? Narrator: Does Maya agree with Jules's ruthless self-preservation, or commit to helping Jordan?
     > "You're right. I can't risk my interview for his quiz." (Set strict boundaries with Jordan)
         Maya: You're right. The Horizon interview is Friday morning. If I'm burned out from dragging Jordan through epistasis, Hale will eat me alive.
         Narrator: Maya types back: *I can't do Thursday night, Jordan. I'll send you my master notes and a study guide, but I have my interview. I'm sorry.*
         Narrator: [Jules nodding once, turning back to his monitors]
-        Jules: Good. Sympathy is a luxury for people who already have their degrees. Welcome to the shark tank, Sterling.
-        Narrator: Maya locks her screen. Her chest aches with guilt, but her prep schedule remains untouched.
+        Jules: Good. Sympathy is important but it's a luxury for people who already have their degrees built, not for people like us who are trying to stay afloat. It's the real world, Maya, something you've taught me yourself.
+        Narrator: Maya locks her screen. Her chest aches with some guilt, but her prep schedule remains untouched.
         System: [STAT_UPDATE: +Energy, -Mentorship]
     > "He's drowning, Jules. I know what that feels like." (Commit to tutoring Jordan)
         Maya: I can't do that. I know exactly what it feels like to sit in that lecture hall and realize you're sinking. Someone has to throw him a rope.
         Narrator: Maya types: *Barn whiteboard. 7 PM Thursday. We don't leave until you can draw the inheritance squares blindfolded.*
         Narrator: [Jules shaking his head, looking at Maya with tragic disbelief]
-        Jules: You're going to burn yourself alive to keep someone else warm, Maya. Don't come crying to me when you're running on two hours of sleep in front of the department head.
+        Jules: You're going to burn yourself alive to keep someone else warm, Maya. You've told me this many times before, but I'll say it again, you have to prioritize yourself first.
         System: [STAT_UPDATE: -Energy, +Mentorship]
 
 # ------------------------------------------------------------------------------

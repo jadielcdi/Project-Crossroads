@@ -28,6 +28,7 @@ import javafx.stage.Stage;
 import com.jadielsantiago.crossroadsvn.controller.Background_Manager;
 import com.jadielsantiago.crossroadsvn.controller.GameManager;
 import com.jadielsantiago.crossroadsvn.controller.JSCParser;
+import com.jadielsantiago.crossroadsvn.controller.MainMenuController;
 import com.jadielsantiago.crossroadsvn.controller.MusicPlayer;
 import com.jadielsantiago.crossroadsvn.controller.SaveManager;
 import com.jadielsantiago.crossroadsvn.model.*;
@@ -45,6 +46,7 @@ public class Main extends Application {
     private GameManager gameManager;
     private MusicPlayer musicPlayer;
     private Background_Manager backgroundManager;
+    private MainMenuController mainMenuController;
     private VBox dialogueBox;
     private Region dialogueHoverZone;
     private boolean isDialogueHidden = false;
@@ -86,6 +88,12 @@ public class Main extends Application {
         root = new StackPane();
         root.setStyle("-fx-background-color: #2b2b2b;");
 
+        // Load modern glassmorphism design system stylesheet
+        java.net.URL cssUrl = getClass().getResource("/com/jadielsantiago/crossroadsvn/style/main_menu.css");
+        if (cssUrl != null) {
+            root.getStylesheets().add(cssUrl.toExternalForm());
+        }
+
         uiLayer = new StackPane();
         uiLayer.setPickOnBounds(false);
 
@@ -95,9 +103,20 @@ public class Main extends Application {
         hoverUnhideTimer = new PauseTransition(Duration.seconds(2));
         hoverUnhideTimer.setOnFinished(e -> setDialogueHidden(false));
 
+        mainMenuController = new MainMenuController(
+                this::startStory,
+                () -> openSaveLoadMenu(SaveLoadView.Mode.LOAD),
+                Platform::exit,
+                backgroundManager,
+                musicPlayer
+        );
+
         showMainMenu();
 
         Scene scene = new Scene(root, 800, 600);
+        if (cssUrl != null) {
+            scene.getStylesheets().add(cssUrl.toExternalForm());
+        }
         primaryStage.setTitle("Project Crossroads - VN Engine");
         primaryStage.setScene(scene);
         primaryStage.show();
@@ -106,47 +125,23 @@ public class Main extends Application {
     private void showMainMenu() {
         isMenuOpen = false;
         activeSaveLoadView = null;
+        currentStoryId = 0;
         uiLayer.getChildren().clear();
         root.setOnMouseClicked(null);
         if (root.getScene() != null) {
             root.getScene().setOnKeyPressed(null);
         }
 
-        // Set main menu background and play music
+        // Set main menu background, start ambient breathing zoom loop, and play music
         backgroundManager.setBackground(MENU_BACKGROUND);
+        backgroundManager.startAmbientZoom();
         musicPlayer.play(MENU_MUSIC);
 
-        VBox menuBox = new VBox(16);
-        menuBox.setAlignment(Pos.CENTER);
-        menuBox.setMaxSize(440, 360);
-        menuBox.setStyle("-fx-background-color: rgba(18, 30, 35, 0.85); -fx-background-radius: 16; -fx-padding: 30; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 18, 0, 0, 4);");
-
-        Label titleLabel = new Label("Project Crossroads");
-        titleLabel.setFont(new Font("Arial Bold", 36));
-        titleLabel.setTextFill(Color.WHITE);
-
-        Button julesBtn = new Button("Play Jules's Story");
-        Button mayaBtn = new Button("Play Maya's Story");
-        Button noraBtn = new Button("Play Nora's Story");
-        Button loadBtn = new Button("Load Game");
-
-        String btnStyle = "-fx-font-size: 16px; -fx-padding: 10 24; -fx-background-radius: 8; -fx-cursor: hand; -fx-min-width: 220px;";
-        julesBtn.setStyle(btnStyle);
-        mayaBtn.setStyle(btnStyle);
-        noraBtn.setStyle(btnStyle);
-
-        // PANTONE 347 C accent for the Load Game button on Main Menu
-        loadBtn.setStyle(btnStyle + " -fx-background-color: " + COLOR_PANTONE_347C + "; -fx-text-fill: white; -fx-font-weight: bold;");
-        loadBtn.setOnMouseEntered(e -> loadBtn.setStyle(btnStyle + " -fx-background-color: " + COLOR_PANTONE_HOVER + "; -fx-text-fill: white; -fx-font-weight: bold;"));
-        loadBtn.setOnMouseExited(e -> loadBtn.setStyle(btnStyle + " -fx-background-color: " + COLOR_PANTONE_347C + "; -fx-text-fill: white; -fx-font-weight: bold;"));
-
-        julesBtn.setOnAction(e -> startStory(1));
-        mayaBtn.setOnAction(e -> startStory(2));
-        noraBtn.setOnAction(e -> startStory(3));
-        loadBtn.setOnAction(e -> openSaveLoadMenu(SaveLoadView.Mode.LOAD));
-
-        menuBox.getChildren().addAll(titleLabel, julesBtn, mayaBtn, noraBtn, loadBtn);
-        uiLayer.getChildren().add(menuBox);
+        if (mainMenuController != null) {
+            mainMenuController.resetView();
+            uiLayer.getChildren().add(mainMenuController.getView());
+            mainMenuController.playEntranceAnimation();
+        }
     }
 
     private void showDialogueScreen() {
@@ -338,7 +333,8 @@ public class Main extends Application {
                 this::handleLoadSlot,
                 this::closeSaveLoadMenu,
                 this::showMainMenu,
-                Platform::exit
+                Platform::exit,
+                musicPlayer
         );
 
         uiLayer.getChildren().add(activeSaveLoadView);
@@ -393,6 +389,7 @@ public class Main extends Application {
         }
 
         closeSaveLoadMenu();
+        backgroundManager.stopAmbientZoom();
 
         // Restore game state
         this.currentStoryId = state.getStoryId();
@@ -423,6 +420,7 @@ public class Main extends Application {
     }
 
     private void startStory(int storyId) {
+        backgroundManager.stopAmbientZoom();
         this.currentStoryId = storyId;
         this.currentSceneHeading = "";
         JSCParser.StoryMetadata meta = JSCParser.getStoryMetadata(storyId);

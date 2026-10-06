@@ -1,8 +1,13 @@
 package com.jadielsantiago.crossroadsvn.controller;
 
+import javafx.animation.Animation;
+import javafx.animation.Interpolator;
+import javafx.animation.ScaleTransition;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
+import javafx.scene.shape.Rectangle;
+import javafx.util.Duration;
 
 import java.net.URL;
 
@@ -17,6 +22,7 @@ public class Background_Manager {
     private final ImageView backgroundImageView;
     private final StackPane backgroundPane;
     private String currentBackgroundPath;
+    private ScaleTransition ambientZoomTransition;
 
     public Background_Manager() {
         this.backgroundImageView = new ImageView();
@@ -29,6 +35,12 @@ public class Background_Manager {
         // Bind image dimensions to container dimensions so it scales with the window
         backgroundImageView.fitWidthProperty().bind(backgroundPane.widthProperty());
         backgroundImageView.fitHeightProperty().bind(backgroundPane.heightProperty());
+
+        // Clip background container so ambient zoom does not bleed outside boundaries
+        Rectangle clip = new Rectangle();
+        clip.widthProperty().bind(backgroundPane.widthProperty());
+        clip.heightProperty().bind(backgroundPane.heightProperty());
+        backgroundPane.setClip(clip);
     }
 
     /**
@@ -114,5 +126,33 @@ public class Background_Manager {
      */
     public String getCurrentBackgroundPath() {
         return currentBackgroundPath;
+    }
+
+    /**
+     * Starts a slow, ambient breathing zoom loop on the background image.
+     */
+    public void startAmbientZoom() {
+        if (ambientZoomTransition == null) {
+            ambientZoomTransition = new ScaleTransition(Duration.seconds(16), backgroundImageView);
+            ambientZoomTransition.setFromX(1.0);
+            ambientZoomTransition.setFromY(1.0);
+            ambientZoomTransition.setToX(1.07);
+            ambientZoomTransition.setToY(1.07);
+            ambientZoomTransition.setCycleCount(Animation.INDEFINITE);
+            ambientZoomTransition.setAutoReverse(true);
+            ambientZoomTransition.setInterpolator(Interpolator.EASE_BOTH);
+        }
+        ambientZoomTransition.playFromStart();
+    }
+
+    /**
+     * Stops the ambient zoom animation and resets scale back to 1.0.
+     */
+    public void stopAmbientZoom() {
+        if (ambientZoomTransition != null) {
+            ambientZoomTransition.stop();
+        }
+        backgroundImageView.setScaleX(1.0);
+        backgroundImageView.setScaleY(1.0);
     }
 }

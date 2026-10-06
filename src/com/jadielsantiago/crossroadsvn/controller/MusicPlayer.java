@@ -11,6 +11,7 @@ import java.net.URL;
  */
 public class MusicPlayer {
     private MediaPlayer mediaPlayer;
+    private double volume = 0.8;
 
     /**
      * Plays the specified music resource, stopping any currently playing track first.
@@ -29,8 +30,26 @@ public class MusicPlayer {
 
         Media media = new Media(resourceUrl.toExternalForm());
         mediaPlayer = new MediaPlayer(media);
+        mediaPlayer.setVolume(this.volume);
         mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE); // Loop the track
         mediaPlayer.play();
+    }
+
+    /**
+     * Sets the playback volume (clamped between 0.0 and 1.0).
+     */
+    public void setVolume(double volume) {
+        this.volume = Math.max(0.0, Math.min(1.0, volume));
+        if (mediaPlayer != null) {
+            mediaPlayer.setVolume(this.volume);
+        }
+    }
+
+    /**
+     * Returns the current volume level (0.0 to 1.0).
+     */
+    public double getVolume() {
+        return volume;
     }
 
     /**
