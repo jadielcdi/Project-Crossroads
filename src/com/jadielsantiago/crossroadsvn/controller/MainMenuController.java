@@ -6,6 +6,7 @@
  */
 package com.jadielsantiago.crossroadsvn.controller;
 
+import javafx.animation.Animation;
 import javafx.animation.FadeTransition;
 import javafx.animation.Interpolator;
 import javafx.animation.ParallelTransition;
@@ -22,13 +23,14 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.util.Duration;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Consumer;
 
 /**
- * Controller and layout builder for the modern Glassmorphism Main Menu.
- * Features a floating rounded translucent glass card, frosted borders,
- * micro-animations (slide on hover), ambient background zoom loop integration,
- * and handles routing for Start, Load, Settings, and Quit.
+ * Controller and layout builder for the Persona / ZZZ / NieR inspired Main Menu.
+ * Features a minimalist left-bordered navigation dock anchored to the lower-left,
+ * micro-typography, vertical character route cards, and staggered entrance micro-interactions.
  */
 public class MainMenuController {
 
@@ -43,6 +45,9 @@ public class MainMenuController {
     private VBox mainActionsBox;
     private VBox routeSelectionBox;
     private StackPane modalOverlay;
+
+    private final List<Button> menuButtons = new ArrayList<>();
+    private Animation activeEntranceAnimation;
 
     public MainMenuController(Consumer<Integer> startStoryHandler,
                               Runnable loadGameHandler,
@@ -59,37 +64,43 @@ public class MainMenuController {
     }
 
     /**
-     * Builds the complete Main Menu view with floating glass card and modals.
+     * Builds the complete Main Menu view with lower-left docked navigation and modals.
      */
     private void buildUI() {
         rootPane = new StackPane();
         rootPane.setPickOnBounds(false);
 
-        // 1. Floating Glass Card Container
-        mainCard = new VBox(18);
-        mainCard.getStyleClass().add("glass-menu-card");
-        mainCard.setAlignment(Pos.CENTER);
-        mainCard.setMaxWidth(430);
-        mainCard.setMinWidth(400);
-        StackPane.setAlignment(mainCard, Pos.CENTER);
+        // 1. Lower-Left Anchored Navigation Dock (Persona / ZZZ / NieR aesthetic)
+        mainCard = new VBox(14);
+        mainCard.getStyleClass().add("glass-nav-dock");
+        mainCard.setAlignment(Pos.CENTER_LEFT);
+        mainCard.setPrefWidth(300);
+        mainCard.setMaxWidth(310);
+        mainCard.setMinWidth(285);
 
-        // Header Section
-        Label badgeLabel = new Label("✦  CROSSROADS VN ENGINE  ✦");
+        StackPane.setAlignment(mainCard, Pos.BOTTOM_LEFT);
+        StackPane.setMargin(mainCard, new Insets(0, 0, 50, 50));
+
+        // Header Section with sci-fi / modern VN micro-typography
+        Label badgeLabel = new Label("// SYSTEM ONLINE");
         badgeLabel.getStyleClass().add("glass-badge");
 
-        Label titleLabel = new Label("Project Crossroads");
-        titleLabel.getStyleClass().add("glass-title");
+        Label titleLabel = new Label("PROJECT CROSSROADS");
+        titleLabel.setFont(Font.font("Segoe UI", FontWeight.EXTRA_BOLD, 20));
+        titleLabel.setTextFill(Color.WHITE);
+        titleLabel.setStyle("-fx-effect: dropshadow(gaussian, rgba(0, 154, 68, 0.6), 10, 0.3, 0, 0);");
 
-        Label subtitleLabel = new Label("Where every choice carves a destiny");
-        subtitleLabel.getStyleClass().add("glass-subtitle");
+        Label subtitleLabel = new Label("A CONTEMPORARY VISUAL NOVEL");
+        subtitleLabel.setFont(Font.font("Segoe UI", FontWeight.BOLD, 9.5));
+        subtitleLabel.setTextFill(Color.web("#82a59a"));
 
         Region frostedDivider = new Region();
         frostedDivider.getStyleClass().add("glass-divider");
 
-        VBox headerBox = new VBox(6);
-        headerBox.setAlignment(Pos.CENTER);
+        VBox headerBox = new VBox(4);
+        headerBox.setAlignment(Pos.CENTER_LEFT);
         headerBox.getChildren().addAll(badgeLabel, titleLabel, subtitleLabel, frostedDivider);
-        VBox.setMargin(frostedDivider, new Insets(8, 0, 4, 0));
+        VBox.setMargin(frostedDivider, new Insets(6, 0, 2, 0));
 
         // 2. Action Boxes (Main actions vs. Route selection switcher)
         mainActionsBox = buildMainActionsBox();
@@ -99,9 +110,10 @@ public class MainMenuController {
 
         StackPane contentSwitcher = new StackPane(mainActionsBox, routeSelectionBox);
 
-        // Footer Section
-        Label footerLabel = new Label("v1.2.0 • Powered by Crossroads VN Engine");
-        footerLabel.getStyleClass().add("glass-footer-text");
+        // Footer Section with build micro-tag
+        Label footerLabel = new Label("BUILD // 2026.10 • CROSSROADS ENGINE");
+        footerLabel.setFont(Font.font("Segoe UI", FontWeight.NORMAL, 9));
+        footerLabel.setTextFill(Color.web("#5e7a70"));
 
         mainCard.getChildren().addAll(headerBox, contentSwitcher, footerLabel);
 
@@ -119,64 +131,109 @@ public class MainMenuController {
     }
 
     /**
-     * Builds the primary navigation buttons (Start, Load, Settings, Quit).
+     * Builds the primary navigation buttons with micro-typography and left-border styling.
      */
     private VBox buildMainActionsBox() {
-        VBox box = new VBox(12);
-        box.setAlignment(Pos.CENTER);
+        VBox box = new VBox(8);
+        box.setAlignment(Pos.CENTER_LEFT);
+        menuButtons.clear();
 
-        // Start Story (Primary action with vibrant emerald glass glow)
-        Button startBtn = new Button("▶  Start Story");
-        startBtn.getStyleClass().add("glass-button-primary");
-        startBtn.setMaxWidth(Double.MAX_VALUE);
-        attachHoverSlideAnimation(startBtn, 8);
-        startBtn.setOnAction(e -> showRouteSelection());
+        // 01 // START STORY (Primary Action)
+        Button startBtn = createMenuNavButton("01 //", "START STORY", "INITIALIZE ROUTE", true, this::showRouteSelection);
 
-        // Load Game
-        Button loadBtn = new Button("📂  Load Game");
-        loadBtn.getStyleClass().add("glass-button");
-        loadBtn.setMaxWidth(Double.MAX_VALUE);
-        attachHoverSlideAnimation(loadBtn, 8);
-        loadBtn.setOnAction(e -> {
+        // 02 // LOAD ARCHIVE
+        Button loadBtn = createMenuNavButton("02 //", "LOAD ARCHIVE", "RESTORE TIMELINE", false, () -> {
             if (loadGameHandler != null) {
                 loadGameHandler.run();
             }
         });
 
-        // Settings
-        Button settingsBtn = new Button("⚙  Settings");
-        settingsBtn.getStyleClass().add("glass-button");
-        settingsBtn.setMaxWidth(Double.MAX_VALUE);
-        attachHoverSlideAnimation(settingsBtn, 8);
-        settingsBtn.setOnAction(e -> showSettingsDialog());
+        // 03 // SYSTEM CONFIG
+        Button settingsBtn = createMenuNavButton("03 //", "SYSTEM CONFIG", "AUDIO & KEYBINDS", false, this::showSettingsDialog);
 
-        // Quit Game
-        Button quitBtn = new Button("✕  Quit Game");
-        quitBtn.getStyleClass().add("glass-button");
-        quitBtn.setMaxWidth(Double.MAX_VALUE);
-        attachHoverSlideAnimation(quitBtn, 8);
-        quitBtn.setOnAction(e -> showQuitConfirmation());
+        // 04 // TERMINATE
+        Button quitBtn = createMenuNavButton("04 //", "TERMINATE", "EXIT APPLICATION", false, this::showQuitConfirmation);
+
+        menuButtons.add(startBtn);
+        menuButtons.add(loadBtn);
+        menuButtons.add(settingsBtn);
+        menuButtons.add(quitBtn);
 
         box.getChildren().addAll(startBtn, loadBtn, settingsBtn, quitBtn);
         return box;
     }
 
     /**
-     * Builds the route selection sub-view for choosing Jules, Maya, or Nora.
+     * Helper to create sleek, minimalist left-bordered menu items with micro-typography.
+     */
+    private Button createMenuNavButton(String indexTag, String title, String subtext, boolean isPrimary, Runnable action) {
+        Button btn = new Button();
+        btn.getStyleClass().add(isPrimary ? "glass-button-primary" : "glass-button");
+        btn.setMaxWidth(Double.MAX_VALUE);
+
+        HBox content = new HBox(10);
+        content.setAlignment(Pos.CENTER_LEFT);
+
+        Label indexLabel = new Label(indexTag);
+        indexLabel.setFont(Font.font("Segoe UI", FontWeight.BOLD, 12));
+        indexLabel.setTextFill(isPrimary ? Color.web("#5fe09a") : Color.web("#7aa896"));
+
+        VBox textCol = new VBox(1);
+        textCol.setAlignment(Pos.CENTER_LEFT);
+
+        Label titleLabel = new Label(title);
+        titleLabel.setFont(Font.font("Segoe UI", FontWeight.BOLD, 13));
+        titleLabel.setTextFill(Color.WHITE);
+
+        Label subLabel = new Label(subtext);
+        subLabel.setFont(Font.font("Segoe UI", 9));
+        subLabel.setTextFill(Color.web("#9cbab0"));
+
+        textCol.getChildren().addAll(titleLabel, subLabel);
+
+        Region spacer = new Region();
+        HBox.setHgrow(spacer, Priority.ALWAYS);
+
+        Label arrow = new Label("›");
+        arrow.setFont(Font.font("Segoe UI", FontWeight.BOLD, 16));
+        arrow.setTextFill(Color.web("#669a88"));
+
+        content.getChildren().addAll(indexLabel, textCol, spacer, arrow);
+        btn.setGraphic(content);
+
+        attachHoverSlideAnimation(btn, 8);
+        btn.setOnAction(e -> action.run());
+
+        return btn;
+    }
+
+    /**
+     * Builds the route selection sub-view with vertical character cards and distinct accents.
      */
     private VBox buildRouteSelectionBox() {
-        VBox box = new VBox(10);
-        box.setAlignment(Pos.CENTER);
+        VBox box = new VBox(8);
+        box.setAlignment(Pos.CENTER_LEFT);
 
-        Label routeTitle = new Label("Select Your Route");
-        routeTitle.setFont(Font.font("Segoe UI", FontWeight.BOLD, 16));
-        routeTitle.setTextFill(Color.web("#e6f7ef"));
+        Label routeTitle = new Label("// SELECT TIMELINE ROUTE");
+        routeTitle.setFont(Font.font("Segoe UI", FontWeight.BOLD, 12));
+        routeTitle.setTextFill(Color.web("#80d8b4"));
 
-        Button julesBtn = createRouteButton("Jules's Story", "The Weight of Expectations", "Route 01", 1);
-        Button mayaBtn = createRouteButton("Maya's Story", "The Rhythm of Choice", "Route 02", 2);
-        Button noraBtn = createRouteButton("Nora's Story", "Canvas of Tomorrow", "Route 03", 3);
+        Button julesBtn = createRouteCard(
+                "01 //", "JULES RIVERA", "The Weight of Expectations",
+                "DUTY", "route-card-jules", 1, Color.web("#38bdf8")
+        );
 
-        Button backBtn = new Button("←  Back to Main Menu");
+        Button mayaBtn = createRouteCard(
+                "02 //", "MAYA STERLING", "The Rhythm of Choice",
+                "BEAT", "route-card-maya", 2, Color.web("#f59e0b")
+        );
+
+        Button noraBtn = createRouteCard(
+                "03 //", "NORA CHEN", "Canvas of Tomorrow",
+                "VISION", "route-card-nora", 3, Color.web("#10b981")
+        );
+
+        Button backBtn = new Button("←  RETURN // MAIN DOCK");
         backBtn.getStyleClass().add("glass-button");
         backBtn.setMaxWidth(Double.MAX_VALUE);
         attachHoverSlideAnimation(backBtn, -6);
@@ -186,24 +243,31 @@ public class MainMenuController {
         return box;
     }
 
-    private Button createRouteButton(String name, String subtitle, String routeTag, int storyId) {
+    /**
+     * Builds an individual vertical character route card with distinct accent color and micro-details.
+     */
+    private Button createRouteCard(String routeNum, String name, String subtitle, String genreTag,
+                                   String styleClass, int storyId, Color accentColor) {
         Button btn = new Button();
-        btn.getStyleClass().add("glass-route-button");
+        btn.getStyleClass().add(styleClass);
         btn.setMaxWidth(Double.MAX_VALUE);
 
-        HBox content = new HBox(12);
+        HBox content = new HBox(8);
         content.setAlignment(Pos.CENTER_LEFT);
 
-        Label tagLabel = new Label(routeTag);
-        tagLabel.setStyle("-fx-background-color: rgba(0, 154, 68, 0.3); -fx-text-fill: #61f2a4; -fx-font-size: 10px; -fx-font-weight: bold; -fx-padding: 2 6; -fx-background-radius: 6;");
+        Label numLabel = new Label(routeNum);
+        numLabel.setFont(Font.font("Segoe UI", FontWeight.BOLD, 12));
+        numLabel.setTextFill(accentColor);
 
-        VBox textCol = new VBox(2);
+        VBox textCol = new VBox(1);
+        textCol.setAlignment(Pos.CENTER_LEFT);
+
         Label nameLabel = new Label(name);
-        nameLabel.setFont(Font.font("Segoe UI", FontWeight.BOLD, 14));
+        nameLabel.setFont(Font.font("Segoe UI", FontWeight.BOLD, 12.5));
         nameLabel.setTextFill(Color.WHITE);
 
         Label descLabel = new Label(subtitle);
-        descLabel.setFont(Font.font("Segoe UI", 11.5));
+        descLabel.setFont(Font.font("Segoe UI", 9.5));
         descLabel.setTextFill(Color.web("#a0bfb5"));
 
         textCol.getChildren().addAll(nameLabel, descLabel);
@@ -211,11 +275,10 @@ public class MainMenuController {
         Region spacer = new Region();
         HBox.setHgrow(spacer, Priority.ALWAYS);
 
-        Label arrow = new Label("›");
-        arrow.setFont(Font.font("Segoe UI", FontWeight.BOLD, 18));
-        arrow.setTextFill(Color.web("#80d8b4"));
+        Label tagLabel = new Label(genreTag);
+        tagLabel.setStyle("-fx-background-color: rgba(255, 255, 255, 0.08); -fx-text-fill: #e0f2ea; -fx-font-size: 8.5px; -fx-font-weight: bold; -fx-padding: 2 5; -fx-background-radius: 3;");
 
-        content.getChildren().addAll(tagLabel, textCol, spacer, arrow);
+        content.getChildren().addAll(numLabel, textCol, spacer, tagLabel);
         btn.setGraphic(content);
 
         attachHoverSlideAnimation(btn, 8);
@@ -230,7 +293,7 @@ public class MainMenuController {
     }
 
     private void showRouteSelection() {
-        FadeTransition fadeOut = new FadeTransition(Duration.millis(160), mainActionsBox);
+        FadeTransition fadeOut = new FadeTransition(Duration.millis(150), mainActionsBox);
         fadeOut.setToValue(0.0);
         fadeOut.setOnFinished(e -> {
             mainActionsBox.setVisible(false);
@@ -240,7 +303,7 @@ public class MainMenuController {
             routeSelectionBox.setVisible(true);
             routeSelectionBox.setManaged(true);
 
-            FadeTransition fadeIn = new FadeTransition(Duration.millis(160), routeSelectionBox);
+            FadeTransition fadeIn = new FadeTransition(Duration.millis(150), routeSelectionBox);
             fadeIn.setToValue(1.0);
             fadeIn.play();
         });
@@ -248,7 +311,7 @@ public class MainMenuController {
     }
 
     private void showMainActions() {
-        FadeTransition fadeOut = new FadeTransition(Duration.millis(160), routeSelectionBox);
+        FadeTransition fadeOut = new FadeTransition(Duration.millis(150), routeSelectionBox);
         fadeOut.setToValue(0.0);
         fadeOut.setOnFinished(e -> {
             routeSelectionBox.setVisible(false);
@@ -258,7 +321,7 @@ public class MainMenuController {
             mainActionsBox.setVisible(true);
             mainActionsBox.setManaged(true);
 
-            FadeTransition fadeIn = new FadeTransition(Duration.millis(160), mainActionsBox);
+            FadeTransition fadeIn = new FadeTransition(Duration.millis(150), mainActionsBox);
             fadeIn.setToValue(1.0);
             fadeIn.play();
         });
@@ -266,14 +329,14 @@ public class MainMenuController {
     }
 
     /**
-     * Attaches a subtle hover slide micro-animation to a button.
+     * Attaches an interactive micro-slide (6-8px X-shift on hover) to a button.
      */
     public void attachHoverSlideAnimation(Button button, double slideDistance) {
-        TranslateTransition slideIn = new TranslateTransition(Duration.millis(170), button);
+        TranslateTransition slideIn = new TranslateTransition(Duration.millis(160), button);
         slideIn.setToX(slideDistance);
         slideIn.setInterpolator(Interpolator.EASE_OUT);
 
-        TranslateTransition slideOut = new TranslateTransition(Duration.millis(170), button);
+        TranslateTransition slideOut = new TranslateTransition(Duration.millis(160), button);
         slideOut.setToX(0);
         slideOut.setInterpolator(Interpolator.EASE_OUT);
 
@@ -289,22 +352,52 @@ public class MainMenuController {
     }
 
     /**
-     * Plays the entrance micro-animation on the floating card.
+     * Plays a staggered entrance sequence: each button slides in from the left
+     * and fades in sequentially, delayed by 65ms per item.
      */
     public void playEntranceAnimation() {
+        if (activeEntranceAnimation != null) {
+            activeEntranceAnimation.stop();
+        }
+
+        ParallelTransition pt = new ParallelTransition();
+
+        // Dock container smooth fade-in
         mainCard.setOpacity(0.0);
-        mainCard.setTranslateY(18);
+        mainCard.setTranslateX(-15);
 
-        FadeTransition fadeIn = new FadeTransition(Duration.millis(450), mainCard);
-        fadeIn.setToValue(1.0);
-        fadeIn.setInterpolator(Interpolator.EASE_OUT);
+        FadeTransition dockFade = new FadeTransition(Duration.millis(260), mainCard);
+        dockFade.setToValue(1.0);
 
-        TranslateTransition floatUp = new TranslateTransition(Duration.millis(450), mainCard);
-        floatUp.setToY(0);
-        floatUp.setInterpolator(Interpolator.EASE_OUT);
+        TranslateTransition dockSlide = new TranslateTransition(Duration.millis(260), mainCard);
+        dockSlide.setToX(0);
+        dockSlide.setInterpolator(Interpolator.EASE_OUT);
 
-        ParallelTransition entrance = new ParallelTransition(fadeIn, floatUp);
-        entrance.play();
+        pt.getChildren().addAll(dockFade, dockSlide);
+
+        // Stagger entrance of each button
+        for (int i = 0; i < menuButtons.size(); i++) {
+            Button btn = menuButtons.get(i);
+            btn.setOpacity(0.0);
+            btn.setTranslateX(-20);
+
+            Duration delay = Duration.millis(60 + (i * 65));
+
+            FadeTransition ft = new FadeTransition(Duration.millis(300), btn);
+            ft.setToValue(1.0);
+            ft.setDelay(delay);
+            ft.setInterpolator(Interpolator.EASE_OUT);
+
+            TranslateTransition tt = new TranslateTransition(Duration.millis(300), btn);
+            tt.setToX(0);
+            tt.setDelay(delay);
+            tt.setInterpolator(Interpolator.EASE_OUT);
+
+            pt.getChildren().addAll(ft, tt);
+        }
+
+        activeEntranceAnimation = pt;
+        pt.play();
     }
 
     /**
@@ -451,9 +544,25 @@ public class MainMenuController {
     }
 
     /**
-     * Resets the view to the primary main actions card.
+     * Resets the view to the primary main actions card, safely stopping active
+     * transitions and restoring full opacities and transformations.
      */
     public void resetView() {
+        if (activeEntranceAnimation != null) {
+            activeEntranceAnimation.stop();
+            activeEntranceAnimation = null;
+        }
+
+        mainCard.setOpacity(1.0);
+        mainCard.setTranslateX(0);
+        mainCard.setTranslateY(0);
+
+        for (Button btn : menuButtons) {
+            btn.setOpacity(1.0);
+            btn.setTranslateX(0);
+            btn.setTranslateY(0);
+        }
+
         mainActionsBox.setOpacity(1.0);
         mainActionsBox.setVisible(true);
         mainActionsBox.setManaged(true);

@@ -66,81 +66,117 @@
     -fx-max-height: 1;
 }
 
-/* Primary Glass Button (Start Action) */
+/* Minimalist Left-Bordered Navigation Dock (Persona / ZZZ / NieR Inspired) */
+.glass-nav-dock {
+    -fx-background-color: linear-gradient(to bottom right, rgba(12, 24, 20, 0.88), rgba(6, 14, 12, 0.94));
+    -fx-background-radius: 6px;
+    -fx-border-color: linear-gradient(to bottom, rgba(255, 255, 255, 0.22), rgba(0, 154, 68, 0.35), rgba(255, 255, 255, 0.08));
+    -fx-border-width: 1px;
+    -fx-border-radius: 6px;
+    -fx-padding: 22 20 18 20;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.75), 32, 0.3, 0, 12);
+}
+
+/* Primary Glass Button (e.g. 01 // START STORY) */
 .glass-button-primary {
-    -fx-background-color: linear-gradient(to bottom right, rgba(0, 154, 68, 0.88), rgba(0, 122, 54, 0.92));
-    -fx-background-radius: 14;
-    -fx-border-color: linear-gradient(to bottom right, rgba(160, 255, 200, 0.7), rgba(0, 154, 68, 0.35));
-    -fx-border-width: 1.4;
-    -fx-border-radius: 14;
+    -fx-background-color: linear-gradient(to right, rgba(0, 154, 68, 0.32), rgba(0, 154, 68, 0.06) 80%, transparent);
+    -fx-background-radius: 4px;
+    -fx-border-color: transparent transparent transparent #00ba52;
+    -fx-border-width: 0 0 0 3px;
+    -fx-border-radius: 0;
     -fx-text-fill: #ffffff;
-    -fx-font-size: 15px;
-    -fx-font-weight: bold;
-    -fx-padding: 12 24;
+    -fx-padding: 8 14;
     -fx-cursor: hand;
     -fx-alignment: CENTER_LEFT;
-    -fx-effect: dropshadow(gaussian, rgba(0, 154, 68, 0.5), 16, 0.3, 0, 4);
 }
 
 .glass-button-primary:hover {
-    -fx-background-color: linear-gradient(to bottom right, #00ba52, #009A44);
-    -fx-border-color: #85f3ba;
+    -fx-background-color: linear-gradient(to right, rgba(0, 186, 82, 0.55), rgba(0, 186, 82, 0.15) 85%, transparent);
+    -fx-border-color: transparent transparent transparent #5fe09a;
     -fx-text-fill: #ffffff;
-    -fx-effect: dropshadow(gaussian, rgba(0, 230, 118, 0.7), 22, 0.45, 0, 0);
+    -fx-effect: dropshadow(gaussian, rgba(0, 230, 118, 0.65), 16, 0.45, 0, 0);
 }
 
 .glass-button-primary:pressed {
-    -fx-background-color: #007A36;
+    -fx-background-color: linear-gradient(to right, rgba(0, 122, 54, 0.6), rgba(0, 122, 54, 0.2) 85%, transparent);
+    -fx-border-color: transparent transparent transparent #007A36;
 }
 
-/* Standard Secondary Glass Buttons (Load, Settings, Quit) */
+/* Standard Secondary Glass Buttons (Left-Bordered) */
 .glass-button {
-    -fx-background-color: linear-gradient(to bottom right, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.03));
-    -fx-background-radius: 14;
-    -fx-border-color: linear-gradient(to bottom right, rgba(255, 255, 255, 0.22), rgba(255, 255, 255, 0.08));
-    -fx-border-width: 1.2;
-    -fx-border-radius: 14;
+    -fx-background-color: linear-gradient(to right, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.015) 75%, transparent);
+    -fx-background-radius: 4px;
+    -fx-border-color: transparent transparent transparent rgba(255, 255, 255, 0.28);
+    -fx-border-width: 0 0 0 3px;
+    -fx-border-radius: 0;
     -fx-text-fill: #e0f2ea;
-    -fx-font-size: 14.5px;
-    -fx-font-weight: bold;
-    -fx-padding: 11 22;
+    -fx-padding: 8 14;
     -fx-cursor: hand;
     -fx-alignment: CENTER_LEFT;
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 8, 0, 0, 2);
 }
 
 .glass-button:hover {
-    -fx-background-color: linear-gradient(to bottom right, rgba(0, 154, 68, 0.32), rgba(255, 255, 255, 0.14));
-    -fx-border-color: rgba(0, 186, 82, 0.85);
+    -fx-background-color: linear-gradient(to right, rgba(0, 154, 68, 0.38), rgba(0, 154, 68, 0.08) 85%, transparent);
+    -fx-border-color: transparent transparent transparent #00ba52;
     -fx-text-fill: #ffffff;
-    -fx-effect: dropshadow(gaussian, rgba(0, 186, 82, 0.45), 16, 0.35, 0, 0);
+    -fx-effect: dropshadow(gaussian, rgba(0, 186, 82, 0.5), 14, 0.35, 0, 0);
 }
 
 .glass-button:pressed {
-    -fx-background-color: rgba(0, 122, 54, 0.4);
-    -fx-border-color: #007A36;
+    -fx-background-color: linear-gradient(to right, rgba(0, 122, 54, 0.5), rgba(0, 122, 54, 0.15) 85%, transparent);
+    -fx-border-color: transparent transparent transparent #007A36;
 }
 
-/* Route Selection Buttons */
-.glass-route-button {
-    -fx-background-color: linear-gradient(to right, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.03));
-    -fx-background-radius: 14;
-    -fx-border-color: rgba(255, 255, 255, 0.18);
-    -fx-border-width: 1.2;
-    -fx-border-radius: 14;
-    -fx-padding: 10 18;
+/* Character Route Selection Cards (Vertical cards with subtle borders & character accents) */
+.route-card-jules {
+    -fx-background-color: linear-gradient(to right, rgba(14, 28, 42, 0.88), rgba(8, 18, 28, 0.92));
+    -fx-background-radius: 4px;
+    -fx-border-color: rgba(255, 255, 255, 0.15) rgba(255, 255, 255, 0.15) rgba(255, 255, 255, 0.15) #38bdf8;
+    -fx-border-width: 1px 1px 1px 3px;
+    -fx-border-radius: 4px;
+    -fx-padding: 8 12;
     -fx-cursor: hand;
     -fx-alignment: CENTER_LEFT;
 }
 
-.glass-route-button:hover {
-    -fx-background-color: linear-gradient(to right, rgba(0, 154, 68, 0.3), rgba(255, 255, 255, 0.12));
-    -fx-border-color: #00ba52;
-    -fx-effect: dropshadow(gaussian, rgba(0, 186, 82, 0.4), 14, 0.25, 0, 0);
+.route-card-jules:hover {
+    -fx-background-color: linear-gradient(to right, rgba(56, 189, 248, 0.32), rgba(56, 189, 248, 0.08) 85%, transparent);
+    -fx-border-color: rgba(255, 255, 255, 0.25) rgba(255, 255, 255, 0.25) rgba(255, 255, 255, 0.25) #7dd3fc;
+    -fx-effect: dropshadow(gaussian, rgba(56, 189, 248, 0.5), 14, 0.35, 0, 0);
 }
 
-.glass-route-button:pressed {
-    -fx-background-color: rgba(0, 122, 54, 0.4);
+.route-card-maya {
+    -fx-background-color: linear-gradient(to right, rgba(40, 28, 12, 0.88), rgba(26, 18, 8, 0.92));
+    -fx-background-radius: 4px;
+    -fx-border-color: rgba(255, 255, 255, 0.15) rgba(255, 255, 255, 0.15) rgba(255, 255, 255, 0.15) #f59e0b;
+    -fx-border-width: 1px 1px 1px 3px;
+    -fx-border-radius: 4px;
+    -fx-padding: 8 12;
+    -fx-cursor: hand;
+    -fx-alignment: CENTER_LEFT;
+}
+
+.route-card-maya:hover {
+    -fx-background-color: linear-gradient(to right, rgba(245, 158, 11, 0.32), rgba(245, 158, 11, 0.08) 85%, transparent);
+    -fx-border-color: rgba(255, 255, 255, 0.25) rgba(255, 255, 255, 0.25) rgba(255, 255, 255, 0.25) #fcd34d;
+    -fx-effect: dropshadow(gaussian, rgba(245, 158, 11, 0.5), 14, 0.35, 0, 0);
+}
+
+.route-card-nora {
+    -fx-background-color: linear-gradient(to right, rgba(14, 36, 24, 0.88), rgba(8, 24, 16, 0.92));
+    -fx-background-radius: 4px;
+    -fx-border-color: rgba(255, 255, 255, 0.15) rgba(255, 255, 255, 0.15) rgba(255, 255, 255, 0.15) #10b981;
+    -fx-border-width: 1px 1px 1px 3px;
+    -fx-border-radius: 4px;
+    -fx-padding: 8 12;
+    -fx-cursor: hand;
+    -fx-alignment: CENTER_LEFT;
+}
+
+.route-card-nora:hover {
+    -fx-background-color: linear-gradient(to right, rgba(16, 185, 129, 0.32), rgba(16, 185, 129, 0.08) 85%, transparent);
+    -fx-border-color: rgba(255, 255, 255, 0.25) rgba(255, 255, 255, 0.25) rgba(255, 255, 255, 0.25) #6ee7b7;
+    -fx-effect: dropshadow(gaussian, rgba(16, 185, 129, 0.5), 14, 0.35, 0, 0);
 }
 
 /* Modal Overlay (Frosted Dimming) */
