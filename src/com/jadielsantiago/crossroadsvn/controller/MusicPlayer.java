@@ -12,6 +12,7 @@ import java.net.URL;
 public class MusicPlayer {
     private MediaPlayer mediaPlayer;
     private double volume = 0.8;
+    private boolean muted = false;
 
     /**
      * Plays the specified music resource, stopping any currently playing track first.
@@ -31,8 +32,35 @@ public class MusicPlayer {
         Media media = new Media(resourceUrl.toExternalForm());
         mediaPlayer = new MediaPlayer(media);
         mediaPlayer.setVolume(this.volume);
+        mediaPlayer.setMute(this.muted);
         mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE); // Loop the track
         mediaPlayer.play();
+    }
+
+    /**
+     * Checks whether music is currently muted/turned off.
+     */
+    public boolean isMuted() {
+        return muted;
+    }
+
+    /**
+     * Turns music audio output on or off.
+     *
+     * @param muted true to silence all music, false to enable playback
+     */
+    public void setMuted(boolean muted) {
+        this.muted = muted;
+        if (mediaPlayer != null) {
+            mediaPlayer.setMute(muted);
+        }
+    }
+
+    /**
+     * Toggles between muted and unmuted playback.
+     */
+    public void toggleMute() {
+        setMuted(!muted);
     }
 
     /**

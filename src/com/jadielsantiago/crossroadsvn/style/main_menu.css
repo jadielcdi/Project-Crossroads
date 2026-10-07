@@ -421,3 +421,103 @@
     -fx-opacity: 0;
 }
 
+/* ==========================================================================
+   Settings Subcategories, Tabs & Toggles Styling
+   ========================================================================== */
+
+/* Subcategory Navigation Tabs */
+.glass-tab-btn {
+    -fx-background-color: rgba(255, 255, 255, 0.06);
+    -fx-background-radius: 8;
+    -fx-border-color: rgba(255, 255, 255, 0.12);
+    -fx-border-radius: 8;
+    -fx-border-width: 1;
+    -fx-text-fill: #a2bdb4;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-padding: 6 18;
+    -fx-cursor: hand;
+}
+
+.glass-tab-btn:hover {
+    -fx-background-color: rgba(0, 154, 68, 0.25);
+    -fx-border-color: #00ba52;
+    -fx-text-fill: #ffffff;
+}
+
+.glass-tab-btn-active {
+    -fx-background-color: linear-gradient(to right, rgba(0, 154, 68, 0.85), rgba(0, 186, 82, 0.85));
+    -fx-background-radius: 8;
+    -fx-border-color: #5fe09a;
+    -fx-border-radius: 8;
+    -fx-border-width: 1.2;
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 13px;
+    -fx-font-weight: 800;
+    -fx-padding: 6 18;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(two-pass-box, rgba(0, 186, 82, 0.45), 8, 0.25, 0, 0);
+}
+
+/* Preset Quick-Pill Buttons (Volume & Resolution) */
+.glass-pill-btn {
+    -fx-background-color: rgba(255, 255, 255, 0.05);
+    -fx-background-radius: 6;
+    -fx-border-color: rgba(255, 255, 255, 0.12);
+    -fx-border-radius: 6;
+    -fx-border-width: 1;
+    -fx-text-fill: #97b8ac;
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+    -fx-padding: 3 8;
+    -fx-cursor: hand;
+}
+
+.glass-pill-btn:hover {
+    -fx-background-color: rgba(0, 154, 68, 0.28);
+    -fx-border-color: #5fe09a;
+    -fx-text-fill: #ffffff;
+}
+
+/* Toggle Buttons: Active / ON State */
+.glass-toggle-on {
+    -fx-background-color: linear-gradient(to right, rgba(0, 154, 68, 0.65), rgba(0, 186, 82, 0.45));
+    -fx-background-radius: 8;
+    -fx-border-color: #00ba52;
+    -fx-border-radius: 8;
+    -fx-border-width: 1.2;
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-padding: 5 14;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(two-pass-box, rgba(0, 186, 82, 0.4), 6, 0.25, 0, 0);
+}
+
+.glass-toggle-on:hover {
+    -fx-background-color: linear-gradient(to right, rgba(0, 186, 82, 0.8), rgba(0, 210, 95, 0.6));
+    -fx-border-color: #5fe09a;
+}
+
+/* Toggle Buttons: Inactive / OFF / Muted State */
+.glass-toggle-off {
+    -fx-background-color: rgba(180, 40, 40, 0.28);
+    -fx-background-radius: 8;
+    -fx-border-color: rgba(255, 100, 100, 0.55);
+    -fx-border-radius: 8;
+    -fx-border-width: 1.2;
+    -fx-text-fill: #ffb8b8;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-padding: 5 14;
+    -fx-cursor: hand;
+}
+
+.glass-toggle-off:hover {
+    -fx-background-color: rgba(220, 50, 50, 0.5);
+    -fx-border-color: #ff6b6b;
+    -fx-text-fill: #ffffff;
+    -fx-effect: dropshadow(two-pass-box, rgba(255, 80, 80, 0.4), 6, 0.25, 0, 0);
+}
+
+

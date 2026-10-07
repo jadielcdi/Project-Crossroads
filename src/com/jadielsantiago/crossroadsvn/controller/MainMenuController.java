@@ -22,7 +22,10 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import javafx.stage.Stage;
 import javafx.util.Duration;
+
+import com.jadielsantiago.crossroadsvn.view.SettingsView;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -592,62 +595,14 @@ public class MainMenuController {
     }
 
     /**
-     * Displays a frosted glass Settings dialog modal.
+     * Displays a frosted glass Settings dialog modal with Audio, Video, and Controls subcategories.
      */
     private void showSettingsDialog() {
-        VBox dialogCard = new VBox(16);
-        dialogCard.getStyleClass().add("glass-modal-card");
-        dialogCard.setAlignment(Pos.CENTER);
-        dialogCard.setMaxWidth(380);
-
-        Label title = new Label("Settings & Music");
-        title.setFont(Font.font("Segoe UI", FontWeight.BOLD, 20));
-        title.setTextFill(Color.WHITE);
-
-        // Music volume row
-        VBox volumeBox = new VBox(6);
-        volumeBox.setAlignment(Pos.CENTER_LEFT);
-
-        double currentVol = musicPlayer != null ? musicPlayer.getVolume() * 100 : 80;
-        Label volLabel = new Label("Music Volume: " + (int) currentVol + "%");
-        volLabel.setFont(Font.font("Segoe UI", FontWeight.SEMI_BOLD, 13));
-        volLabel.setTextFill(Color.web("#ccebe0"));
-
-        Slider volumeSlider = new Slider(0, 100, currentVol);
-        volumeSlider.getStyleClass().add("glass-slider");
-        volumeSlider.valueProperty().addListener((obs, oldVal, newVal) -> {
-            int intVal = newVal.intValue();
-            volLabel.setText("Music Volume: " + intVal + "%");
-            if (musicPlayer != null) {
-                musicPlayer.setVolume(intVal / 100.0);
-            }
-        });
-        volumeBox.getChildren().addAll(volLabel, volumeSlider);
-
-        // Controls info section
-        VBox infoBox = new VBox(4);
-        infoBox.getStyleClass().add("glass-sub-panel");
-        Label infoTitle = new Label("How to Play");
-        infoTitle.setFont(Font.font("Segoe UI", FontWeight.BOLD, 12));
-        infoTitle.setTextFill(Color.web("#75e4ab"));
-
-        Label infoKeys = new Label(
-                "• Spacebar or Left Click: Read the next line\n" +
-                        "• [Esc]: Open Save & Load menu\n" +
-                        "• [V]: Hide text to view the artwork");
-        infoKeys.setFont(Font.font("Segoe UI", 11.5));
-        infoKeys.setTextFill(Color.web("#d1e3dc"));
-        infoBox.getChildren().addAll(infoTitle, infoKeys);
-
-        Button closeBtn = new Button("✓  Done");
-        closeBtn.getStyleClass().add("glass-button-primary");
-        closeBtn.setMaxWidth(Double.MAX_VALUE);
-        attachHoverSlideAnimation(closeBtn, 6);
-        closeBtn.setOnAction(e -> hideModal());
-
-        dialogCard.getChildren().addAll(title, volumeBox, infoBox, closeBtn);
-
-        showModal(dialogCard);
+        Stage stage = (rootPane.getScene() != null && rootPane.getScene().getWindow() instanceof Stage)
+                ? (Stage) rootPane.getScene().getWindow()
+                : null;
+        Node settingsCard = SettingsView.createSettingsCard(musicPlayer, stage, this::hideModal);
+        showModal(settingsCard);
     }
 
     /**

@@ -31,6 +31,7 @@ import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.util.Map;
@@ -604,60 +605,11 @@ public class SaveLoadView extends StackPane {
     }
 
     private void showSettingsDialog() {
-        VBox dialogBox = new VBox(16);
-        dialogBox.getStyleClass().add("glass-modal-card");
-        dialogBox.setAlignment(Pos.CENTER);
-        dialogBox.setMaxWidth(380);
-
-        Label titleLbl = new Label("Settings & Music");
-        titleLbl.setFont(Font.font("Segoe UI", FontWeight.BOLD, 20));
-        titleLbl.setTextFill(Color.WHITE);
-
-        // Music volume row
-        VBox volumeBox = new VBox(6);
-        volumeBox.setAlignment(Pos.CENTER_LEFT);
-
-        double currentVol = musicPlayer != null ? musicPlayer.getVolume() * 100 : 80;
-        Label volLabel = new Label("Music Volume: " + (int) currentVol + "%");
-        volLabel.setFont(Font.font("Segoe UI", FontWeight.SEMI_BOLD, 13));
-        volLabel.setTextFill(Color.web("#ccebe0"));
-
-        Slider volumeSlider = new Slider(0, 100, currentVol);
-        volumeSlider.getStyleClass().add("glass-slider");
-        volumeSlider.valueProperty().addListener((obs, oldVal, newVal) -> {
-            int intVal = newVal.intValue();
-            volLabel.setText("Music Volume: " + intVal + "%");
-            if (musicPlayer != null) {
-                musicPlayer.setVolume(intVal / 100.0);
-            }
-        });
-        volumeBox.getChildren().addAll(volLabel, volumeSlider);
-
-        // Gameplay Shortcuts
-        VBox infoBox = new VBox(4);
-        infoBox.getStyleClass().add("glass-sub-panel");
-        Label infoTitle = new Label("How to Play");
-        infoTitle.setFont(Font.font("Segoe UI", FontWeight.BOLD, 12));
-        infoTitle.setTextFill(Color.web("#75e4ab"));
-
-        Label infoKeys = new Label(
-                "• Spacebar or Left Click: Read the next line\n" +
-                "• [Esc]: Open Save & Load menu\n" +
-                "• [H]: Open Dialogue History\n" +
-                "• [V]: Hide text to view the artwork"
-        );
-        infoKeys.setFont(Font.font("Segoe UI", 11.5));
-        infoKeys.setTextFill(Color.web("#d1e3dc"));
-        infoBox.getChildren().addAll(infoTitle, infoKeys);
-
-        Button closeBtn = new Button("✓  Done");
-        closeBtn.getStyleClass().add("glass-button-primary");
-        closeBtn.setMaxWidth(Double.MAX_VALUE);
-        attachHoverSlideAnimation(closeBtn, 6);
-        closeBtn.setOnAction(e -> hideModal());
-
-        dialogBox.getChildren().addAll(titleLbl, volumeBox, infoBox, closeBtn);
-        showModal(dialogBox);
+        Stage stage = (this.getScene() != null && this.getScene().getWindow() instanceof Stage)
+                ? (Stage) this.getScene().getWindow()
+                : null;
+        Node settingsCard = SettingsView.createSettingsCard(musicPlayer, stage, this::hideModal);
+        showModal(settingsCard);
     }
 
     private void showHelpDialog() {

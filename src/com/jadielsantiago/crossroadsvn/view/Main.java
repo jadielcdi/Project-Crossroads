@@ -20,10 +20,12 @@ import javafx.scene.control.Label;
 import javafx.util.Duration;
 import javafx.scene.image.WritableImage;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 import com.jadielsantiago.crossroadsvn.controller.Background_Manager;
@@ -33,6 +35,7 @@ import com.jadielsantiago.crossroadsvn.controller.MainMenuController;
 import com.jadielsantiago.crossroadsvn.controller.MusicPlayer;
 import com.jadielsantiago.crossroadsvn.controller.ProgressManager;
 import com.jadielsantiago.crossroadsvn.controller.SaveManager;
+import com.jadielsantiago.crossroadsvn.controller.SettingsManager;
 import com.jadielsantiago.crossroadsvn.model.*;
 
 import java.time.LocalDateTime;
@@ -44,6 +47,7 @@ public class Main extends Application {
     private static final String COLOR_PANTONE_347C = "#009A44";
     private static final String COLOR_PANTONE_HOVER = "#00ba52";
 
+    private Stage primaryStage;
     private GameManager gameManager;
     private MusicPlayer musicPlayer;
     private Background_Manager backgroundManager;
@@ -82,9 +86,14 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) {
+        this.primaryStage = primaryStage;
         gameManager = new GameManager();
         musicPlayer = new MusicPlayer();
         backgroundManager = new Background_Manager();
+
+        SettingsManager.loadSettings();
+        musicPlayer.setVolume(SettingsManager.getMusicVolume());
+        musicPlayer.setMuted(SettingsManager.isMusicMuted());
 
         root = new StackPane();
         root.setStyle("-fx-background-color: #2b2b2b;");
@@ -108,14 +117,44 @@ public class Main extends Application {
 
         showMainMenu();
 
-        Scene scene = new Scene(root, 800, 600);
+        double initWidth = SettingsManager.getLogicalWidth();
+        double initHeight = SettingsManager.getLogicalHeight();
+        try {
+            Screen primaryScreen = Screen.getPrimary();
+            if (primaryScreen != null) {
+                initWidth = Math.min(initWidth, primaryScreen.getVisualBounds().getWidth());
+                initHeight = Math.min(initHeight, primaryScreen.getVisualBounds().getHeight());
+            }
+        } catch (Throwable ignored) {
+        }
+
+        Scene scene = new Scene(root, initWidth, initHeight);
         java.net.URL cssUrl = getClass().getResource("/com/jadielsantiago/crossroadsvn/style/main_menu.css");
         if (cssUrl != null) {
             scene.getStylesheets().add(cssUrl.toExternalForm());
         }
+
+        scene.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+            if (event.getCode() == KeyCode.F11) {
+                if (primaryStage != null) {
+                    boolean nextFs = !primaryStage.isFullScreen();
+                    primaryStage.setFullScreen(nextFs);
+                    primaryStage.setFullScreenExitHint("");
+                    SettingsManager.setFullScreen(nextFs);
+                    SettingsManager.saveSettings();
+                    event.consume();
+                }
+            }
+        });
+
         primaryStage.setTitle("Project Crossroads - VN Engine");
         primaryStage.setScene(scene);
+        if (SettingsManager.isFullScreen()) {
+            primaryStage.setFullScreen(true);
+            primaryStage.setFullScreenExitHint("");
+        }
         primaryStage.show();
+        primaryStage.centerOnScreen();
     }
 
     private void showMainMenu() {
@@ -265,6 +304,14 @@ public class Main extends Application {
                         if (activeSaveLoadView != null) {
                             activeSaveLoadView.showHistoryDialog();
                         }
+                    }
+                } else if (event.getCode() == KeyCode.F11) {
+                    if (primaryStage != null) {
+                        boolean nextFs = !primaryStage.isFullScreen();
+                        primaryStage.setFullScreen(nextFs);
+                        primaryStage.setFullScreenExitHint("");
+                        SettingsManager.setFullScreen(nextFs);
+                        SettingsManager.saveSettings();
                     }
                 } else if (event.getCode() == KeyCode.V) {
                     if (!isMenuOpen) {
