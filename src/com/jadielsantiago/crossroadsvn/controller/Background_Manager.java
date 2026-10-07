@@ -3,10 +3,10 @@ package com.jadielsantiago.crossroadsvn.controller;
 import javafx.animation.Animation;
 import javafx.animation.Interpolator;
 import javafx.animation.ScaleTransition;
+import javafx.scene.CacheHint;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
-import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 
 import java.net.URL;
@@ -32,15 +32,15 @@ public class Background_Manager {
         backgroundImageView.setSmooth(true);
         backgroundImageView.setPreserveRatio(false);
 
+        // Hardware texture caching for high-framerate ambient scaling
+        backgroundImageView.setCache(true);
+        backgroundImageView.setCacheHint(CacheHint.SPEED);
+        backgroundPane.setCache(true);
+        backgroundPane.setCacheHint(CacheHint.SPEED);
+
         // Bind image dimensions to container dimensions so it scales with the window
         backgroundImageView.fitWidthProperty().bind(backgroundPane.widthProperty());
         backgroundImageView.fitHeightProperty().bind(backgroundPane.heightProperty());
-
-        // Clip background container so ambient zoom does not bleed outside boundaries
-        Rectangle clip = new Rectangle();
-        clip.widthProperty().bind(backgroundPane.widthProperty());
-        clip.heightProperty().bind(backgroundPane.heightProperty());
-        backgroundPane.setClip(clip);
     }
 
     /**

@@ -18,15 +18,26 @@ public class SaveState implements Serializable {
     private DialogueLine currentLine;
     private LinkedList<DialogueLine> remainingQueue;
     private boolean isChoiceActive;
+    private LinkedList<DialogueLine> historyQueue;
 
     public SaveState() {
         this.remainingQueue = new LinkedList<>();
+        this.historyQueue = new LinkedList<>();
     }
 
     public SaveState(int slotIndex, int storyId, String storyTitle, String timestamp,
                      String sceneHeading, String currentSpeaker, String currentText,
                      String currentMusic, String currentBackground, DialogueLine currentLine,
                      LinkedList<DialogueLine> remainingQueue, boolean isChoiceActive) {
+        this(slotIndex, storyId, storyTitle, timestamp, sceneHeading, currentSpeaker, currentText,
+             currentMusic, currentBackground, currentLine, remainingQueue, isChoiceActive, null);
+    }
+
+    public SaveState(int slotIndex, int storyId, String storyTitle, String timestamp,
+                     String sceneHeading, String currentSpeaker, String currentText,
+                     String currentMusic, String currentBackground, DialogueLine currentLine,
+                     LinkedList<DialogueLine> remainingQueue, boolean isChoiceActive,
+                     LinkedList<DialogueLine> historyQueue) {
         this.slotIndex = slotIndex;
         this.storyId = storyId;
         this.storyTitle = storyTitle;
@@ -39,6 +50,7 @@ public class SaveState implements Serializable {
         this.currentLine = currentLine;
         this.remainingQueue = remainingQueue != null ? new LinkedList<>(remainingQueue) : new LinkedList<>();
         this.isChoiceActive = isChoiceActive;
+        this.historyQueue = historyQueue != null ? new LinkedList<>(historyQueue) : new LinkedList<>();
     }
 
     public int getSlotIndex() {
@@ -135,5 +147,13 @@ public class SaveState implements Serializable {
 
     public void setChoiceActive(boolean choiceActive) {
         isChoiceActive = choiceActive;
+    }
+
+    public LinkedList<DialogueLine> getHistoryQueue() {
+        return historyQueue != null ? historyQueue : new LinkedList<>();
+    }
+
+    public void setHistoryQueue(LinkedList<DialogueLine> historyQueue) {
+        this.historyQueue = historyQueue != null ? new LinkedList<>(historyQueue) : new LinkedList<>();
     }
 }

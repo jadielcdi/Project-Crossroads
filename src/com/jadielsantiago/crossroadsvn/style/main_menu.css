@@ -3,6 +3,7 @@
  *
  * Glassmorphism Main Menu Design System for Project Crossroads
  * Palette: Pantone 347 C (#009A44), Frosted Emerald, Translucent Dark Glass
+ * Performance-tuned: Optimized two-pass-box shadows for consistent 60+ FPS rendering
  */
 
 .root {
@@ -17,7 +18,7 @@
     -fx-border-width: 1.5;
     -fx-border-radius: 26;
     -fx-padding: 34 36 28 36;
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.65), 36, 0.28, 0, 14);
+    -fx-effect: dropshadow(two-pass-box, rgba(0, 0, 0, 0.6), 16, 0.2, 0, 8);
 }
 
 /* Inner Glass Sub-panels */
@@ -48,7 +49,7 @@
     -fx-text-fill: #ffffff;
     -fx-font-size: 30px;
     -fx-font-weight: 800;
-    -fx-effect: dropshadow(gaussian, rgba(0, 154, 68, 0.6), 14, 0.35, 0, 0);
+    -fx-effect: dropshadow(two-pass-box, rgba(0, 154, 68, 0.5), 8, 0.25, 0, 0);
 }
 
 /* Subtitle */
@@ -74,7 +75,7 @@
     -fx-border-width: 1px;
     -fx-border-radius: 6px;
     -fx-padding: 22 20 18 20;
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.75), 32, 0.3, 0, 12);
+    -fx-effect: dropshadow(two-pass-box, rgba(0, 0, 0, 0.65), 16, 0.2, 0, 8);
 }
 
 /* Primary Glass Button (e.g. 01 // START STORY) */
@@ -94,7 +95,7 @@
     -fx-background-color: linear-gradient(to right, rgba(0, 186, 82, 0.55), rgba(0, 186, 82, 0.15) 85%, transparent);
     -fx-border-color: transparent transparent transparent #5fe09a;
     -fx-text-fill: #ffffff;
-    -fx-effect: dropshadow(gaussian, rgba(0, 230, 118, 0.65), 16, 0.45, 0, 0);
+    -fx-effect: dropshadow(two-pass-box, rgba(0, 230, 118, 0.5), 8, 0.3, 0, 0);
 }
 
 .glass-button-primary:pressed {
@@ -119,7 +120,7 @@
     -fx-background-color: linear-gradient(to right, rgba(0, 154, 68, 0.38), rgba(0, 154, 68, 0.08) 85%, transparent);
     -fx-border-color: transparent transparent transparent #00ba52;
     -fx-text-fill: #ffffff;
-    -fx-effect: dropshadow(gaussian, rgba(0, 186, 82, 0.5), 14, 0.35, 0, 0);
+    -fx-effect: dropshadow(two-pass-box, rgba(0, 186, 82, 0.4), 8, 0.25, 0, 0);
 }
 
 .glass-button:pressed {
@@ -142,7 +143,7 @@
 .route-card-jules:hover {
     -fx-background-color: linear-gradient(to right, rgba(56, 189, 248, 0.32), rgba(56, 189, 248, 0.08) 85%, transparent);
     -fx-border-color: rgba(255, 255, 255, 0.25) rgba(255, 255, 255, 0.25) rgba(255, 255, 255, 0.25) #7dd3fc;
-    -fx-effect: dropshadow(gaussian, rgba(56, 189, 248, 0.5), 14, 0.35, 0, 0);
+    -fx-effect: dropshadow(two-pass-box, rgba(56, 189, 248, 0.45), 8, 0.25, 0, 0);
 }
 
 .route-card-maya {
@@ -159,7 +160,7 @@
 .route-card-maya:hover {
     -fx-background-color: linear-gradient(to right, rgba(245, 158, 11, 0.32), rgba(245, 158, 11, 0.08) 85%, transparent);
     -fx-border-color: rgba(255, 255, 255, 0.25) rgba(255, 255, 255, 0.25) rgba(255, 255, 255, 0.25) #fcd34d;
-    -fx-effect: dropshadow(gaussian, rgba(245, 158, 11, 0.5), 14, 0.35, 0, 0);
+    -fx-effect: dropshadow(two-pass-box, rgba(245, 158, 11, 0.45), 8, 0.25, 0, 0);
 }
 
 .route-card-nora {
@@ -176,7 +177,7 @@
 .route-card-nora:hover {
     -fx-background-color: linear-gradient(to right, rgba(16, 185, 129, 0.32), rgba(16, 185, 129, 0.08) 85%, transparent);
     -fx-border-color: rgba(255, 255, 255, 0.25) rgba(255, 255, 255, 0.25) rgba(255, 255, 255, 0.25) #6ee7b7;
-    -fx-effect: dropshadow(gaussian, rgba(16, 185, 129, 0.5), 14, 0.35, 0, 0);
+    -fx-effect: dropshadow(two-pass-box, rgba(16, 185, 129, 0.45), 8, 0.25, 0, 0);
 }
 
 /* Modal Overlay (Frosted Dimming) */
@@ -192,13 +193,32 @@
     -fx-border-width: 1.5;
     -fx-border-radius: 22;
     -fx-padding: 28 32;
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.75), 40, 0.32, 0, 16);
+    -fx-effect: dropshadow(two-pass-box, rgba(0, 0, 0, 0.7), 18, 0.25, 0, 10);
 }
 
 /* Subtle footer text */
 .glass-footer-text {
     -fx-text-fill: #6e8a80;
     -fx-font-size: 11px;
+}
+
+/* Frosted Sub-panel for modals and synopses */
+.glass-sub-panel {
+    -fx-background-color: rgba(255, 255, 255, 0.04);
+    -fx-background-radius: 14px;
+    -fx-border-color: rgba(255, 255, 255, 0.10);
+    -fx-border-width: 1px;
+    -fx-border-radius: 14px;
+    -fx-padding: 14 18;
+}
+
+.synopsis-chip {
+    -fx-background-color: rgba(255, 255, 255, 0.07);
+    -fx-text-fill: #b2d6ca;
+    -fx-font-size: 10px;
+    -fx-font-weight: bold;
+    -fx-padding: 3 8;
+    -fx-background-radius: 6;
 }
 
 /* Slider Custom Styling */
@@ -213,7 +233,7 @@
     -fx-background-radius: 10;
     -fx-pref-width: 18;
     -fx-pref-height: 18;
-    -fx-effect: dropshadow(gaussian, rgba(0, 186, 82, 0.6), 8, 0.4, 0, 0);
+    -fx-effect: dropshadow(two-pass-box, rgba(0, 186, 82, 0.5), 6, 0.3, 0, 0);
     -fx-cursor: hand;
 }
 
@@ -233,7 +253,7 @@
     -fx-border-width: 1.5;
     -fx-border-radius: 20;
     -fx-padding: 22 18 20 18;
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.6), 30, 0.25, 0, 10);
+    -fx-effect: dropshadow(two-pass-box, rgba(0, 0, 0, 0.55), 14, 0.2, 0, 6);
 }
 
 /* Right Content Area Card */
@@ -244,7 +264,7 @@
     -fx-border-width: 1.5;
     -fx-border-radius: 20;
     -fx-padding: 18 24 18 24;
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.6), 30, 0.25, 0, 10);
+    -fx-effect: dropshadow(two-pass-box, rgba(0, 0, 0, 0.55), 14, 0.2, 0, 6);
 }
 
 /* Navigation items in Sidebar */
@@ -279,7 +299,7 @@
 .glass-slot-empty:hover {
     -fx-background-color: rgba(0, 154, 68, 0.12);
     -fx-border-color: #00ba52;
-    -fx-effect: dropshadow(gaussian, rgba(0, 186, 82, 0.45), 14, 0.3, 0, 0);
+    -fx-effect: dropshadow(two-pass-box, rgba(0, 186, 82, 0.4), 8, 0.2, 0, 0);
 }
 
 /* Occupied Slot Frame */
@@ -293,7 +313,7 @@
 
 .glass-slot-occupied:hover {
     -fx-border-color: #00ba52;
-    -fx-effect: dropshadow(gaussian, rgba(0, 186, 82, 0.55), 16, 0.35, 0, 0);
+    -fx-effect: dropshadow(two-pass-box, rgba(0, 186, 82, 0.45), 8, 0.2, 0, 0);
 }
 
 /* Page Indicator & Buttons */
@@ -327,7 +347,7 @@
     -fx-font-weight: 800;
     -fx-padding: 4 10;
     -fx-cursor: hand;
-    -fx-effect: dropshadow(gaussian, rgba(0, 186, 82, 0.6), 10, 0.4, 0, 0);
+    -fx-effect: dropshadow(two-pass-box, rgba(0, 186, 82, 0.5), 6, 0.3, 0, 0);
 }
 
 /* Glass Delete Button */
@@ -348,7 +368,7 @@
     -fx-background-color: rgba(200, 40, 40, 0.9);
     -fx-border-color: #ff6b6b;
     -fx-text-fill: white;
-    -fx-effect: dropshadow(gaussian, rgba(255, 80, 80, 0.6), 8, 0.4, 0, 0);
+    -fx-effect: dropshadow(two-pass-box, rgba(255, 80, 80, 0.5), 6, 0.3, 0, 0);
 }
 
 /* Toast Notification */
@@ -362,6 +382,42 @@
     -fx-font-size: 14px;
     -fx-font-weight: bold;
     -fx-padding: 8 24;
-    -fx-effect: dropshadow(gaussian, rgba(0, 186, 82, 0.6), 16, 0.4, 0, 4);
+    -fx-effect: dropshadow(two-pass-box, rgba(0, 186, 82, 0.5), 10, 0.3, 0, 2);
+}
+
+/* History Backlog Scroll Pane */
+.glass-scroll-pane {
+    -fx-background-color: transparent;
+    -fx-background: transparent;
+    -fx-padding: 0;
+}
+
+.glass-scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+.glass-scroll-pane .scroll-bar:vertical {
+    -fx-background-color: transparent;
+    -fx-pref-width: 8;
+}
+
+.glass-scroll-pane .scroll-bar:vertical .track {
+    -fx-background-color: rgba(255, 255, 255, 0.05);
+    -fx-background-radius: 4;
+}
+
+.glass-scroll-pane .scroll-bar:vertical .thumb {
+    -fx-background-color: rgba(0, 154, 68, 0.55);
+    -fx-background-radius: 4;
+}
+
+.glass-scroll-pane .scroll-bar:vertical .thumb:hover {
+    -fx-background-color: #00ba52;
+}
+
+.glass-scroll-pane .scroll-bar:vertical .increment-button,
+.glass-scroll-pane .scroll-bar:vertical .decrement-button {
+    -fx-pref-height: 0;
+    -fx-opacity: 0;
 }
 

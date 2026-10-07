@@ -6,11 +6,13 @@ import java.util.Queue;
 
 public class GameManager {
     private LinkedList<DialogueLine> currentSceneQueue;
+    private LinkedList<DialogueLine> dialogueHistoryQueue;
     private String currentCharacter;
     private int currentDay;
 
     public GameManager() {
         currentSceneQueue = new LinkedList<>();
+        dialogueHistoryQueue = new LinkedList<>();
         currentDay = 1;
     }
 
@@ -43,6 +45,46 @@ public class GameManager {
 
     public void setCurrentSceneQueue(LinkedList<DialogueLine> queue) {
         this.currentSceneQueue = queue != null ? new LinkedList<>(queue) : new LinkedList<>();
+    }
+
+    /**
+     * Records a screenbox dialogue line into the FIFO history queue.
+     * Prevents consecutive duplicates and safely handles null values.
+     */
+    public void recordDialogue(DialogueLine line) {
+        if (line != null) {
+            String spk = line.getSpeaker() != null ? line.getSpeaker() : "";
+            String txt = line.getText() != null ? line.getText() : "";
+            if (!dialogueHistoryQueue.isEmpty()) {
+                DialogueLine last = dialogueHistoryQueue.getLast();
+                if (last != null &&
+                    java.util.Objects.equals(last.getSpeaker(), spk) &&
+                    java.util.Objects.equals(last.getText(), txt)) {
+                    return;
+                }
+            }
+            dialogueHistoryQueue.add(new DialogueLine(spk, txt));
+        }
+    }
+
+    public void recordDialogue(String speaker, String text) {
+        recordDialogue(new DialogueLine(speaker, text));
+    }
+
+    public Queue<DialogueLine> getDialogueHistoryQueue() {
+        return new LinkedList<>(dialogueHistoryQueue);
+    }
+
+    public LinkedList<DialogueLine> getHistoryLinkedList() {
+        return new LinkedList<>(dialogueHistoryQueue);
+    }
+
+    public void setDialogueHistoryQueue(Queue<DialogueLine> queue) {
+        this.dialogueHistoryQueue = queue != null ? new LinkedList<>(queue) : new LinkedList<>();
+    }
+
+    public void clearDialogueHistory() {
+        this.dialogueHistoryQueue.clear();
     }
 
     public String getCurrentCharacter() {

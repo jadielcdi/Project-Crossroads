@@ -13,6 +13,7 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.CacheHint;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -30,6 +31,7 @@ import com.jadielsantiago.crossroadsvn.controller.GameManager;
 import com.jadielsantiago.crossroadsvn.controller.JSCParser;
 import com.jadielsantiago.crossroadsvn.controller.MainMenuController;
 import com.jadielsantiago.crossroadsvn.controller.MusicPlayer;
+import com.jadielsantiago.crossroadsvn.controller.ProgressManager;
 import com.jadielsantiago.crossroadsvn.controller.SaveManager;
 import com.jadielsantiago.crossroadsvn.model.*;
 
@@ -41,7 +43,6 @@ public class Main extends Application {
     // Pantone 347 C and Crossroads blue-adjacent/emerald palette
     private static final String COLOR_PANTONE_347C = "#009A44";
     private static final String COLOR_PANTONE_HOVER = "#00ba52";
-    private static final String COLOR_PANTONE_DARK = "#007A36";
 
     private GameManager gameManager;
     private MusicPlayer musicPlayer;
@@ -88,12 +89,6 @@ public class Main extends Application {
         root = new StackPane();
         root.setStyle("-fx-background-color: #2b2b2b;");
 
-        // Load modern glassmorphism design system stylesheet
-        java.net.URL cssUrl = getClass().getResource("/com/jadielsantiago/crossroadsvn/style/main_menu.css");
-        if (cssUrl != null) {
-            root.getStylesheets().add(cssUrl.toExternalForm());
-        }
-
         uiLayer = new StackPane();
         uiLayer.setPickOnBounds(false);
 
@@ -114,6 +109,7 @@ public class Main extends Application {
         showMainMenu();
 
         Scene scene = new Scene(root, 800, 600);
+        java.net.URL cssUrl = getClass().getResource("/com/jadielsantiago/crossroadsvn/style/main_menu.css");
         if (cssUrl != null) {
             scene.getStylesheets().add(cssUrl.toExternalForm());
         }
@@ -155,7 +151,9 @@ public class Main extends Application {
 
         // Dialogue Box setup with subtle Pantone 347 C border
         dialogueBox = new VBox(8);
-        dialogueBox.setStyle("-fx-background-color: rgba(255, 255, 255, 0.94); -fx-background-radius: 12; -fx-border-color: rgba(0, 154, 68, 0.35); -fx-border-width: 1.5; -fx-border-radius: 12; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.35), 14, 0, 0, 3);");
+        dialogueBox.setStyle("-fx-background-color: rgba(255, 255, 255, 0.94); -fx-background-radius: 12; -fx-border-color: rgba(0, 154, 68, 0.35); -fx-border-width: 1.5; -fx-border-radius: 12; -fx-effect: dropshadow(two-pass-box, rgba(0,0,0,0.3), 10, 0, 0, 3);");
+        dialogueBox.setCache(true);
+        dialogueBox.setCacheHint(CacheHint.SPEED);
         dialogueBox.setPadding(new Insets(16, 20, 16, 20));
         dialogueBox.setMaxHeight(160);
         dialogueBox.setOpacity(1.0);
@@ -209,7 +207,7 @@ public class Main extends Application {
         topMenuBtn.setOpacity(0.0); // Transparent until hover
 
         String normalStyle = "-fx-background-color: rgba(14, 38, 30, 0.85); -fx-text-fill: #cbf0de; -fx-font-size: 14px; -fx-font-weight: bold; -fx-padding: 7 18; -fx-background-radius: 18; -fx-cursor: hand; -fx-border-color: " + COLOR_PANTONE_347C + "; -fx-border-radius: 18; -fx-border-width: 1.5;";
-        String hoverStyle = "-fx-background-color: " + COLOR_PANTONE_347C + "; -fx-text-fill: white; -fx-font-size: 14px; -fx-font-weight: bold; -fx-padding: 7 18; -fx-background-radius: 18; -fx-cursor: hand; -fx-effect: dropshadow(gaussian, " + COLOR_PANTONE_347C + ", 10, 0.5, 0, 0);";
+        String hoverStyle = "-fx-background-color: " + COLOR_PANTONE_HOVER + "; -fx-text-fill: white; -fx-font-size: 14px; -fx-font-weight: bold; -fx-padding: 7 18; -fx-background-radius: 18; -fx-cursor: hand; -fx-effect: dropshadow(gaussian, " + COLOR_PANTONE_HOVER + ", 10, 0.5, 0, 0);";
 
         topMenuBtn.setStyle(normalStyle);
 
@@ -260,6 +258,13 @@ public class Main extends Application {
                             setDialogueHidden(false);
                         }
                         openSaveLoadMenu(SaveLoadView.Mode.SAVE);
+                    }
+                } else if (event.getCode() == KeyCode.H) {
+                    if (!isMenuOpen) {
+                        openSaveLoadMenu(SaveLoadView.Mode.SAVE);
+                        if (activeSaveLoadView != null) {
+                            activeSaveLoadView.showHistoryDialog();
+                        }
                     }
                 } else if (event.getCode() == KeyCode.V) {
                     if (!isMenuOpen) {
@@ -334,7 +339,8 @@ public class Main extends Application {
                 this::closeSaveLoadMenu,
                 this::showMainMenu,
                 Platform::exit,
-                musicPlayer
+                musicPlayer,
+                () -> gameManager.getDialogueHistoryQueue()
         );
 
         uiLayer.getChildren().add(activeSaveLoadView);
@@ -354,6 +360,11 @@ public class Main extends Application {
     }
 
     private void handleSaveSlot(int slotIndex, WritableImage screenshot) {
+        if (currentStoryId == 0) {
+            System.err.println("[Main] Cannot save game: No story currently active.");
+            return;
+        }
+
         String storyName = switch (currentStoryId) {
             case 1 -> "Jules's Story";
             case 2 -> "Maya's Story";
@@ -376,7 +387,8 @@ public class Main extends Application {
                 backgroundManager.getCurrentBackgroundPath(),
                 currentLine,
                 gameManager.getCurrentSceneQueue(),
-                isChoice
+                isChoice,
+                gameManager.getHistoryLinkedList()
         );
 
         SaveManager.saveGame(slotIndex, state, screenshot);
@@ -406,11 +418,16 @@ public class Main extends Application {
         }
 
         gameManager.setCurrentSceneQueue(state.getRemainingQueue());
+        gameManager.setDialogueHistoryQueue(state.getHistoryQueue());
 
         showDialogueScreen();
 
         speakerNameLabel.setText(state.getCurrentSpeaker());
         dialogueTextLabel.setText(state.getCurrentText());
+
+        if (gameManager.getDialogueHistoryQueue().isEmpty() && currentLine != null) {
+            gameManager.recordDialogue(currentLine);
+        }
 
         if (state.isChoiceActive() && currentLine instanceof Choice) {
             presentChoices((Choice) currentLine);
@@ -423,6 +440,7 @@ public class Main extends Application {
         backgroundManager.stopAmbientZoom();
         this.currentStoryId = storyId;
         this.currentSceneHeading = "";
+        gameManager.clearDialogueHistory();
         JSCParser.StoryMetadata meta = JSCParser.getStoryMetadata(storyId);
         Queue<DialogueLine> scene = JSCParser.loadStory(storyId);
 
@@ -472,11 +490,17 @@ public class Main extends Application {
             speakerNameLabel.setText(nextLine.getSpeaker());
             dialogueTextLabel.setText(nextLine.getText());
 
+            // Save screenbox dialogue text to history queue
+            gameManager.recordDialogue(nextLine);
+
             // If this line contains player choices, render them
             if (nextLine instanceof Choice) {
                 presentChoices((Choice) nextLine);
             }
         } else {
+            if (currentStoryId > 0) {
+                ProgressManager.recordStoryCompletion(currentStoryId);
+            }
             showMainMenu();
         }
     }
@@ -492,6 +516,7 @@ public class Main extends Application {
             optionBtn.setOnAction(e -> {
                 // Hide choice box and inject the selected branch
                 choiceBoxContainer.setVisible(false);
+                gameManager.recordDialogue("Decision", "► Chosen: \"" + option.getOptionText() + "\"");
                 gameManager.branchScene(option.getResultingBranch());
                 advanceDialogue();
             });

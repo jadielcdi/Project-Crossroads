@@ -401,9 +401,6 @@ public class JSCParser {
                 }
 
                 ChoiceNode newChoice = new ChoiceNode(speaker, promptText);
-                choiceIndent = indent;
-                activeChoice = newChoice;
-                activeOption = null;
 
                 // Add choice to either parent option or current section
                 if (activeOption != null && indent > optionIndent) {
@@ -411,6 +408,10 @@ public class JSCParser {
                 } else {
                     sections.get(currentSection).add(newChoice);
                 }
+
+                choiceIndent = indent;
+                activeChoice = newChoice;
+                activeOption = null;
                 continue;
             }
 
