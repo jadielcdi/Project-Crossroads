@@ -1,6 +1,7 @@
 package com.jadielsantiago.crossroadsvn.controller;
 
 import javafx.geometry.Rectangle2D;
+import javafx.scene.input.KeyCombination;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
@@ -97,6 +98,7 @@ public class SettingsManager {
             }
             stage.setWidth(logicalW);
             stage.setHeight(logicalH);
+            stage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
             if (fullScreen) {
                 stage.setFullScreen(true);
                 stage.setFullScreenExitHint("");

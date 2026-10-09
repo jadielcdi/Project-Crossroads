@@ -11,6 +11,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
+import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -333,6 +334,7 @@ public class SettingsView {
 
         fsToggleBtn.setOnAction(e -> {
             if (stage != null) {
+                stage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
                 boolean nextFs = !stage.isFullScreen();
                 stage.setFullScreen(nextFs);
                 stage.setFullScreenExitHint("");

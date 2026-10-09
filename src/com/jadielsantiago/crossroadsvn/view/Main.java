@@ -20,6 +20,7 @@ import javafx.scene.control.Label;
 import javafx.util.Duration;
 import javafx.scene.image.WritableImage;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -78,7 +79,8 @@ public class Main extends Application {
     private static final String NORA_MUSIC = MUSIC_DIR + "Nora_Test.mp3";
 
     // Background resource paths
-    private static final String MENU_BACKGROUND = "Test_Background.jpg";
+    private static final String MENU_BACKGROUND = "Crossroads Title Screen.jpg";
+    private static final String STORY_PLACEHOLDER_BACKGROUND = "Test_Background.jpg";
 
     public static void main(String[] args) {
         launch(args);
@@ -87,6 +89,8 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
+        primaryStage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
+        primaryStage.setFullScreenExitHint("");
         gameManager = new GameManager();
         musicPlayer = new MusicPlayer();
         backgroundManager = new Background_Manager();
@@ -134,10 +138,20 @@ public class Main extends Application {
             scene.getStylesheets().add(cssUrl.toExternalForm());
         }
 
+        scene.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.ESCAPE) {
+                if (mainMenuController != null) {
+                    mainMenuController.handleEscape();
+                }
+                event.consume();
+            }
+        });
+
         scene.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
             if (event.getCode() == KeyCode.F11) {
                 if (primaryStage != null) {
                     boolean nextFs = !primaryStage.isFullScreen();
+                    primaryStage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
                     primaryStage.setFullScreen(nextFs);
                     primaryStage.setFullScreenExitHint("");
                     SettingsManager.setFullScreen(nextFs);
@@ -149,6 +163,7 @@ public class Main extends Application {
 
         primaryStage.setTitle("Project Crossroads - VN Engine");
         primaryStage.setScene(scene);
+        primaryStage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
         if (SettingsManager.isFullScreen()) {
             primaryStage.setFullScreen(true);
             primaryStage.setFullScreenExitHint("");
@@ -164,7 +179,14 @@ public class Main extends Application {
         uiLayer.getChildren().clear();
         root.setOnMouseClicked(null);
         if (root.getScene() != null) {
-            root.getScene().setOnKeyPressed(null);
+            root.getScene().setOnKeyPressed(event -> {
+                if (event.getCode() == KeyCode.ESCAPE) {
+                    if (mainMenuController != null) {
+                        mainMenuController.handleEscape();
+                    }
+                    event.consume();
+                }
+            });
         }
 
         // Set main menu background, start ambient breathing zoom loop, and play music
@@ -291,13 +313,18 @@ public class Main extends Application {
             root.getScene().setOnKeyPressed(event -> {
                 if (event.getCode() == KeyCode.ESCAPE) {
                     if (isMenuOpen) {
-                        closeSaveLoadMenu();
+                        if (activeSaveLoadView != null && activeSaveLoadView.isModalOpen()) {
+                            activeSaveLoadView.closeModal();
+                        } else {
+                            closeSaveLoadMenu();
+                        }
                     } else {
                         if (isDialogueHidden) {
                             setDialogueHidden(false);
                         }
                         openSaveLoadMenu(SaveLoadView.Mode.SAVE);
                     }
+                    event.consume();
                 } else if (event.getCode() == KeyCode.H) {
                     if (!isMenuOpen) {
                         openSaveLoadMenu(SaveLoadView.Mode.SAVE);
@@ -305,24 +332,29 @@ public class Main extends Application {
                             activeSaveLoadView.showHistoryDialog();
                         }
                     }
+                    event.consume();
                 } else if (event.getCode() == KeyCode.F11) {
                     if (primaryStage != null) {
                         boolean nextFs = !primaryStage.isFullScreen();
+                        primaryStage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
                         primaryStage.setFullScreen(nextFs);
                         primaryStage.setFullScreenExitHint("");
                         SettingsManager.setFullScreen(nextFs);
                         SettingsManager.saveSettings();
                     }
+                    event.consume();
                 } else if (event.getCode() == KeyCode.V) {
                     if (!isMenuOpen) {
                         toggleDialogueHidden();
                     }
+                    event.consume();
                 } else if (event.getCode() == KeyCode.SPACE) {
                     if (isDialogueHidden) {
                         setDialogueHidden(false);
                     } else if (!isMenuOpen) {
                         advanceDialogue();
                     }
+                    event.consume();
                 }
             });
         }
@@ -391,6 +423,21 @@ public class Main extends Application {
         );
 
         uiLayer.getChildren().add(activeSaveLoadView);
+
+        if (currentStoryId == 0 && root.getScene() != null) {
+            root.getScene().setOnKeyPressed(event -> {
+                if (event.getCode() == KeyCode.ESCAPE) {
+                    if (isMenuOpen) {
+                        if (activeSaveLoadView != null && activeSaveLoadView.isModalOpen()) {
+                            activeSaveLoadView.closeModal();
+                        } else {
+                            closeSaveLoadMenu();
+                        }
+                    }
+                    event.consume();
+                }
+            });
+        }
     }
 
     private void closeSaveLoadMenu() {
@@ -460,8 +507,10 @@ public class Main extends Application {
             musicPlayer.play(currentMusicTrack);
         }
 
-        if (state.getCurrentBackground() != null) {
+        if (state.getCurrentBackground() != null && !state.getCurrentBackground().isEmpty()) {
             backgroundManager.setBackground(state.getCurrentBackground());
+        } else {
+            backgroundManager.setBackground(STORY_PLACEHOLDER_BACKGROUND);
         }
 
         gameManager.setCurrentSceneQueue(state.getRemainingQueue());
@@ -485,6 +534,7 @@ public class Main extends Application {
 
     private void startStory(int storyId) {
         backgroundManager.stopAmbientZoom();
+        backgroundManager.setBackground(STORY_PLACEHOLDER_BACKGROUND);
         this.currentStoryId = storyId;
         this.currentSceneHeading = "";
         gameManager.clearDialogueHistory();

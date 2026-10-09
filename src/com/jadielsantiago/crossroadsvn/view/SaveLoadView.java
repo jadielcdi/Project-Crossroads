@@ -853,6 +853,14 @@ public class SaveLoadView extends StackPane {
         ft.play();
     }
 
+    public boolean isModalOpen() {
+        return modalOverlay != null && modalOverlay.isVisible();
+    }
+
+    public void closeModal() {
+        hideModal();
+    }
+
     private void attachHoverSlideAnimation(Button btn, double slideX) {
         btn.setCache(true);
         btn.setCacheHint(CacheHint.SPEED);

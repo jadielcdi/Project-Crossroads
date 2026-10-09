@@ -27,10 +27,11 @@ public class Background_Manager {
     public Background_Manager() {
         this.backgroundImageView = new ImageView();
         this.backgroundPane = new StackPane(backgroundImageView);
+        backgroundPane.setStyle("-fx-background-color: #070e0b;");
 
-        // Configure image rendering for landscape backgrounds
+        // Configure image rendering to strictly preserve aspect ratio without stretching or distortion
         backgroundImageView.setSmooth(true);
-        backgroundImageView.setPreserveRatio(false);
+        backgroundImageView.setPreserveRatio(true);
 
         // Hardware texture caching for high-framerate ambient scaling
         backgroundImageView.setCache(true);
@@ -38,9 +39,15 @@ public class Background_Manager {
         backgroundPane.setCache(true);
         backgroundPane.setCacheHint(CacheHint.SPEED);
 
-        // Bind image dimensions to container dimensions so it scales with the window
+        // Bind image dimensions to container dimensions so it scales dynamically with any resolution
         backgroundImageView.fitWidthProperty().bind(backgroundPane.widthProperty());
         backgroundImageView.fitHeightProperty().bind(backgroundPane.heightProperty());
+
+        // Dynamic clip ensures scaling/ambient zoom stays cleanly bounded to the window
+        javafx.scene.shape.Rectangle clip = new javafx.scene.shape.Rectangle();
+        clip.widthProperty().bind(backgroundPane.widthProperty());
+        clip.heightProperty().bind(backgroundPane.heightProperty());
+        backgroundPane.setClip(clip);
     }
 
     /**
@@ -133,11 +140,11 @@ public class Background_Manager {
      */
     public void startAmbientZoom() {
         if (ambientZoomTransition == null) {
-            ambientZoomTransition = new ScaleTransition(Duration.seconds(16), backgroundImageView);
+            ambientZoomTransition = new ScaleTransition(Duration.seconds(18), backgroundImageView);
             ambientZoomTransition.setFromX(1.0);
             ambientZoomTransition.setFromY(1.0);
-            ambientZoomTransition.setToX(1.07);
-            ambientZoomTransition.setToY(1.07);
+            ambientZoomTransition.setToX(1.025);
+            ambientZoomTransition.setToY(1.025);
             ambientZoomTransition.setCycleCount(Animation.INDEFINITE);
             ambientZoomTransition.setAutoReverse(true);
             ambientZoomTransition.setInterpolator(Interpolator.EASE_BOTH);
