@@ -17,7 +17,9 @@ import javafx.scene.CacheHint;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.util.Duration;
+import javafx.scene.effect.GaussianBlur;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCombination;
@@ -28,6 +30,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import com.jadielsantiago.crossroadsvn.controller.Background_Manager;
 import com.jadielsantiago.crossroadsvn.controller.GameManager;
@@ -48,6 +51,9 @@ public class Main extends Application {
     private static final String COLOR_PANTONE_347C = "#009A44";
     private static final String COLOR_PANTONE_HOVER = "#00ba52";
 
+    public static final double VIRTUAL_WIDTH = 1280.0;
+    public static final double VIRTUAL_HEIGHT = 720.0;
+
     private Stage primaryStage;
     private GameManager gameManager;
     private MusicPlayer musicPlayer;
@@ -60,7 +66,11 @@ public class Main extends Application {
     private Label speakerNameLabel;
     private Label dialogueTextLabel;
     private VBox choiceBoxContainer; // Holds choice buttons
-    private StackPane root;
+    private StackPane appRoot; // Outer full-window viewport container
+    private StackPane ambientBackdropPane; // Ambient blurred backdrop container
+    private ImageView ambientBackdropView; // Blurred image view reflecting active scene colors
+    private StackPane root; // Fixed 16:9 game canvas (1280x720)
+    private StackPane characterLayer; // Dedicated 1280x720 character sprite layer (sits between background and UI)
     private StackPane uiLayer; // UI container layered on top of the background
 
     // Active gameplay state tracking
@@ -91,6 +101,8 @@ public class Main extends Application {
         this.primaryStage = primaryStage;
         primaryStage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
         primaryStage.setFullScreenExitHint("");
+        primaryStage.setMinWidth(640);
+        primaryStage.setMinHeight(360);
         gameManager = new GameManager();
         musicPlayer = new MusicPlayer();
         backgroundManager = new Background_Manager();
@@ -99,14 +111,77 @@ public class Main extends Application {
         musicPlayer.setVolume(SettingsManager.getMusicVolume());
         musicPlayer.setMuted(SettingsManager.isMusicMuted());
 
+        // Fixed 16:9 game canvas container
         root = new StackPane();
-        root.setStyle("-fx-background-color: #2b2b2b;");
+        root.setStyle("-fx-background-color: #070e0b;");
+        root.setPrefSize(VIRTUAL_WIDTH, VIRTUAL_HEIGHT);
+        root.setMinSize(VIRTUAL_WIDTH, VIRTUAL_HEIGHT);
+        root.setMaxSize(VIRTUAL_WIDTH, VIRTUAL_HEIGHT);
+
+        // Dynamic clip ensures scaling and ambient zoom stays cleanly bounded to the 16:9 canvas
+        javafx.scene.shape.Rectangle gameClip = new javafx.scene.shape.Rectangle(VIRTUAL_WIDTH, VIRTUAL_HEIGHT);
+        root.setClip(gameClip);
 
         uiLayer = new StackPane();
         uiLayer.setPickOnBounds(false);
 
-        // Layer stack: base background layer -> UI layer (future sprite layer will sit between them)
-        root.getChildren().addAll(backgroundManager.getBackgroundPane(), uiLayer);
+        // Dedicated character sprite layer locked to the 1280x720 virtual coordinate space
+        characterLayer = new StackPane();
+        characterLayer.setPrefSize(VIRTUAL_WIDTH, VIRTUAL_HEIGHT);
+        characterLayer.setMinSize(VIRTUAL_WIDTH, VIRTUAL_HEIGHT);
+        characterLayer.setMaxSize(VIRTUAL_WIDTH, VIRTUAL_HEIGHT);
+        characterLayer.setPickOnBounds(false);
+
+        // Layer stack: base background layer -> character sprite layer -> UI layer
+        root.getChildren().addAll(backgroundManager.getBackgroundPane(), characterLayer, uiLayer);
+
+        // Ambient blurred backdrop: takes active scene/title artwork colors and creates a soft glowing letterbox
+        ambientBackdropView = new ImageView();
+        ambientBackdropView.setSmooth(true);
+        ambientBackdropView.setPreserveRatio(true);
+        ambientBackdropView.setCache(true);
+        ambientBackdropView.setCacheHint(CacheHint.SPEED);
+
+        GaussianBlur ambientBlur = new GaussianBlur(75);
+        ambientBackdropView.setEffect(ambientBlur);
+
+        // Mirror active background image
+        ambientBackdropView.imageProperty().bind(backgroundManager.getImageView().imageProperty());
+        ambientBackdropView.imageProperty().addListener((obs, oldImg, newImg) -> {
+            if (newImg != null && newImg.getProgress() < 1.0) {
+                newImg.progressProperty().addListener((o, op, np) -> {
+                    if (np.doubleValue() >= 1.0) {
+                        updateAmbientBackdropScaling();
+                    }
+                });
+            }
+            updateAmbientBackdropScaling();
+        });
+
+        // Ambient tint overlay for subtle, cinematic darkening
+        StackPane ambientTintOverlay = new StackPane();
+        ambientTintOverlay.setStyle("-fx-background-color: rgba(7, 14, 11, 0.48);");
+
+        ambientBackdropPane = new StackPane(ambientBackdropView, ambientTintOverlay);
+        ambientBackdropPane.setStyle("-fx-background-color: #070e0b;");
+
+        javafx.scene.shape.Rectangle ambientClip = new javafx.scene.shape.Rectangle();
+        ambientClip.widthProperty().bind(ambientBackdropPane.widthProperty());
+        ambientClip.heightProperty().bind(ambientBackdropPane.heightProperty());
+        ambientBackdropPane.setClip(ambientClip);
+
+        // Outer viewport container housing ambient blurred glow and framed 16:9 game canvas
+        appRoot = new StackPane(ambientBackdropPane, root);
+        StackPane.setAlignment(root, Pos.CENTER);
+
+        // Letterboxing and proportional 16:9 viewport scaling
+        javafx.beans.value.ChangeListener<Number> resizeListener = (obs, oldVal, newVal) -> updateViewportScale();
+        appRoot.widthProperty().addListener(resizeListener);
+        appRoot.heightProperty().addListener(resizeListener);
+
+        primaryStage.fullScreenProperty().addListener((obs, oldVal, newVal) -> {
+            Platform.runLater(this::updateViewportScale);
+        });
 
         hoverUnhideTimer = new PauseTransition(Duration.seconds(2));
         hoverUnhideTimer.setOnFinished(e -> setDialogueHidden(false));
@@ -132,7 +207,7 @@ public class Main extends Application {
         } catch (Throwable ignored) {
         }
 
-        Scene scene = new Scene(root, initWidth, initHeight);
+        Scene scene = new Scene(appRoot, initWidth, initHeight);
         java.net.URL cssUrl = getClass().getResource("/com/jadielsantiago/crossroadsvn/style/main_menu.css");
         if (cssUrl != null) {
             scene.getStylesheets().add(cssUrl.toExternalForm());
@@ -156,6 +231,7 @@ public class Main extends Application {
                     primaryStage.setFullScreenExitHint("");
                     SettingsManager.setFullScreen(nextFs);
                     SettingsManager.saveSettings();
+                    Platform.runLater(this::updateViewportScale);
                     event.consume();
                 }
             }
@@ -170,6 +246,57 @@ public class Main extends Application {
         }
         primaryStage.show();
         primaryStage.centerOnScreen();
+        Platform.runLater(this::updateViewportScale);
+    }
+
+    /**
+     * Dynamically scales the 16:9 game viewport to fit any window/display resolution
+     * while strictly maintaining the 16:9 aspect ratio and letterboxing/pillarboxing outer margins.
+     */
+    private void updateViewportScale() {
+        if (appRoot == null || root == null) {
+            return;
+        }
+        double w = appRoot.getWidth();
+        double h = appRoot.getHeight();
+        if (w <= 0 || h <= 0) {
+            return;
+        }
+        double scale = Math.min(w / VIRTUAL_WIDTH, h / VIRTUAL_HEIGHT);
+        if (scale > 0) {
+            root.setScaleX(scale);
+            root.setScaleY(scale);
+        }
+        updateAmbientBackdropScaling();
+    }
+
+    /**
+     * Dynamically scales the ambient blurred backdrop image to completely cover
+     * the full window with a slight bleed margin for seamless edge blending.
+     */
+    private void updateAmbientBackdropScaling() {
+        if (ambientBackdropView == null || appRoot == null) {
+            return;
+        }
+        Image img = ambientBackdropView.getImage();
+        if (img == null) {
+            return;
+        }
+        double w = appRoot.getWidth();
+        double h = appRoot.getHeight();
+        if (w <= 0 || h <= 0) {
+            return;
+        }
+        double iw = img.getWidth();
+        double ih = img.getHeight();
+        if (iw <= 0 || ih <= 0) {
+            return;
+        }
+
+        // Cover scale with 12% bleed margin so blurred edges don't fade to black at screen borders
+        double scale = Math.max(w / iw, h / ih) * 1.12;
+        ambientBackdropView.setFitWidth(iw * scale);
+        ambientBackdropView.setFitHeight(ih * scale);
     }
 
     private void showMainMenu() {
@@ -177,7 +304,13 @@ public class Main extends Application {
         activeSaveLoadView = null;
         currentStoryId = 0;
         uiLayer.getChildren().clear();
+        if (characterLayer != null) {
+            characterLayer.getChildren().clear();
+        }
         root.setOnMouseClicked(null);
+        if (appRoot != null) {
+            appRoot.setOnMouseClicked(null);
+        }
         if (root.getScene() != null) {
             root.getScene().setOnKeyPressed(event -> {
                 if (event.getCode() == KeyCode.ESCAPE) {
@@ -213,8 +346,7 @@ public class Main extends Application {
         // Dialogue Box setup with subtle Pantone 347 C border
         dialogueBox = new VBox(8);
         dialogueBox.setStyle("-fx-background-color: rgba(255, 255, 255, 0.94); -fx-background-radius: 12; -fx-border-color: rgba(0, 154, 68, 0.35); -fx-border-width: 1.5; -fx-border-radius: 12; -fx-effect: dropshadow(two-pass-box, rgba(0,0,0,0.3), 10, 0, 0, 3);");
-        dialogueBox.setCache(true);
-        dialogueBox.setCacheHint(CacheHint.SPEED);
+        // Dialogue box intentionally leaves bitmap caching disabled to preserve razor-sharp vector text on 1080p/1440p/4K displays
         dialogueBox.setPadding(new Insets(16, 20, 16, 20));
         dialogueBox.setMaxHeight(160);
         dialogueBox.setOpacity(1.0);
@@ -297,7 +429,7 @@ public class Main extends Application {
 
         uiLayer.getChildren().addAll(dialogueHoverZone, dialogueBox, choiceBoxContainer, menuHitArea);
 
-        // Click on background: if dialogue is hidden, unhide it; otherwise advance dialogue
+        // Click on background or letterbox margins: if dialogue is hidden, unhide it; otherwise advance dialogue
         root.setOnMouseClicked(event -> {
             if (isDialogueHidden) {
                 setDialogueHidden(false);
@@ -307,6 +439,18 @@ public class Main extends Application {
                 advanceDialogue();
             }
         });
+
+        if (appRoot != null) {
+            appRoot.setOnMouseClicked(event -> {
+                if (isDialogueHidden) {
+                    setDialogueHidden(false);
+                    return;
+                }
+                if (!isMenuOpen && currentStoryId > 0) {
+                    advanceDialogue();
+                }
+            });
+        }
 
         // Key bindings: SPACE advances dialogue, ESCAPE toggles menu, V toggles dialogue visibility
         if (root.getScene() != null) {
@@ -622,5 +766,13 @@ public class Main extends Application {
         }
 
         choiceBoxContainer.setVisible(true);
+    }
+
+    /**
+     * Returns the dedicated 1280x720 character sprite layer positioned between
+     * the background layer and the UI layer.
+     */
+    public StackPane getCharacterLayer() {
+        return characterLayer;
     }
 }
