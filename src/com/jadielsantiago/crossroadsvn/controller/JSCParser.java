@@ -33,17 +33,80 @@ import java.util.Set;
  * JSCParser - Custom Script Parser & Story Tracker for Project Crossroads.
  *
  * Reads and interprets .jsc (Jadiel Santiago Crossroads) screenplay scripts,
- * translating human-readable text into DialogueLine and Choice queues.
+ * translating human-readable screenplay text into DialogueLine and Choice queues.
  *
- * Syntax specification:
- * # or // - Comments (ignored)
- * :: section_name - Defines a named story section or branch
- * -> section_name - Jump / continuation to a named section
- * ? [Speaker:] Prompt - Defines a choice prompt (defaults Speaker to Narrator)
- * > Option text - Defines a choice option
- * Speaker: Text - Regular dialogue line (\n supported for line breaks)
- * 
- * @command args - Metadata and scene directives (@background, @music, etc.)
+ * ==============================================================================
+ * SCREENPLAY SYNTAX SPECIFICATION
+ * ==============================================================================
+ *
+ * 1. COMMENTS & STRUCTURE
+ *    # comment or // comment  - Ignored lines for writer notes
+ *    :: section_name           - Defines a named story section or branch
+ *    -> section_name           - Jump / branch continuation to a named section
+ *
+ * 2. PLAYER CHOICES & BRANCHING
+ *    ? [Speaker:] Prompt text  - Defines a choice prompt (defaults Speaker to Narrator)
+ *    > Option text             - Defines a selectable choice option
+ *
+ * 3. METADATA DIRECTIVES
+ *    @title String             - Sets story title
+ *    @character String         - Sets protagonist name
+ *    @music classpath_path     - Sets default background music track
+ *
+ * 4. CHARACTER STAGING & MULTI-CHARACTER POSITIONS
+ *    Characters are rendered within the 1280x720 virtual coordinate space across
+ *    three dedicated stage position slots:
+ *      - 'left'   (anchored bottom-left, with a 100px inset margin)
+ *      - 'middle' (anchored bottom-center, centered at x=640px)
+ *      - 'right'  (anchored bottom-right, with a 100px inset margin)
+ *
+ *    All characters on stage maintain full 1.0 opacity at all times regardless of
+ *    who is speaking. Up to three characters can appear on screen simultaneously.
+ *
+ *    A. SILENT STAGING (CHARACTERS APPEAR EVEN IF THEY DON'T SPEAK)
+ *       Writers can stage one or more characters on screen who are not speaking by
+ *       placing their directive on standalone lines immediately preceding a dialogue
+ *       or narration line:
+ *
+ *       Example - Staging Nora and Maya while Jules speaks:
+ *         Nora_MonsterEnergy(middle)
+ *         Maya_Happy(left)
+ *         Jules_Stressed(right): (V.O.) Six rewrites. Six...
+ *
+ *       Example - Staging characters during narration:
+ *         Nora_MonsterEnergy(middle)
+ *         Maya_Happy(left)
+ *         Narrator: All three students sit in the café in absolute silence.
+ *
+ *       The parser automatically bundles these standalone directives into the upcoming
+ *       line's stage setup without forcing the player to click through empty dialogue boxes.
+ *
+ *    B. SPEAKING CHARACTER SPRITE DIRECTIVES
+ *       When a character speaks while summoning or updating their sprite:
+ *         Pattern 1: Character_Expression(position): Dialogue text
+ *                    e.g. Jules_Stressed(right): Six rewrites. Six...
+ *         Pattern 2: Character(expression, position): Dialogue text
+ *                    e.g. Jules(Stressed, right): Six rewrites. Six...
+ *
+ *       The engine automatically sanitizes the speaker label so the UI badge
+ *       cleanly displays "Jules" rather than the technical expression string.
+ *
+ *    C. UPDATING EXPRESSIONS FOR CHARACTERS ALREADY ON STAGE
+ *       If a character is already standing on stage, writers can update their expression
+ *       without re-specifying the position:
+ *         Jules_Thinking: Let me check the compiler logs again.
+ *       The engine looks up Jules's current slot (e.g. 'right') and smoothly crossfades
+ *       from Stressed to Thinking in place.
+ *
+ *    D. INLINE STAGE DIRECTIVES (MID-DIALOGUE)
+ *       Writers can also summon or dismiss characters inline inside dialogue text:
+ *         [SPRITE: Character_Expression, position] -> e.g. [SPRITE: Maya_Happy, left]
+ *         [HIDE: position]                         -> e.g. [HIDE: left] or [HIDE: middle]
+ *         [HIDE: all]                              -> Clears all characters from stage
+ *
+ *       Inline tags are automatically executed by the engine and stripped from the
+ *       displayed text, so the player never sees the bracketed syntax.
+ * ==============================================================================
  */
 public class JSCParser {
 
@@ -329,6 +392,15 @@ public class JSCParser {
         return parse(reader, null);
     }
 
+    private static final java.util.regex.Pattern STANDALONE_SPRITE_PAT_A =
+            java.util.regex.Pattern.compile("^([A-Za-z0-9_]+)_([A-Za-z0-9_]+)\\s*\\(\\s*([A-Za-z]+)\\s*\\):?$");
+    private static final java.util.regex.Pattern STANDALONE_SPRITE_PAT_B =
+            java.util.regex.Pattern.compile("^([A-Za-z0-9_]+)\\s*\\(\\s*([A-Za-z0-9_]+)\\s*,\\s*([A-Za-z]+)\\s*\\):?$");
+    private static final java.util.regex.Pattern STANDALONE_BRACKET_TAG =
+            java.util.regex.Pattern.compile("^\\[(?i)(SPRITE|HIDE):[^\\]]+\\]$");
+    private static final java.util.regex.Pattern STANDALONE_HIDE_PAT =
+            java.util.regex.Pattern.compile("^(?i)(?:HIDE|CLEAR):\\s*([A-Za-z0-9_]+)$");
+
     /**
      * Internal reader-based parser that binds metadata directives without adding them to player dialogue.
      */
@@ -341,6 +413,7 @@ public class JSCParser {
         ChoiceOptionNode activeOption = null;
         int choiceIndent = 0;
         int optionIndent = 0;
+        StringBuilder pendingDirectives = new StringBuilder();
 
         String rawLine;
         while ((rawLine = reader.readLine()) != null) {
@@ -400,6 +473,11 @@ public class JSCParser {
                     }
                 }
 
+                if (pendingDirectives.length() > 0) {
+                    promptText = pendingDirectives.toString() + promptText;
+                    pendingDirectives.setLength(0);
+                }
+
                 ChoiceNode newChoice = new ChoiceNode(speaker, promptText);
 
                 // Add choice to either parent option or current section
@@ -437,8 +515,36 @@ public class JSCParser {
                 continue;
             }
 
+            // Standalone stage / sprite directives (e.g. "Nora_MonsterEnergy(middle)", "Maya_Happy(left)", "[HIDE: left]")
+            java.util.regex.Matcher matSA = STANDALONE_SPRITE_PAT_A.matcher(trimmed);
+            if (matSA.matches()) {
+                pendingDirectives.append("[SPRITE: ").append(matSA.group(1)).append("_").append(matSA.group(2))
+                        .append(", ").append(matSA.group(3)).append("] ");
+                continue;
+            }
+            java.util.regex.Matcher matSB = STANDALONE_SPRITE_PAT_B.matcher(trimmed);
+            if (matSB.matches()) {
+                pendingDirectives.append("[SPRITE: ").append(matSB.group(1)).append("_").append(matSB.group(2))
+                        .append(", ").append(matSB.group(3)).append("] ");
+                continue;
+            }
+            if (STANDALONE_BRACKET_TAG.matcher(trimmed).matches()) {
+                pendingDirectives.append(trimmed).append(" ");
+                continue;
+            }
+            java.util.regex.Matcher matHide = STANDALONE_HIDE_PAT.matcher(trimmed);
+            if (matHide.matches()) {
+                pendingDirectives.append("[HIDE: ").append(matHide.group(1)).append("] ");
+                continue;
+            }
+
             // Regular Dialogue Line: Speaker: Text
             DialogueNode dialogueNode = parseDialogue(trimmed);
+            if (pendingDirectives.length() > 0) {
+                dialogueNode = new DialogueNode(dialogueNode.speaker, pendingDirectives.toString() + dialogueNode.text);
+                pendingDirectives.setLength(0);
+            }
+
             if (activeOption != null && indent > optionIndent) {
                 activeOption.inlineNodes.add(dialogueNode);
             } else {

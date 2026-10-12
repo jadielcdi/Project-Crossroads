@@ -33,6 +33,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import com.jadielsantiago.crossroadsvn.controller.Background_Manager;
+import com.jadielsantiago.crossroadsvn.controller.CharacterManager;
 import com.jadielsantiago.crossroadsvn.controller.GameManager;
 import com.jadielsantiago.crossroadsvn.controller.JSCParser;
 import com.jadielsantiago.crossroadsvn.controller.MainMenuController;
@@ -58,6 +59,7 @@ public class Main extends Application {
     private GameManager gameManager;
     private MusicPlayer musicPlayer;
     private Background_Manager backgroundManager;
+    private CharacterManager characterManager;
     private MainMenuController mainMenuController;
     private VBox dialogueBox;
     private Region dialogueHoverZone;
@@ -134,6 +136,8 @@ public class Main extends Application {
 
         // Layer stack: base background layer -> character sprite layer -> UI layer
         root.getChildren().addAll(backgroundManager.getBackgroundPane(), characterLayer, uiLayer);
+
+        characterManager = new CharacterManager(characterLayer);
 
         // Ambient blurred backdrop: takes active scene/title artwork colors and creates a soft glowing letterbox
         ambientBackdropView = new ImageView();
@@ -304,7 +308,9 @@ public class Main extends Application {
         activeSaveLoadView = null;
         currentStoryId = 0;
         uiLayer.getChildren().clear();
-        if (characterLayer != null) {
+        if (characterManager != null) {
+            characterManager.clearAllCharacters();
+        } else if (characterLayer != null) {
             characterLayer.getChildren().clear();
         }
         root.setOnMouseClicked(null);
@@ -662,6 +668,10 @@ public class Main extends Application {
 
         showDialogueScreen();
 
+        if (characterManager != null) {
+            characterManager.clearAllCharacters();
+        }
+
         speakerNameLabel.setText(state.getCurrentSpeaker());
         dialogueTextLabel.setText(state.getCurrentText());
 
@@ -702,6 +712,9 @@ public class Main extends Application {
             if (currentMusicTrack != null) {
                 musicPlayer.play(currentMusicTrack);
             }
+            if (characterManager != null) {
+                characterManager.clearAllCharacters();
+            }
             showDialogueScreen();
             advanceDialogue();
         } else {
@@ -719,8 +732,11 @@ public class Main extends Application {
         this.currentLine = nextLine;
 
         if (nextLine != null) {
+            // Process sprite directives from speaker tags (e.g. Jules_Stressed(left)) and inline text tags
+            ParsedDialogue parsed = processSpriteDirectives(nextLine);
+
             // Track scene headings for save state labels
-            String text = nextLine.getText();
+            String text = parsed.cleanText();
             if (text != null && text.startsWith("[Scene")) {
                 int closingBracket = text.indexOf(']');
                 if (closingBracket != -1) {
@@ -728,11 +744,15 @@ public class Main extends Application {
                 }
             }
 
-            speakerNameLabel.setText(nextLine.getSpeaker());
-            dialogueTextLabel.setText(nextLine.getText());
+            speakerNameLabel.setText(parsed.cleanSpeaker());
+            dialogueTextLabel.setText(parsed.cleanText());
 
-            // Save screenbox dialogue text to history queue
-            gameManager.recordDialogue(nextLine);
+            if (characterManager != null) {
+                characterManager.highlightSpeaker(parsed.cleanSpeaker());
+            }
+
+            // Save screenbox dialogue text to history queue with clean speaker and text
+            gameManager.recordDialogue(parsed.cleanSpeaker(), parsed.cleanText());
 
             // If this line contains player choices, render them
             if (nextLine instanceof Choice) {
@@ -774,5 +794,178 @@ public class Main extends Application {
      */
     public StackPane getCharacterLayer() {
         return characterLayer;
+    }
+
+    /**
+     * Returns the active CharacterManager instance.
+     */
+    public CharacterManager getCharacterManager() {
+        return characterManager;
+    }
+
+    /**
+     * Displays a character sprite at the specified position.
+     */
+    public void showCharacter(String characterId, String expressionOrPose, CharacterPosition position) {
+        if (characterManager != null) {
+            characterManager.showCharacter(characterId, expressionOrPose, position);
+        }
+    }
+
+    /**
+     * Hides the character sprite at the specified position.
+     */
+    public void hideCharacter(CharacterPosition position) {
+        if (characterManager != null) {
+            characterManager.hideCharacter(position);
+        }
+    }
+
+    /**
+     * Clears all character sprites from the stage.
+     */
+    public void clearAllCharacters() {
+        if (characterManager != null) {
+            characterManager.clearAllCharacters();
+        }
+    }
+
+    /**
+     * Sets the opacity of a character position slot (useful for dimming inactive speakers).
+     */
+    public void setCharacterPositionOpacity(CharacterPosition position, double opacity) {
+        if (characterManager != null) {
+            characterManager.setPositionOpacity(position, opacity);
+        }
+    }
+
+    /**
+     * Data record containing sanitized speaker name and cleaned dialogue text.
+     */
+    private record ParsedDialogue(String cleanSpeaker, String cleanText) {}
+
+    /**
+     * Parses speaker strings (e.g. "Jules_Stressed(left)", "Jules(Stressed, left)")
+     * and inline dialogue text tags (e.g. "[SPRITE: Jules_Stressed, left]", "[HIDE: left]")
+     * to dynamically invoke the CharacterManager while displaying a clean speaker name on screen.
+     */
+    private ParsedDialogue processSpriteDirectives(DialogueLine line) {
+        if (line == null) {
+            return new ParsedDialogue("Speaker", "");
+        }
+
+        String rawSpeaker = line.getSpeaker() != null ? line.getSpeaker() : "";
+        String rawText = line.getText() != null ? line.getText() : "";
+        String cleanSpeaker = rawSpeaker;
+        String cleanText = rawText;
+
+        // 1. Check for speaker tag syntax: e.g. "Jules_Stressed(left)" or "Jules(Stressed, left)"
+        // Pattern A: Character_Expression(position) -> e.g. Jules_Stressed(left)
+        java.util.regex.Pattern patA = java.util.regex.Pattern.compile("^([A-Za-z0-9_]+)_([A-Za-z0-9_]+)\\s*\\(\\s*([A-Za-z]+)\\s*\\)$");
+        java.util.regex.Matcher matA = patA.matcher(rawSpeaker.trim());
+        if (matA.matches()) {
+            String charId = matA.group(1);
+            String expression = matA.group(2);
+            CharacterPosition pos = CharacterPosition.fromString(matA.group(3));
+            cleanSpeaker = charId;
+            if (characterManager != null) {
+                characterManager.showCharacter(charId, expression, pos);
+            }
+        } else {
+            // Pattern B: Character(expression, position) -> e.g. Jules(Stressed, left)
+            java.util.regex.Pattern patB = java.util.regex.Pattern.compile("^([A-Za-z0-9_]+)\\s*\\(\\s*([A-Za-z0-9_]+)\\s*,\\s*([A-Za-z]+)\\s*\\)$");
+            java.util.regex.Matcher matB = patB.matcher(rawSpeaker.trim());
+            if (matB.matches()) {
+                String charId = matB.group(1);
+                String expression = matB.group(2);
+                CharacterPosition pos = CharacterPosition.fromString(matB.group(3));
+                cleanSpeaker = charId;
+                if (characterManager != null) {
+                    characterManager.showCharacter(charId, expression, pos);
+                }
+            } else {
+                // Pattern C: Character_Expression -> e.g. Jules_Stressed
+                java.util.regex.Pattern patC = java.util.regex.Pattern.compile("^([A-Za-z0-9_]+)_([A-Za-z0-9_]+)$");
+                java.util.regex.Matcher matC = patC.matcher(rawSpeaker.trim());
+                if (matC.matches()) {
+                    String charId = matC.group(1);
+                    String expression = matC.group(2);
+                    cleanSpeaker = charId;
+                    if (characterManager != null) {
+                        CharacterPosition pos = findCharacterPositionOrMiddle(charId);
+                        characterManager.showCharacter(charId, expression, pos);
+                    }
+                }
+            }
+        }
+
+        // 2. Check for inline bracket tags in dialogue text: e.g. [SPRITE: Jules_Stressed, left] or [HIDE: left]
+        if (cleanText.contains("[SPRITE:") || cleanText.contains("[sprite:")) {
+            java.util.regex.Pattern spriteTagPat = java.util.regex.Pattern.compile("\\[(?i)SPRITE:\\s*([A-Za-z0-9_]+)(?:[_,\\s]+([A-Za-z0-9_]+))?(?:[_,\\s]+([A-Za-z]+))?\\s*\\]");
+            java.util.regex.Matcher m = spriteTagPat.matcher(cleanText);
+            while (m.find()) {
+                String p1 = m.group(1);
+                String p2 = m.group(2);
+                String p3 = m.group(3);
+                String charId = p1;
+                String expr = p2 != null ? p2 : "Reference";
+                CharacterPosition pos = p3 != null ? CharacterPosition.fromString(p3) : CharacterPosition.MIDDLE;
+
+                if (p1.contains("_") && p2 != null) {
+                    String[] parts = p1.split("_", 2);
+                    charId = parts[0];
+                    expr = parts[1];
+                    pos = CharacterPosition.fromString(p2);
+                }
+
+                if (characterManager != null) {
+                    characterManager.showCharacter(charId, expr, pos);
+                }
+            }
+            cleanText = spriteTagPat.matcher(cleanText).replaceAll("").trim();
+        }
+
+        if (cleanText.contains("[HIDE:") || cleanText.contains("[hide:")) {
+            java.util.regex.Pattern hideTagPat = java.util.regex.Pattern.compile("\\[(?i)HIDE:\\s*([A-Za-z0-9_]+)\\s*\\]");
+            java.util.regex.Matcher m = hideTagPat.matcher(cleanText);
+            while (m.find()) {
+                String target = m.group(1).toLowerCase();
+                if (characterManager != null) {
+                    if (target.contains("all")) {
+                        characterManager.clearAllCharacters();
+                    } else if (target.equals("left") || target.equals("right") || target.equals("middle") || target.equals("center")) {
+                        characterManager.hideCharacter(CharacterPosition.fromString(target));
+                    } else {
+                        String charName = target.contains("_") ? target.split("_")[0] : target;
+                        CharacterPosition charPos = null;
+                        for (CharacterPosition pos : CharacterPosition.values()) {
+                            if (charName.equalsIgnoreCase(characterManager.getActiveCharacter(pos))) {
+                                charPos = pos;
+                                break;
+                            }
+                        }
+                        if (charPos != null) {
+                            characterManager.hideCharacter(charPos);
+                        } else {
+                            characterManager.hideCharacter(CharacterPosition.fromString(target));
+                        }
+                    }
+                }
+            }
+            cleanText = hideTagPat.matcher(cleanText).replaceAll("").trim();
+        }
+
+        return new ParsedDialogue(cleanSpeaker, cleanText);
+    }
+
+    private CharacterPosition findCharacterPositionOrMiddle(String characterId) {
+        if (characterManager != null) {
+            for (CharacterPosition pos : CharacterPosition.values()) {
+                if (characterId.equalsIgnoreCase(characterManager.getActiveCharacter(pos))) {
+                    return pos;
+                }
+            }
+        }
+        return CharacterPosition.MIDDLE;
     }
 }
