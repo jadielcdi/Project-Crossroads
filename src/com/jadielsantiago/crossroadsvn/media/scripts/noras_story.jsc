@@ -1,174 +1,185 @@
 # ==============================================================================
 # Project Crossroads - Screenplay Script
-# Story: Nora's Story - The Metronome & The Airlock
+# Story: Nora's Story - Threading the Needle
 # Format: JSC (Jadiel Santiago Crossroads Script)
-#
 # Copyright (c) 2026 Jadiel Santiago. All rights reserved.
 # Licensed under CC BY-NC 4.0 (Attribution-NonCommercial - No Monetary Gain).
 # See COPYRIGHT.txt in repository root for full license details.
 # ==============================================================================
 
-
-@title Nora's Story: The Metronome & The Airlock
+@title Nora's Story: Threading the Needle
 @character Nora Vance
 @music /com/jadielsantiago/crossroadsvn/media/music/Nora_Test.mp3
 
 # ------------------------------------------------------------------------------
 # Scene 1: Monday Afternoon - The Airlock
 # ------------------------------------------------------------------------------
-Narrator: [Scene 1: Monday Afternoon - The Airlock]
-Narrator: [BACKGROUND: The shared biotechnology and life sciences laboratory. Pristine white counters, the soft glow of UV hoods, and neatly racked Eppendorf tubes. The afternoon sun filters through the blinds, casting striped shadows across the sterile floor.]
+
+Narrator: [Scene 1: Monday Afternoon - The Airlock] [HIDE: all]
+Narrator: [BACKGROUND: The shared biotechnology and life sciences laboratory, 4:30 p.m. Pristine white counters, the soft glow of UV hoods, and neatly racked Eppendorf tubes. The afternoon sun filters through the blinds, casting striped shadows across the sterile floor.]
 Narrator: [AUDIO: The rhythmic, high-pitched hum of a centrifuge in the corner, layered with the sharp, satisfying *click-clack* of a micropipette.]
-Narrator: The micropipette clicks in Nora's hand, a small satisfying sound, like a seatbelt buckling. Two microliters of guide RNA, drawn up clean, no bubbles. She loves this part. The part where the whole world narrows to a steady hand, a steady breath, and nothing else is allowed in.
-Narrator: [Dr. Okafor pausing by the bench, adjusting her safety glasses]
+
+Narrator: [SPRITE: Nora_Calm, middle] The micropipette clicks in Nora's hand, a small satisfying sound, like a seatbelt buckling. Two microliters of guide RNA, drawn up clean, no bubbles. She loves this part. The part where the whole world narrows to a steady hand, a steady breath, and nothing else is allowed in.
 Dr. Okafor: You make that look like breathing, Nora.
-Narrator: Nora doesn't look up, keeping her focus on the tiny clear droplet hanging from the disposable tip. Six months into the sepsis biosensor project, and her hands have stopped needing her brain's permission to do this. The CRISPR-based diagnostic she helped build could flag a bloodstream infection in under an hour instead of the two days a culture took. On Thursday, she’ll present it at the Undergraduate Research Symposium as a finalist for the Callahan Prize.
-Nora: It kind of is, by now. Just muscle memory and a lot of caffeine.
-Narrator: Dr. Okafor smiles, tapping the edge of the bench before walking away. Nora’s phone buzzes violently against the black resin countertop. The screen lights up: *Camille <3*.
-Narrator: *Camille: ugh my roommate did the thing again. the dishes thing. I can't even talk about it I'm so mad. I swear she’s doing it just to mess with my thesis prep.*
+Narrator: Nora doesn't look up, keeping her focus on the tiny clear droplet hanging from the disposable tip. Six months into the sepsis biosensor project, and her hands have stopped needing her brain's permission to do this. The CRISPR-based diagnostic she helped build could flag a bloodstream infection in under an hour instead of the two days a culture took. On Thursday, she'll present it at the Undergraduate Research Symposium as a finalist for the Callahan Prize.
+Nora_Smiling(middle): It kind of is, by now. Just muscle memory and a lot of caffeine.
+Narrator: [SPRITE: Nora_Tired, middle] Dr. Okafor smiles, tapping the edge of the bench before walking away. Nora's phone buzzes violently against the black resin countertop. The screen lights up: *Camille <3*.
+Narrator: *Camille: ugh my roommate did the thing again. the dishes thing. I can't even talk about it I'm so mad. I swear she's doing it just to mess with my thesis prep.*
 Narrator: Nora sets the pipette down. She looks at the message. She has a strict run-through of her presentation to do, and the RNA is time-sensitive.
 
 ? Narrator: How does Nora handle Camille's familiar spiral?
     > "That sounds so frustrating. Did you say something to her?" (Engage and absorb the emotional labor)
-        Narrator: Nora carefully types back with her thumb, making sure not to touch anything with residual template DNA on it.\n*Nora: That sounds so frustrating. Did you say something to her?*
-        Narrator: Three bubbles immediately pop up. Camille launches into a massive, multi-paragraph rant. Nora sighs, a quiet, deflating sound, reading through the drama while her samples sit on ice. By the time Nora types, *Pretty good day here, actually—got my run-through slot for Thursday,* Camille has stopped replying. The message sits there, a single gray bubble, unanswered.
+        Narrator: [SPRITE: Nora_Tired, middle] Nora carefully types back with her thumb, making sure not to touch anything with residual template DNA on it.\n*Nora: That sounds so frustrating. Did you say something to her?*
+        Narrator: Three bubbles immediately pop up. Camille launches into a massive, multi-paragraph rant. Nora sighs, a quiet, deflating sound, reading through the drama while her samples sit on ice. By the time Nora types, *Pretty good day here, actually got my run-through slot for Thursday,* Camille has stopped replying. The message sits there, a single gray bubble, unanswered.
         System: [STAT_UPDATE: +Emotional Labor, -Energy]
     > "I'm sorry, Cam. I'm deep in CRISPR assays right now. Can we talk tonight?" (Set a gentle boundary)
-        Narrator: Nora stares at the screen, feeling the familiar weight of Camille's crisis trying to pull her out of her airlock. She types quickly.\n*Nora: I'm sorry, Cam. I'm deep in CRISPR assays right now and have my symposium run-through. Can we talk tonight?*
+        Narrator: [SPRITE: Nora_Calm, middle] Nora stares at the screen, feeling the familiar weight of Camille's crisis trying to pull her out of her airlock. She types quickly.\n*Nora: I'm sorry, Cam. I'm deep in CRISPR assays right now and have my symposium run-through. Can we talk tonight?*
         Narrator: A minute passes.\n*Camille: wow okay. sorry to bother you with my life.*
-        Narrator: Nora swallows a lump of guilt, turning her phone face down. It stings, but she picks up the pipette again. The lab is her clean room. She won't let the mess in.
+        Narrator: [SPRITE: Nora_Distressed, middle] Nora swallows a lump of guilt, turning her phone face down. It stings, but she picks up the pipette again. The lab is her clean room. She won't let the mess in.
         System: [STAT_UPDATE: +Self-Respect, -Emotional Labor]
 
-Narrator: At six, packing up, Nora rounds the corner from the animal facility core and nearly collides with a girl whose arms are full of centrifuge tubes on ice.
-Narrator: "Sorry—sorry, I wasn't looking," the girl gasps, catching two tubes against her chest before they hit the floor. She has dark hair pulled back in a failing knot, deeply tired eyes, and a lanyard that reads *MAYA - ANIMAL SCI*.
-Narrator: [Nora reaching out to steady the blue plastic ice tray]
-Nora: No, that was me. You're doing cortisol assays?
-Narrator: [Maya blinking in surprise, out of breath]
-Maya: How did you know that?
-Nora: The blue caps. That's the kit UCB sells for it. My PI used to run the same panel before we moved fully into the CRISPR stuff. Do you need the plate reader on this floor? Ours has better calibration than the one in Life Sciences.
-Narrator: Maya looks like she might actually cry from relief.
-Maya: I would love that so much you have no idea. I've been fighting with the Life Sciences one for two hours. It hates me specifically.
-Narrator: Nora smiles, badging them into the biotech suite. They talk the whole walk down. Maya explains her research on chronic stress hormones in rescued lab rodents, the mountains of ethics paperwork, and the lonely grind of the barn. Nora recognizes something in the way Maya talks—gentle, fiercely dedicated, and matter-of-fact.
-Maya: Thank you. Seriously. You saved my whole week.
-Nora: Anytime. I'm two benches over. Nora.
-Maya: Maya. I owe you a coffee.
-Narrator: Nora walks home in the dark, thinking that was probably the best conversation she'd had all day.
+Narrator: [HIDE: all] At 5:50 p.m., packing up for the evening, Nora rounds the corner from the clean-room airlock into the Life Sciences basement corridor and collides sharply with a girl whose arms are full of centrifuge tubes on ice.
+Maya_Distressed(left): [SPRITE: Nora_Calm, right] Sorry, sorry, I wasn't looking!
+Narrator: [SPRITE: Jules_Tired, middle] The girl gasps, pinning two escaping tubes against her ribs while two more skitter across the waxed linoleum toward a floor drain. She has dark hair pulled back in a failing knot, deeply tired eyes, and a lanyard that reads *MAYA - ANIMAL SCI*. Through the wire-mesh glass of the stairwell fire door, a guy with a heavy laptop bag digging into his shoulder pauses for a second to glance back at the commotion before heading out into the evening wind.
+Narrator: [HIDE: middle] Nora drops smoothly to one knee, scooping up the runaway vials and steadying the blue styrofoam ice tray.
+Nora_Calm(right): No, that was me. I came through the airlock too fast. You're doing cortisol assays?
+Maya_Speaking(left): How did you know that?
+Nora_Speaking(right): The blue screw-caps with the white labeling gaskets. That's the Cayman Chemical panel, right? My PI used to run the same protocol before we moved fully into CRISPR diagnostics. Are you trying to use the plate reader on this hall?
+Maya_Tired(left): Trying being the operative word. The software on the Life Sciences unit froze three times before lunch. It hates me specifically.
+Nora_Smiling(right): That machine was built during the Pedro Rossello administration. Come on. Our suite's plate reader in Biotech 200 is calibrated daily. I'll badge you in.
+Narrator: [SPRITE: Maya_Smiling, left] Maya looks like she might actually cry from relief. They talk the whole walk down -- about stress hormones, reproductive genetics, and the lonely grind of the dairy barn.
+Maya_Smiling(left): Thank you. Seriously. You saved my whole week. I'm Maya, by the way. I owe you a coffee.
+Nora_Smiling(right): Anytime. I'm two benches over. Nora.
+Narrator: [SPRITE: Nora_Tired, right] As they reach the elevator, Nora's phone buzzes in her pocket with another message from Camille. Nora doesn't look at it, dismissing it as "campus noise" when Maya asks, and walks home in the dark thinking that was probably the best conversation she'd had all day.
 
 # ------------------------------------------------------------------------------
 # Scene 2: Tuesday - The Metronome & The Grind
 # ------------------------------------------------------------------------------
-Narrator: [Scene 2: Tuesday - The Metronome & The Grind]
+
+Narrator: [Scene 2: Tuesday - The Metronome & The Grind] [HIDE: all]
 Narrator: [BACKGROUND: The shared biotechnology laboratory, Tuesday, 2:15 p.m. Golden afternoon sunlight angles across black resin countertops and racks of scintillation vials.]
 Narrator: [AUDIO: The soft, steady hum of the air scrubbers and the periodic whirr of a vortex mixer.]
-Narrator: Maya makes good on her promise early Tuesday afternoon. She slides onto a high swivel stool at the end of Nora's bench, setting down a cup of dark roast and a cold can of Monster Energy with a faint, conspiratorial grin.
-Maya: Payment for services rendered. One caffeinated lifeline.
-Nora: (smiling, cracking open the tab) You didn't have to do that, Sterling.
-Maya: Are you kidding? My plate reader scans came out clean. If you hadn't badged me into your suite, Dr. Hale would already be carving up my transcript.
-Narrator: For twenty minutes, Maya perches on the stool while Nora cleans up data plots on her laptop for Thursday's symposium poster. Maya watches the rhythmic, machine-like consistency of Nora's movements—aligning graphs, logging fluorescence intensities, and quietly exhaling at steady, predictable intervals.
-Maya: You know, watching you work is kind of eerie. You sigh like a metronome. Tick, tick, tick. Every sixty seconds, right on schedule. How are you like this?
-Nora: Like what?
-Maya: So completely unshakeable. You're up for the Callahan Prize in forty-eight hours, and your heart rate looks like it hasn't broken fifty all semester.
-Narrator: Nora pauses, looking down at her screen. For a second, the mask slips—not into panic, but into the quiet, wearisome honesty of someone who has carried an anchor alone for too long.
-Nora: I compartmentalize. In here, if you follow the protocol, the assay works. It's clean. Outside the lab... my girlfriend's four hundred miles away having three crises a day, and my family doesn't remember what my major is called. If I don't build an airlock, the water gets in.
+
+Narrator: [SPRITE: Maya_Smiling, left] [SPRITE: Nora_Calm, right] Maya makes good on her promise early Tuesday afternoon. She slides onto a high swivel stool at the end of Nora's bench, setting down a cup of dark roast and a cold can of Monster Energy with a faint, conspiratorial grin.
+Maya_Smiling(left): Payment for services rendered. One caffeinated lifeline.
+Nora_Smiling(right): (cracking open the tab) You didn't have to do that, Sterling.
+Maya_Speaking(left): Are you kidding? My plate reader scans came out clean. If you hadn't badged me into your suite, Dr. Hale would already be carving up my transcript.
+Narrator: For twenty minutes, Maya perches on the stool while Nora cleans up data plots on her laptop for Thursday's symposium poster. Maya watches the rhythmic, machine-like consistency of Nora's movements -- aligning graphs, logging fluorescence intensities, and quietly exhaling at steady, predictable intervals.
+Maya_Thinking(left): You know, watching you work is kind of eerie. You sigh like a metronome. Tick, tick, tick. Every sixty seconds, right on schedule. How are you like this?
+Nora_Thinking(right): Like what?
+Maya_Speaking(left): So completely unshakeable. You're up for the Callahan Prize in forty-eight hours, and your heart rate looks like it hasn't broken fifty all semester.
+Narrator: [SPRITE: Nora_Tired, right] Nora pauses, looking down at her screen. For a second, the mask slips -- not into panic, but into the quiet, wearisome honesty of someone who has carried an anchor alone for too long.
+Nora_Tired(right): I compartmentalize. In here, if you follow the protocol, the assay works. It's clean. Outside the lab... my girlfriend's four hundred miles away having three crises a day, and my family doesn't remember what my major is called. If I don't build an airlock, the water gets in.
 Narrator: Maya nods slowly, her gaze softening with immediate understanding.
-Maya: Well. If the airlock ever leaks, there's always the dairy barn. Cows don't send passive-aggressive texts.
-Narrator: Nora laughs—a real, genuine sound. When Maya heads back to the animal facility, Nora spends the rest of Tuesday afternoon finalizing her poster proof with Dr. Okafor.
-Narrator: But when the campus print center's large-format plotter jams right at five o'clock, the student clerk shrugs and locks the door for the night.
-Nora: (sighing to herself) Of course. Nothing is ever simple.
-Narrator: That leaves only one machine on campus capable of handling heavyweight proof prints after hours: the ancient laser printer tucked away in the back of The Mill.
-Narrator: By the time Nora catches a breath, has dinner, and gathers her revised graphics files, Tuesday night has slipped entirely away into the early hours of Wednesday.
-Narrator: [BACKGROUND: The 24-hour campus café, 1:45 AM Wednesday. The neon sign buzzes against the dark window. The tables are sticky, and the air smells like burnt dark roast and stale adrenaline.]
+Maya_Smiling(left): Well. If the airlock ever leaks, there's always the dairy barn. Cows don't send passive-aggressive texts.
+Narrator: [SPRITE: Maya_Stressed, left] A few minutes later, while Nora steps over to the micropipette rack, she catches Maya leaning against the centrifuge bay staring at a transcript PDF on her phone -- specifically at a sophomore-year `ANSC 101 - D-` from Dr. Hale, who sits on her Friday Horizon Fellowship panel.
+Nora_Thinking(right): If you stare at that PDF any harder, Sterling, you're going to mutate the data through sheer force of anxiety.
+Narrator: [SPRITE: Nora_Distressed, right] Right as Nora tells her that institutional validation is a trap, Nora's own phone buzzes on the resin counter: *Camille <3: Are we actually going to talk tonight or are you hiding in the lab again?*
+Narrator: [SPRITE: Nora_Calm, right] Nora flips the phone face down without breaking rhythm and reminds Maya of the truth: *"You didn't trick the cows into getting pregnant, Maya. You did the work. Don't let a ghost evict you from a house you built."*
+Narrator: [HIDE: left] When Maya heads back to the animal facility, Nora spends the rest of Tuesday afternoon finalizing her poster proof with Dr. Okafor.
+Narrator: [SPRITE: Nora_Tired, right] But when the campus print center's large-format plotter jams right at five o'clock, the student clerk shrugs and locks the door for the night.
+Nora_Tired(right): (sighing to herself) Of course. Nothing is ever simple.
+Narrator: [SPRITE: Jules_Stressed, left] Stepping out into the print center hallway at 5:05 p.m., Nora passes Julian "Jules" Rivera at the vending machine, buying his third canned espresso of the afternoon while staring at compiler warnings on his phone like he's preparing for a siege. They trade a brief, exhausted nod in passing.
+Narrator: [HIDE: all] With the print center closed, only one machine on campus can handle heavyweight proof prints after hours: the ancient laser printer tucked away in the back of The Mill.
+
+Narrator: [BACKGROUND: The 24-hour campus cafe, 1:45 a.m. Wednesday. The neon sign buzzes against the dark window. The tables are sticky, and the air smells like burnt dark roast and stale adrenaline.]
 Narrator: [AUDIO: The steady, low hum of an ancient laser printer churning in the back corner.]
-Narrator: Nora Vance arrives hauling a cardboard tube of poster proofs toward the café's laser printer, completely unbothered by the hour.
-Narrator: Julian "Jules" Rivera is folded into a corner booth behind a defensive perimeter of color-coded flashcards, three portable monitors, and an empty army of espresso cups. He has a yellow highlighter tucked behind each ear like antennae.
-Narrator: [Nora glancing at the sprawling flashcard fortress with an amused tilt of her head]
-Nora: Is this a study system or a hostage situation?
-Jules: (a real, tired laugh escaping him) Little of both. I've rewritten my discussion section six times. I'm starting to worry the seventh is just going to be the first one with worse handwriting.
+
+Narrator: [SPRITE: Maya_Tired, left] [SPRITE: Nora_Calm, right] Nora Vance arrives hauling a cardboard tube of poster proofs toward the cafe's laser printer, completely unbothered by the hour. Just inside the glass door, she passes Maya zipping her laptop into her backpack after wrestling her fellowship essay down to 750 words.
+Maya_Smiling(left): (offering a tired two-finger salute) Morning shift's all yours, Vance. Careful in the corner booth -- he bites about adjectives.
+Nora_Smiling(right): Noted. Go get some sleep, Sterling.
+Narrator: [HIDE: left] [SPRITE: Jules_Tired, left] Julian "Jules" Rivera is folded into a corner booth behind a defensive perimeter of color-coded flashcards, three portable monitors, and an empty army of espresso cups. He has a yellow highlighter tucked behind each ear like antennae.
+Nora_Smiling(right): Is this a study system or a hostage situation?
+Jules_Smiling(left): (a real, tired laugh escaping him) Little of both. I've rewritten my discussion section six times. I'm starting to worry the seventh is just going to be the first time with worse handwriting.
 Narrator: Nora perches on the arm of the empty chair across from him, entirely at ease in the midnight quiet.
-Nora: Six. Okay. Can I ask a nosy question?
-Jules: You're printing poster proofs at two in the morning, Nora. I feel like we're well past the point of asking permission.
-Nora: Does it ever feel like the whole thing—the GPA, the interview, all of it—is one long held breath? Like something's about to fall apart if you exhale wrong?
-Jules: (voice dropping quiet) Yeah. Every single day since August.
+Nora_Thinking(right): Six. Okay. Can I ask a nosy question?
+Jules_Tired(left): You're printing poster proofs at two in the morning, Nora. I feel like we're well past the point of asking permission.
+Nora_Speaking(right): Does it ever feel like the whole thing -- the GPA, the interview, all of it -- is one long held breath? Like something's about to fall apart if you exhale wrong?
+Jules_Distressed(left): (voice dropping quiet) Yeah. Every single day since August.
 Narrator: [Nora looking at him, not trying to fix it, but not flinching from it either]
-Nora: My biosensor project has failed eleven times. Eleven. I have a whole spreadsheet dedicated to tracking the wreckage. It's the most interesting thing I've worked on in four years, specifically because it keeps failing in brand new ways.
-Jules: That's not the same as maintaining a 3.9 GPA, Nora. Engineering doesn't celebrate failure as an aesthetic.
-Nora: No. It's not. I'm not saying trade your major in. I'm saying—is there one class, just one, this semester, where you let yourself be bad at something on purpose? Not reckless-bad. Just human-bad. See what's on the other side of that.
+Nora_Calm(right): My biosensor project has failed eleven times. Eleven. I have a whole spreadsheet dedicated to tracking the wreckage. It's the most interesting thing I've worked on in four years, specifically because it keeps failing in brand new ways.
+Jules_Stressed(left): That's not the same as maintaining a 3.9 GPA, Nora. Engineering doesn't celebrate failure as an aesthetic.
+Nora_Speaking(right): No. It's not. I'm not saying trade your major in. I'm saying -- is there one class, just one, this semester, where you let yourself be bad at something on purpose? Not reckless-bad. Just human-bad. See what's on the other side of that.
 
 ? Narrator: How does Nora respond to Jules's suffocating academic terror?
     > "It's just one project, Jules. Try doing it because you like it, not out of fear." (Challenge the perfectionism)
-        Jules: Do you not feel behind, ever? Like something's about to fall apart?
-        Narrator: Jules asks, staring at her.
-        Nora: Sometimes. But usually about the stuff outside the lab. The work itself doesn't feel like something to survive. I actually like doing it. Maybe try one class you don't need to be perfect in. See what's left when the fear's not doing the driving.
-        Narrator: Jules hesitates. Slowly, his shoulders drop a fraction of an inch. He picks up a blank white flashcard and writes deliberate words across the card. Nora suspects it isn't an assignment.
+        Jules_Distressed(left): Do you not feel behind, ever? Like something's about to fall apart?
+        Nora_Calm(right): Sometimes. But usually about the stuff outside the lab. The work itself doesn't feel like something to survive. I actually like doing it. Maybe try one class you don't need to be perfect in. See what's left when the fear's not doing the driving.
+        Narrator: [SPRITE: Jules_Thinking, left] Jules hesitates. Slowly, his shoulders drop a fraction of an inch. He picks up a blank white flashcard and writes deliberate words across the card: *one class, not perfect, see what happens.*
         System: [STAT_UPDATE: +Chosen Family, +Self-Respect]
     > "I get it. The pressure is insane. You just have to survive it." (Validate the stress)
-        Jules: Do you not feel behind, ever? Like something's about to fall apart?
-        Narrator: Jules asks, staring at her.
-        Nora: Of course I do. The pressure is insane. You just have to build a wall, put your head down, and survive the week. That's what I'm doing.
-        Narrator: [Jules nodding grimly, gripping his coffee cup]
-        Jules: Exactly. Sympathy is a luxury we can't afford right now. Just keep swimming or drown.
+        Jules_Distressed(left): Do you not feel behind, ever? Like something's about to fall apart?
+        Nora_Tired(right): Of course I do. The pressure is insane. You just have to build a wall, put your head down, and survive the week. That's what I'm doing.
+        Jules_Stressed(left): Exactly. Sympathy is a luxury we can't afford right now. Just keep swimming or drown.
         Narrator: They sit in a heavy, anxious silence, two people trapped in their own separate survival modes.
         System: [STAT_UPDATE: -Energy]
+
+Narrator: Before heading out with her warm poster proof, Nora pauses by his table.
+Nora_Smiling(right): Symposium is Thursday, by the way. Two-thirty, CID Atrium. No pressure. It would just be nice if a friendly face was there that wasn't my PI staring through my soul.
 
 # ------------------------------------------------------------------------------
 # Scene 3: Wednesday - The Phone Calls
 # ------------------------------------------------------------------------------
-Narrator: [Scene 3: Wednesday - The Phone Calls]
-Narrator: [BACKGROUND: Nora's sparse off-campus apartment. A printed, full-size mock-up of her poster is taped to the living room wall. Outside, the streetlights flicker in the early evening gloom.]
+
+Narrator: [Scene 3: Wednesday - The Phone Calls] [HIDE: all]
+Narrator: [BACKGROUND: Nora's sparse off-campus apartment, Wednesday evening. A printed, full-size mock-up of her poster is taped to the living room wall. Outside, the streetlights flicker in the early evening gloom.]
 Narrator: [AUDIO: The quiet, isolating hum of a refrigerator.]
-Narrator: Her mother calls first. Nora almost lets it go to voicemail. She doesn't, because she never does.
-Narrator: [Mother's voice bright, rapid, already mid-thought over the phone line]
+
+Narrator: [SPRITE: Maya_Distressed, left] [SPRITE: Nora_Tired, middle] [SPRITE: Jules_Stressed, right] Walking home at 4:00 p.m. with her full-size poster mock-up tucked under her arm against the gathering rain, Nora had cut between the Agricultural Sciences steps -- where Maya stood frozen after a run-in with Dr. Hale -- and the Engineering breezeway, where Jules stood listening to his father boast over the phone with a hollow, thousand-yard stare.
+Narrator: [HIDE: left] [HIDE: right] Now, inside her quiet apartment, her own mother calls first. Nora almost lets it go to voicemail. She doesn't, because she never does.
 Mother: Hi, sweetheart, quick thing. Did you hear about your brother? Callahan Sterling wants him for a second interview. *Second* interview, Nora. Do you know what that means for a firm like that?
-Nora: That's great, Mom.
+Nora_Tired(middle): That's great, Mom.
 Narrator: And it is. Nora means it, mostly, the way you can mean two things at once.
-Mother: I told your father, this is the one. I just have this feeling. Oh, how's your—is it a poster thing you're doing this week?
+Mother: I told your father, this is the one. I just have this feeling. Oh, how's your -- is it a poster thing you're doing this week?
 
 ? Narrator: Does Nora try to claim space in her mother's attention?
     > "It's the symposium. Thursday afternoon. I'm a finalist for a prize." (Seek validation)
-        Nora: The symposium. Thursday afternoon at two-thirty. I'm a finalist for the Callahan Prize, actually—different Callahan, funny coincidence.
+        Nora_Speaking(middle): The symposium. Thursday afternoon at two-thirty. I'm a finalist for the Callahan Prize, actually -- different Callahan, funny coincidence.
         Narrator: [Mother sighing slightly, a dismissive tone slipping in]
         Mother: That's nice, honey. Listen, I might not be able to make Thursday work. Daniel's interview got moved, and your father wants to take him to dinner after. Symbolic, you know? I don't want to miss that. You understand.
-        Narrator: Nora’s chest tightens. She understands. She has understood for twenty-one years.
-        Nora: I understand.
+        Narrator: [SPRITE: Nora_Distressed, middle] Nora's chest tightens. She understands. She has understood for twenty-one years.
+        Nora_Distressed(middle): I understand.
         System: [STAT_UPDATE: -Self-Respect, -Energy]
     > "Yeah, a poster thing. It's fine. Congrats to Daniel." (Compartmentalize)
-        Nora: Yeah, a poster thing. Just a requirement. Tell Daniel congratulations for me.
+        Nora_Tired(middle): Yeah, a poster thing. Just a requirement. Tell Daniel congratulations for me.
         Mother: I will! We're taking him to dinner Thursday night to celebrate. Symbolic, you know? I don't want to miss that. We'll catch up later, honey!
-        Narrator: The line clicks dead. Nora stares at the phone. She didn't even give her mother the ammunition to reject her, but the hollow space in her chest still aches.
+        Narrator: [SPRITE: Nora_Distressed, middle] The line clicks dead. Nora stares at the phone. She didn't even give her mother the ammunition to reject her, but the hollow space in her chest still aches.
         System: [STAT_UPDATE: +Self-Respect]
 
-Narrator: Camille's call comes at eleven.
+Narrator: [SPRITE: Nora_Thinking, middle] At 10:55 p.m., needing a reminder that her work actually exists to someone, Nora snaps a photo of the taped-up poster mock-up and texts it to Maya.
+Narrator: [SPRITE: Nora_Smiling, middle] Maya replies within thirty seconds: *Poster looks sick!! Currently at The Mill mopping espresso out of Rivera's keyboard after a compiler crash, pray for us.*
+Narrator: [SPRITE: Nora_Tired, middle] Nora smiles faintly in the dim room -- right before Camille's call comes in at eleven.
 Narrator: For forty minutes, Camille talks about a fight with her thesis advisor. Her voice is tight and fast. Nora listens. She murmurs the right things. She offers the right reframes. She feels the familiar ache settle into her jaw from holding her expression so carefully neutral.
 Narrator: At minute thirty-eight, Nora manages to say, "I have my symposium tomorrow, actually. Are you still thinking you'll call in?"
-Camille: Oh—yeah, totally, I'll try. What time is it again?
-Narrator: Nora has told her the time four separate times across two weeks.
-Nora: Two-thirty. My slot's second.
+Camille: Oh yeah, totally, I'll try. What time is it again?
+Narrator: [SPRITE: Nora_Distressed, middle] Nora has told her the time four separate times across two weeks.
+Nora_Tired(middle): Two-thirty. My slot's second.
 Camille: Got it. I'll set an alarm.
 Narrator: She doesn't ask what the project is about. She never has.
 
 # ------------------------------------------------------------------------------
 # Scene 4: Thursday Afternoon - The Crucible
 # ------------------------------------------------------------------------------
-Narrator: [Scene 4: Thursday Afternoon - The Crucible]
-Narrator: [BACKGROUND: The grand atrium of the campus convention center. Sunlight streams through the glass ceiling, illuminating dozens of glossy research posters. The room is packed with faculty, wandering underclassmen, and parents wearing guest lanyards.]
+
+Narrator: [Scene 4: Thursday Afternoon - The Crucible] [HIDE: all]
+Narrator: [BACKGROUND: The grand atrium of the campus convention center, 2:30 p.m. Sunlight streams through the glass ceiling, illuminating dozens of glossy research posters. The room is packed with faculty, wandering underclassmen, and parents wearing guest lanyards.]
 Narrator: [AUDIO: A loud, echoing din of a hundred simultaneous conversations, punctuated by polite applause.]
-Narrator: Nora's poster is up by noon. The biosensor diagram is crisp under the halogen lights. When her two-thirty slot arrives, her hands aren't shaking at all.
-Narrator: She talks about detection windows and false-positive rates. She explains the six-month-old idea that has become an actual, working diagnostic tool. Dr. Okafor stands at the back with her arms crossed, radiating a fierce, quiet pride.
-Narrator: Nora looks for Camille's face on her phone screen between questions.\n*No missed call. No text.*
+
+Narrator: [SPRITE: Nora_Speaking, middle] Nora's poster is up by noon. The biosensor diagram is crisp under the halogen lights. When her two-thirty slot arrives, her hands aren't shaking at all.
+Narrator: She talks about detection windows, eleven failed prototypes, and false-positive rates. She explains the six-month-old idea that has become an actual, working diagnostic tool. Dr. Okafor stands at the back with her arms crossed, radiating a fierce, quiet pride.
+Narrator: [SPRITE: Nora_Thinking, middle] Nora looks for Camille's face on her phone screen between questions.\n*No missed call. No text.*
 Narrator: She looks for her mother in the crowd, out of habit more than hope, and doesn't find her either.
-Narrator: But what she hasn't braced for is Maya.
-Narrator: [Maya standing three rows back, grinning wildly]
-Narrator: Maya is holding a bouquet of cheap, plastic-wrapped gas-station carnations like they are something precious. Next to her is Jules, holding his phone up, filming the entire presentation without asking.
-Narrator: The judges announce the finalists' scores at four o'clock.\nNora places second for the Callahan Prize. Second out of forty projects.
-Narrator: As she steps away from the podium, the ribbon warm in her hand, her phone buzzes twice in rapid succession.
+Narrator: [SPRITE: Jules_Smiling, left] [SPRITE: Maya_Smiling, right] But what she hasn't braced for is Maya and Jules.
+Narrator: Three rows back, Maya is grinning wildly, holding a bouquet of cheap, plastic-wrapped $4.99 gas-station carnations like they are something precious. Next to her is Jules, holding his phone up in landscape mode, filming the entire presentation without asking.
+Narrator: [SPRITE: Nora_Smiling, middle] The judges announce the finalists' scores at four o'clock.\nNora places second for the Callahan Prize. Second out of forty projects.
+Narrator: [SPRITE: Nora_Distressed, middle] As she steps away from the podium, the ribbon warm in her hand, her phone buzzes twice in rapid succession.
 Narrator: *Camille: omg I'm so sorry I completely spaced, today has been such a disaster with my advisor, I'll call you tonight?? how'd it go*
 Narrator: *Mom: Wonderful news!! Daniel got the offer!! Callahan Sterling, associate position. Taking him to dinner tonight. So proud of that boy. How was your poster thing?*
 Narrator: Nora stands by her poster. She reads the texts. Sixty-one words about Daniel. Six about her. No apology from Camille that isn't really just about herself.
 Narrator: Maya steps up beside her, shoulder to shoulder, the way you stand next to someone at a window when the weather's bad.
-Maya: You did something really good today. Yours was the only poster I actually understood.
-Narrator: Jules walks over, lowering his phone. Jules catches the devastated, hollow look on Nora's face.
-Narrator: [Jules's voice surprisingly soft, completely stripped of his usual frantic edge]
-Jules: Do you want to get out of here?
+Maya_Smiling(right): You did something really good today. Yours was the only poster I actually understood.
+Narrator: [SPRITE: Jules_Tired, left] Jules walks over, lowering his phone. He catches the devastated, hollow look on Nora's face.
+Jules_Speaking(left): (voice surprisingly soft, completely stripped of his usual frantic edge) Do you want to get out of here?
 
 ? Narrator: It's the breaking point. What does Nora choose?
     > "Yeah. Let's get out of here." (Stop making excuses. Choose the people who showed up.)
@@ -179,49 +190,59 @@ Jules: Do you want to get out of here?
 # ------------------------------------------------------------------------------
 # Branch 4A: Choose the People Who Showed Up
 # ------------------------------------------------------------------------------
+
 :: branch_4a
-Narrator: Nora looks at her phone screen one last time. The long-held stitch in her chest finally gives way. The fog burns off.
-Nora: Yeah. Let's go.
-Narrator: They end up at the 24-hour café. Three coffees and a shared plate of fries nobody ordered but somebody needed. Nora finally says it out loud, without editing it to make it palatable.
-Nora: My family hasn't watched me finish a sentence in ten years. And my girlfriend hasn't asked me a real question since February.
+Narrator: [SPRITE: Nora_Calm, middle] Nora looks at her phone screen one last time. The long-held stitch in her chest finally gives way. The fog burns off.
+Nora_Speaking(middle): Yeah. Let's go.
+Narrator: [SPRITE: Jules_Smiling, left] [SPRITE: Nora_Smiling, middle] [SPRITE: Maya_Smiling, right] They end up at The Mill / Student Center table. Three coffees, a box of pizza, and a shared plate of fries nobody ordered but somebody needed. Nora finally says it out loud, without editing it to make it palatable.
+Nora_Speaking(middle): My family hasn't watched me finish a sentence in ten years. And my girlfriend hasn't asked me a real question since February.
 Narrator: Jules slides his phone across the table. The video of Nora's presentation is queued up.
-Jules: For what it's worth, you have proof of what you did today. No matter what anyone else was busy doing instead.
-Narrator: Nora laughs, a wet, surprised sound. It is the beginning of a new foundation.
+Jules_Smiling(left): For what it's worth, you have proof of what you did today. No matter what anyone else was busy doing instead.
+Narrator: Nora laughs, a wet, surprised sound. When Maya teases Jules about "Day four of the RTX Death March," Jules actually smiles and quotes Maya's Wednesday night lifeline back to her: *"I have it on good authority the floor exists and isn't fatal."*
+Narrator: [SPRITE: Maya_Thinking, right] At 6:35 p.m., Maya's phone buzzes against the table with a nervous text from Jordan Reyes about his ANSC 101 genetics review before her Friday morning Horizon interview with Dr. Hale.
+Maya_Speaking(right): Duty calls. Wish me luck in the lion's den tomorrow morning at nine.
+Narrator: [HIDE: right] As Maya zips up her coat and heads out into the Thursday evening mist, Nora realizes this is the beginning of a real foundation.
 System: [STAT_UPDATE: Chosen Family MAXED, Self-Respect MAXED]
-Narrator: [Scene 5: Friday - The Aftermath]
-Narrator: [BACKGROUND: The campus quad, crisp Friday morning. The air is cool and smells like damp earth and possibility.]
+
+Narrator: [Scene 5: Friday - The Aftermath] [HIDE: all]
+Narrator: [BACKGROUND: The campus quad, crisp Friday morning, 9:40 a.m. The air is cool and smells like damp earth and possibility.]
 Narrator: [AUDIO: A light, uplifting acoustic guitar melody, mixed with the distant chatter of students.]
-Narrator: Nora sits on a bench, the morning sun on her face. She calls Camille first, before her nerve can cool. Not to fight. Just to stop threading a needle with no thread in it.
-Narrator: Camille answers, immediately defensive. *\"Look, I said I was sorry about yesterday, I've just had so much going on—\"*
-Narrator: [Nora's voice steady, surprising herself]
-Nora: I know you have. But I don't think this is working for me anymore. Not the distance. The balance. I can't keep being the only one holding this up.
-Narrator: When the call ends, it hurts. But underneath the hurt is something steadier, like putting a heavy bag down after carrying it three miles too far.
+
+Narrator: [SPRITE: Nora_Calm, middle] Nora sits on a bench, the morning sun on her face. Earlier at 8:50 a.m., right before Maya walked into her Horizon Fellowship panel with Dr. Hale, Nora had sent her a quick text: *Go claim the house you built, Sterling. Don't let the tweed jacket rattle you.*
+Narrator: Now, Nora calls Camille first, before her nerve can cool. Not to fight. Just to stop threading a needle with no thread in it.
+Narrator: Camille answers, immediately defensive. *"Look, I said I was sorry about yesterday, I've just had so much going on--"*
+Nora_Speaking(middle): (voice steady, surprising herself) I know you have. But I don't think this is working for me anymore. Not the distance. The balance. I can't keep being the only one holding this up.
+Narrator: [SPRITE: Nora_Smiling, middle] When the call ends, it hurts. But underneath the hurt is something steadier, like putting a heavy bag down after carrying it three miles too far.
 Narrator: She doesn't call her mother. She sends a single text: *Congrats to Daniel. I got second place at the symposium. Talk soon.* No exclamation points. No performance.
-Narrator: Her phone buzzes. A location pin from Maya.\n*Maya: Cafe. 10 AM. Jules made a color-coded itinerary for us to actually leave campus this weekend. Please come save me from his spreadsheets.*
-Narrator: Nora smiles. She thinks about the biosensor—about guide RNA finding precisely the sequence it was built for, ignoring all the noise around it. That is the trick. Not aiming for less love, but aiming it precisely at the people who can actually receive it.
-Narrator: She stands up and walks toward the café. She has enough thread to build something real. She'll take it from here.
+Narrator: [SPRITE: Nora_Smiling, left] [SPRITE: Maya_Smiling, right] Looking across the wet grass of the quad toward the Agricultural Sciences building, Nora sees the heavy double doors push open. Maya steps out in her borrowed blazer, tilting her face up to the post-rain Friday sky with her shoulders finally unknotted.
+Narrator: Seconds later, Nora's phone buzzes with a group chat link from Jules and a location pin from Maya.\n*Maya: Cafe. 10:30 AM. Jules made a color-coded itinerary for us to actually leave campus this weekend. Please come save me from his spreadsheets and bovine genetics.*
+Narrator: Nora smiles. She thinks about the biosensor -- about guide RNA finding precisely the sequence it was built for, ignoring all the noise around it. That is the trick. Not aiming for less love, but aiming it precisely at the people who can actually receive it.
+Narrator: [HIDE: all] She stands up, waves back to Maya across the grass, and walks toward the cafe. She has enough thread to build something real. She'll take it from here.
 System: *Ending A: The New Horizon*
 
 # ------------------------------------------------------------------------------
 # Branch 4B: Maintain the Status Quo
 # ------------------------------------------------------------------------------
+
 :: branch_4b
-Narrator: Nora swallows hard, the familiar, suffocating blanket of accommodation wrapping around her.
-Nora: I should stay. Camille is having a breakdown over her thesis, I need to call her. And I should call my mom to congratulate Daniel.
-Narrator: Maya’s smile falters, the carnations lowering slightly. Jules frowns, pocketing his phone.
-Jules: Nora... you just won second place.
-Nora: I know. It's fine. Really. Thank you guys for coming, I just... I have to handle this.
-Narrator: Maya hands her the carnations, her eyes full of a sad, quiet understanding. They leave her standing alone in the clearing atrium. Nora dials Camille's number, bracing herself to spend the rest of her triumph comforting someone else.
+Narrator: [SPRITE: Nora_Distressed, middle] Nora swallows hard, the familiar, suffocating blanket of accommodation wrapping around her.
+Nora_Tired(middle): I should stay. Camille is having a breakdown over her thesis, I need to call her. And I should call my mom to congratulate Daniel.
+Narrator: [SPRITE: Jules_Tired, left] [SPRITE: Maya_Distressed, right] Maya's smile falters, the carnations lowering slightly. Jules frowns, pocketing his phone.
+Jules_Stressed(left): Nora... you just won second place.
+Nora_Distressed(middle): I know. It's fine. Really. Thank you guys for coming, I just... I have to handle this.
+Narrator: [HIDE: left] [HIDE: right] Maya hands her the carnations, her eyes full of a sad, quiet understanding. They leave her standing alone in the clearing atrium. Nora dials Camille's number, bracing herself to spend the rest of her triumph comforting someone else.
 System: [STAT_UPDATE: Emotional Labor MAXED, Self-Respect DEPLETED]
-Narrator: [Scene 5: Friday - The Aftermath]
+
+Narrator: [Scene 5: Friday - The Aftermath] [HIDE: all]
 Narrator: [BACKGROUND: Nora's sparse apartment, Friday morning. The mock-up poster is still taped to the wall, but it looks less like a triumph and more like a piece of wallpaper.]
 Narrator: [AUDIO: The oppressive ticking of a wall clock, accompanied by a low, melancholy drone.]
-Narrator: Nora sits on her bed, her phone pressed to her ear. She has been on the phone with Camille for over an hour.
-Narrator: [Camille's voice echoing through the speaker, breathless and dramatic]
+
+Narrator: [SPRITE: Nora_Tired, middle] Nora sits on her bed, her phone pressed to her ear. She has been on the phone with Camille for over an hour.
 Camille: ...and then she had the nerve to ask me for an extension on the data entry! Can you believe her? Oh, wait, Nora, I have to go, my roommate just walked in. We'll celebrate your poster thing this weekend, okay? Love you!
-Narrator: The line clicks dead.
+Narrator: [SPRITE: Nora_Distressed, middle] The line clicks dead.
 Narrator: Nora lowers the phone. She looks at the Callahan Prize ribbon sitting on her desk, half-buried under a stack of printed literature.
-Narrator: She had called her mother last night, spending twenty minutes praising Daniel’s new job, waiting for a question about her symposium that never came. She had chosen to keep the peace, to keep the relationships alive. But as she sits in the quiet room, she realizes she is the only one keeping them on life support.
-Narrator: Her phone buzzes. A text from Maya.\n*Maya: Hey. Just checking in on you. The metronome still ticking?*
-Narrator: Nora stares at the message. She types a reply, deletes it, and puts the phone face down on the mattress. She picks up a printed journal article and a highlighter, retreating back into the only place that makes sense. The airlock closes. She is safe, and she is entirely alone.
+Narrator: She had called her mother last night, spending twenty minutes praising Daniel's new job, waiting for a question about her symposium that never came. She had chosen to keep the peace, to keep the relationships alive. But as she sits in the quiet room, she realizes she is the only one keeping them on life support.
+Narrator: Her phone buzzes. A text from Maya.\n*Maya: Hey. Just checking in on you after my panel. The metronome still ticking?*
+Narrator: Nora stares at the message. She types a reply, deletes it, and puts the phone face down on the mattress. She picks up a printed journal article and a highlighter, retreating back into the only place that makes sense.
+Narrator: [HIDE: all] The airlock closes. She is safe, and she is entirely alone.
 System: *Ending B: The Echo Chamber*

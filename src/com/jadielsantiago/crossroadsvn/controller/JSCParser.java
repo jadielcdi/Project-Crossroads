@@ -106,6 +106,29 @@ import java.util.Set;
  *
  *       Inline tags are automatically executed by the engine and stripped from the
  *       displayed text, so the player never sees the bracketed syntax.
+ *
+ * 5. BACKGROUND DIRECTIVES & SCENE SWITCHING
+ *    Writers can change the stage background at scene transitions or anytime mid-story:
+ *
+ *    A. METADATA & DEFAULT STORY BACKGROUND
+ *       @background filenameOrPath (or @bg filenameOrPath)
+ *       e.g. @background Test_Background.jpg
+ *       e.g. @bg Campus_Quad.jpg
+ *
+ *    B. STANDALONE BACKGROUND CHANGE
+ *       Placed on its own line preceding dialogue or narration:
+ *         @bg Campus_Quad.jpg
+ *         [BG: Campus_Quad.jpg]
+ *         BG: Campus_Quad.jpg
+ *
+ *    C. INLINE BACKGROUND TAG (MID-DIALOGUE OR SCENE HEADING)
+ *       Embedded directly within dialogue text:
+ *         Narrator: [Scene 1: Monday Morning] [BG: Campus_Quad.jpg] [HIDE: all]
+ *         Jules: [BG: The_Mill.jpg] Finally made it to the cafe.
+ *
+ *    Filenames can specify an extension (.jpg, .png, .webp) or omit it.
+ *    If an asset does not exist yet in media/images/backgrounds, the engine gracefully
+ *    retains the current background without crashing, so scripts can be written ahead of art assets!
  * ==============================================================================
  */
 public class JSCParser {
@@ -120,15 +143,22 @@ public class JSCParser {
         private String tagline;
         private final String scriptPath;
         private String defaultMusic;
+        private String defaultBackground;
 
         public StoryMetadata(int id, String title, String characterName, String tagline, String scriptPath,
                 String defaultMusic) {
+            this(id, title, characterName, tagline, scriptPath, defaultMusic, null);
+        }
+
+        public StoryMetadata(int id, String title, String characterName, String tagline, String scriptPath,
+                String defaultMusic, String defaultBackground) {
             this.id = id;
             this.title = title;
             this.characterName = characterName;
             this.tagline = tagline;
             this.scriptPath = scriptPath;
             this.defaultMusic = defaultMusic;
+            this.defaultBackground = defaultBackground;
         }
 
         public int getId() {
@@ -155,6 +185,10 @@ public class JSCParser {
             return defaultMusic;
         }
 
+        public String getDefaultBackground() {
+            return defaultBackground;
+        }
+
         public void setTitle(String title) {
             this.title = title;
         }
@@ -169,6 +203,10 @@ public class JSCParser {
 
         public void setDefaultMusic(String defaultMusic) {
             this.defaultMusic = defaultMusic;
+        }
+
+        public void setDefaultBackground(String defaultBackground) {
+            this.defaultBackground = defaultBackground;
         }
 
         @Override
@@ -397,9 +435,11 @@ public class JSCParser {
     private static final java.util.regex.Pattern STANDALONE_SPRITE_PAT_B =
             java.util.regex.Pattern.compile("^([A-Za-z0-9_]+)\\s*\\(\\s*([A-Za-z0-9_]+)\\s*,\\s*([A-Za-z]+)\\s*\\):?$");
     private static final java.util.regex.Pattern STANDALONE_BRACKET_TAG =
-            java.util.regex.Pattern.compile("^\\[(?i)(SPRITE|HIDE):[^\\]]+\\]$");
+            java.util.regex.Pattern.compile("^\\[(?i)(SPRITE|HIDE|BG|BACKGROUND):[^\\]]+\\]$");
     private static final java.util.regex.Pattern STANDALONE_HIDE_PAT =
             java.util.regex.Pattern.compile("^(?i)(?:HIDE|CLEAR):\\s*([A-Za-z0-9_]+)$");
+    private static final java.util.regex.Pattern STANDALONE_BG_PAT =
+            java.util.regex.Pattern.compile("^(?i)(?:BG|BACKGROUND):\\s*([A-Za-z0-9_\\-\\.\\/\\s]+\\.(?:jpg|jpeg|png|webp|gif)|[A-Za-z0-9_\\-]+)$");
 
     /**
      * Internal reader-based parser that binds metadata directives without adding them to player dialogue.
@@ -509,13 +549,28 @@ public class JSCParser {
             }
 
             // Directives / Metadata: @command args
-            // Captured as engine configuration and never added to player dialogue queue!
             if (trimmed.startsWith("@")) {
+                String directiveBody = trimmed.substring(1).trim();
+                int spaceIdx = directiveBody.indexOf(' ');
+                String cmd = (spaceIdx != -1 ? directiveBody.substring(0, spaceIdx) : directiveBody).toLowerCase();
+                String arg = spaceIdx != -1 ? directiveBody.substring(spaceIdx + 1).trim() : "";
+                if ((arg.startsWith("\"") && arg.endsWith("\"")) || (arg.startsWith("'") && arg.endsWith("'"))) {
+                    arg = arg.substring(1, arg.length() - 1).trim();
+                }
+
+                if (cmd.equals("bg") || cmd.equals("background")) {
+                    if (meta != null && meta.getDefaultBackground() == null) {
+                        meta.setDefaultBackground(arg);
+                    }
+                    pendingDirectives.append("[BG: ").append(arg).append("] ");
+                    continue;
+                }
+
                 applyDirective(trimmed, meta);
                 continue;
             }
 
-            // Standalone stage / sprite directives (e.g. "Nora_MonsterEnergy(middle)", "Maya_Happy(left)", "[HIDE: left]")
+            // Standalone stage / sprite / background directives
             java.util.regex.Matcher matSA = STANDALONE_SPRITE_PAT_A.matcher(trimmed);
             if (matSA.matches()) {
                 pendingDirectives.append("[SPRITE: ").append(matSA.group(1)).append("_").append(matSA.group(2))
@@ -535,6 +590,11 @@ public class JSCParser {
             java.util.regex.Matcher matHide = STANDALONE_HIDE_PAT.matcher(trimmed);
             if (matHide.matches()) {
                 pendingDirectives.append("[HIDE: ").append(matHide.group(1)).append("] ");
+                continue;
+            }
+            java.util.regex.Matcher matBg = STANDALONE_BG_PAT.matcher(trimmed);
+            if (matBg.matches()) {
+                pendingDirectives.append("[BG: ").append(matBg.group(1).trim()).append("] ");
                 continue;
             }
 
@@ -605,6 +665,7 @@ public class JSCParser {
                 case "title" -> meta.setTitle(arg);
                 case "character" -> meta.setCharacterName(arg);
                 case "tagline" -> meta.setTagline(arg);
+                case "background", "bg" -> meta.setDefaultBackground(arg);
             }
         }
     }

@@ -2,12 +2,10 @@
 # Project Crossroads - Screenplay Script
 # Story: Jules's Story - The Weight of Expectations
 # Format: JSC (Jadiel Santiago Crossroads Script)
-#
 # Copyright (c) 2026 Jadiel Santiago. All rights reserved.
 # Licensed under CC BY-NC 4.0 (Attribution-NonCommercial - No Monetary Gain).
 # See COPYRIGHT.txt in repository root for full license details.
 # ==============================================================================
-
 
 @title Jules's Story: The Weight of Expectations
 @character Julian "Jules" Rivera
@@ -16,189 +14,226 @@
 # ------------------------------------------------------------------------------
 # Scene 1: Monday Morning - The Weight of Expectations
 # ------------------------------------------------------------------------------
-Narrator: [Scene 1: Monday Morning - The Weight of Expectations]
+
+Narrator: [Scene 1: Monday Morning - The Weight of Expectations] [HIDE: all]
 Narrator: [BACKGROUND: The Campus Quad, 8:10 a.m. The crisp autumn air bites at Jules's face. Cold morning mist clings to the brutalist concrete facades of the surrounding buildings.]
 Narrator: [AUDIO: The distant chime of the campus clock tower, accompanied by the muffled shuffle of student foot traffic.]
-Narrator: Jules crosses the quad with his laptop bag digging a groove into his shoulder that has been there so long he's stopped registering it as pain.
+Narrator: [SPRITE: Jules_Stressed, middle] Jules crosses the quad with his laptop bag digging a groove into his shoulder that has been there so long he's stopped registering it as pain.
 Narrator: The whiteboard in his dorm room still reads: RTX -- DISCUSSION SECTION, FINAL PASS in his own handwriting, underlined twice, like pressing harder into the dry-erase marker might make it true faster.
-Nora_MonsterEnergy(middle)
-Maya_Happy(left)
-Jules_Stressed(right): (V.O.) Six rewrites. Six. Dr. Okoye hasn't even seen draft four yet and I'm already picking apart five. If I don't nail this section, the whole senior design project will fall apart.
-[HIDE: ALL]
+Jules_Stressed(middle): (V.O.) Six rewrites. Six. Dr. Okoye hasn't even seen draft four yet and I'm already picking apart five. If I don't nail this section, the whole senior design project falls apart.
+Narrator: [SPRITE: Jules_Tired, left] [SPRITE: Maya_Tired_Barn, right] Where the main walkway forks toward the Agricultural Sciences pasture path, a girl in mud-caked barn boots and a heavy canvas coat trudges past him, smelling faintly of sweet silage and iodine.
+Narrator: Her lanyard reads MAYA - ANIMAL SCI, and she's staring down at a crumpled white envelope in her calloused hands like it might detonate in the cold air.
+Narrator: [HIDE: right] Ten paces behind her, a pale sophomore drowning in an oversized chore coat is nearly hyperventilating into his phone.
+Jordan: (passing by, voice cracking) --a forty-two, man. Hale posted the 101 midterms at dawn and I got a forty-two. If I lose my scholarship--
+Narrator: [SPRITE: Jules_Stressed, middle] Jules instinctively tightens his grip on his laptop strap, walking faster. A forty-two. Just hearing the number out loud feels contagious.
 Narrator: Office hours. Dr. Okoye's door is propped open, a ceramic mug that reads 'WORLD'S OKAYEST ADVISOR' sitting cold beside a stack of ungraded midterms.
-Dr. Okoye: Julian. Sit. You look like you haven't been sleeping well.
-Jules: I'm fine, Dr. Okoye. I just wanted to walk through our discussion about the section again before I--
+Dr. Okoye: [SPRITE: Jules_Tired, left] Julian. Sit. You look like you haven't been sleeping well.
+Jules_Speaking(left): I'm fine, Dr. Okoye. I just wanted to walk through our discussion about the section again before I--
 Dr. Okoye: You walked through it with me on Thursday. And Tuesday. It was good on Thursday, Julian.
-Jules: Good isn't the interview. Good is the callback before the actual callback.
+Jules_Stressed(left): Good isn't the interview. Good is the callback before the actual callback.
 Narrator: [Dr. Okoye pausing for a beat, studying him with quiet concern]
 Dr. Okoye: RTX is a real offer chasing a real you. Not a hologram of you that never sleeps. Go eat something between now and your two o'clock.
 Narrator: He doesn't answer that directly. He never does.
+Narrator: [HIDE: all] At 5:50 p.m., having skipped lunch entirely, Jules cuts through the Life Sciences basement corridor to beat the evening wind on his walk back to the dorms.
+Narrator: [SPRITE: Jules_Tired, middle] Just as he pushes through the heavy fire door, a sharp collision echoes behind him near the clean-room airlock, followed by the frantic clatter of plastic centrifuge tubes skittering across waxed linoleum.
+Maya: [SPRITE: Maya_Distressed_Barn, right] [HIDE: middle] (through the fire-door glass, gasping) Sorry, sorry, I wasn't looking!
+Nora_Calm(left): (dropping smoothly to one knee) No, that was me. I came through the airlock too fast. You're doing cortisol assays?
+Narrator: Jules glances back through the wire-mesh window. The girl in the barn coat from this morning is clutching a blue styrofoam ice bucket while a biotech senior in a charcoal hoodie calmly rescues two runaway vials before they roll into a floor drain.
+Narrator: [SPRITE: Maya_Smiling_Barn, left] [SPRITE: Nora_Laughing, right] Neither of them is panicking. Within seconds, they're already trading dry jokes about an ancient plate reader.
+Narrator: [HIDE: all] [SPRITE: Jules_Thinking, middle] Jules lets the heavy fire door swing shut, feeling a strange, quiet pang of envy for how easily a dropped tray can just be a dropped tray.
 Narrator: That evening, sitting alone at his dorm desk, his phone buzzes with an incoming call from his father.
 Dad: (through phone, warm and loud) Three point nine, Julian. You keep that three point nine and that company you talked to me about doesn't have a single reason to say no. You have to do this right, okay?
-Jules: I know, Pa.
+Jules_Tired(middle): I know, Pa.
 Dad: I'm not worried. You never drop a three point nine.
-Narrator: Jules doesn't correct the plural certainty in that sentence. He's carrying a C+ on a midterm that hasn't posted to the student portal yet, and he has decided, privately, that if he doesn't look at it, it isn't real.
-Jules: Nada, Pa, hablamos despues, te quiero mucho.
+Narrator: [SPRITE: Jules_Distressed, middle] Jules doesn't correct the plural certainty in that sentence. He's carrying a C+ on a midterm that hasn't posted to the student portal yet, and he has decided, privately, that if he doesn't look at it, it isn't real.
+Jules_Speaking(middle): Nada, Pa, hablamos despues, te quiero mucho.
 Dad: Dale, Dios te bendiga.
-Narrator: Jules stares at the screen of his monitor. Watching as his animated background just does it's thing.
-Narrator: This is just the start of the week, but, the pressure is building inside, he has to keep his grades up.
+Narrator: [SPRITE: Jules_Tired, middle] Jules stares at the glare of his monitor, watching as his animated background loops in the dark room.
+Narrator: It is only Monday night, and the walls are already closing in.
 
 # ------------------------------------------------------------------------------
-# Scene 2: Tuesday Night - The 24/7 Café & The Code
+# Scene 2: Tuesday Night - The 24/7 Cafe & The Code
 # ------------------------------------------------------------------------------
-Narrator: [Scene 2: Tuesday Night - The 24/7 Café & The Code]
-Narrator: [BACKGROUND: The Mill, campus 24-hour café, 11:40 p.m. Neon signage casts a dim amber glow across sticky laminate tables. The air smells of burnt dark roast and stale adrenaline.]
+
+Narrator: [Scene 2: Tuesday Night - The 24/7 Cafe & The Code] [HIDE: all]
+Narrator: [BACKGROUND: The Mill, campus 24-hour cafe, 11:40 p.m. Neon signage casts a dim amber glow across sticky laminate tables. The air smells of burnt dark roast and stale adrenaline.]
 Narrator: [AUDIO: The steady, low drone of espresso grinders and the quiet, furious clatter of laptop keyboards.]
 System: [STATS: Vulnerability 0 | Health 0 | Burnout 0]
-Narrator: Jules has colonized the corner table like a small occupying army -- three portable monitors fanned out in a defensive perimeter, a laptop stand, an external mechanical keyboard, and a fourth espresso sweating a dark ring onto a napkin that reads 'Vale la Pena'.
-Narrator: The compiler progress bar has been frozen at 94% for six agonizing minutes.
-Jules: If this shit fails one more time, I lose the whole evening. If I lose the whole evening, I don't have discussion-section time tomorrow. If I don't have discussion-section time tomorrow, Okoye sees draft five instead of draft seven, and draft seven was going to be the good one.
-Narrator: A wooden chair scrapes loudly at the adjacent table. Maya Sterling drops into it like she's been standing since noon, her laptop open to a fellowship application with a word count highlighted in bright red: 847 / 750.
-Maya: (to herself, staring at her screen) Cool, cool. I'll just -- invent a way to say the exact same thing in fewer words. Pretty normal skill to need at midnight.
-Jules: (without looking up from his code) Cut your second paragraph. It's restating your first one with better adjectives. You don't need that much verbatim.
-Narrator: [Maya blinking in surprise, turning to stare at him]
-Maya: Rude much?
-Jules: Maybe, but that's why you have a hundred extra words. You're building a case twice because you don't trust the first version to be able to land.
-Maya: You built a lot of cases twice, or is this a you-specific thing you're handing out for free tonight?
 
-? Narrator: How does Jules manage the rising anxiety in his chest right now?
+Narrator: [SPRITE: Jules_Stressed, left] Jules has colonized the corner table like a small occupying army -- three portable monitors fanned out in a defensive perimeter, a laptop stand, an external mechanical keyboard, and a fourth espresso sweating a dark ring onto a napkin that reads 'Vale la Pena'.
+Narrator: Earlier at five o'clock, while buying a canned espresso at the vending machine outside the campus print center, he had traded a tired nod with Nora Vance after the print shop's large-format plotter jammed on her. Six hours later, he's the one staring down a machine that refuses to cooperate.
+Narrator: The compiler progress bar has been frozen at 94% for six agonizing minutes.
+Jules_Stressed(left): If this shit fails one more time, I lose the whole evening. If I lose the whole evening, I don't have discussion-section time tomorrow. If I don't have discussion-section time tomorrow, Okoye sees draft five instead of draft seven, and draft seven was going to be the good one.
+Narrator: [SPRITE: Maya_Tired, right] A wooden chair scrapes loudly at the adjacent table. Maya Sterling -- the Animal Science girl from the quad and the basement airlock -- drops into it like she's been standing since dawn, her laptop open to an Ansel Center Horizon Fellowship application with a word count highlighted in bright red: 847 / 750.
+Maya_Tired(right): (to herself, rubbing her eyes) Cool, cool. I'll just -- invent a way to say the exact same thing in fewer words. Pretty normal skill to need at midnight.
+Jules_Neutral(left): (without looking up from his code) Cut your second paragraph. It's restating your first one with better adjectives. You don't need that much verbatim.
+Narrator: [Maya blinking in surprise, turning to stare at him]
+Maya_Speaking(right): Rude much?
+Jules_Thinking(left): Maybe, but that's why you have a hundred extra words. You're building a case twice because you don't trust the first version to land.
+Maya_Thinking(right): You build a lot of cases twice, or is this a you-specific thing you're handing out for free tonight?
+Narrator: [SPRITE: Maya_Distressed, right] Before Jules can answer, Maya's phone buzzes hard against the wood. Even from across the aisle, the frantic wall of text is unmistakable -- that same sophomore from Monday morning, Jordan, begging for a three-hour tutoring review on Thursday night, the eve of her fellowship interview.
+
+? Narrator: How does Jules manage the rising anxiety in his chest as he looks at Maya's screen?
     > Mask it. Go full flawless-machine. (Preach ruthless survival)
-        Jules: You don't leave room for anyone to find the flaws. No qualifiers, no 'I think,' no apologizing for taking up space on the page. Everybody's got one oxygen mask, buddy. Put yours on first, worry about the fellowship committee's oxygen later.
+        Jules_Stressed(left): You don't leave room for anyone to find the flaws. No qualifiers, no 'I think,' no apologizing for taking up space on the page. And tell that kid no. Everybody's got one oxygen mask, buddy. Put yours on first, worry about the fellowship committee's oxygen later.
         Narrator: Jules says it like a mantra, because it is one -- for himself, mostly.
         System: [STAT_UPDATE: Vulnerability -1, Burnout +1]
-        Maya: That's...
+        Maya_Tired(right): That's... a pretty cold way to live, Rivera.
     > Let the crack show, just this once. (Admit his own exhaustion)
         Narrator: Jules lets out a long, ragged exhale, finally looking up from the 94% progress bar.
-        Jules: Honestly? I don't know if I'm the right person to give advice on not overworking something. I've rewritten the same six paragraphs so many times I don't know which draft is even mine anymore.
+        Jules_Tired(left): Honestly? I don't know if I'm the right person to give advice on not overworking something. When the compiler fails, my grade drops, and my dad has already told everyone on his shift about my RTX interview on Monday. I've rewritten the same six paragraphs so many times I don't know which draft is even mine anymore.
         Narrator: He surprises himself by saying it out loud. A tiny fraction of tension eases from his shoulders.
         System: [STAT_UPDATE: Vulnerability +1, Burnout -1]
-        Maya: I see... That's okay, don't worry about it, I'll handle it.
+        Maya_Thinking(right): I see... That's okay, don't worry about it. We'll both handle it.
 
 Narrator: Maya highlights her second paragraph, pauses for a breath, and hits delete. The fellowship word count drops to 751. She still needs one more word gone.
 Narrator: [Maya closing her laptop halfway, studying Jules's hollow eyes]
-Maya: For what it's worth -- whichever version of that advice you actually believe, I hope it's the one that lets you sleep tonight.
-Maya: I'm gonna keep working on this, talk to you later then.
-Narrator: She doesn't wait for an answer. She leaves it there on the laminate table, right next to his empty espresso cups.
+Maya_Smiling(right): For what it's worth -- whichever version of that advice you actually believe, I hope it's the one that lets you sleep tonight.
+Maya_Speaking(right): I'm gonna trim this last word and pack it in. Talk to you later, Rivera.
+Narrator: [HIDE: right] She leaves the thought sitting there on the laminate table, right next to his empty espresso cups.
 
 # ------------------------------------------------------------------------------
 # Scene 3: Wednesday 1:50 a.m. - The Flashcard Fortress
 # ------------------------------------------------------------------------------
-Narrator: [Scene 3: Wednesday 1:50 a.m. - The Flashcard Fortress]
+
+Narrator: [Scene 3: Wednesday 1:50 a.m. - The Flashcard Fortress] [HIDE: all]
 Narrator: [BACKGROUND: The Mill, continuing into the dead of night. The ambient noise has dwindled to a lonely hum. The neon signs buzz softly against the dark windows.]
 Narrator: [AUDIO: The rhythmic, mechanical hum of an ancient laser printer churning in the back corner.]
-Narrator: The café never closed; neither did Jules. The three monitors have now been joined by a fourth combatant: a shoebox of color-coded flashcards, organized by an indexing system only Jules understands, plus a yellow highlighter tucked behind each ear like antennae.
-Narrator: Nora Vance arrives in oversized sweats, hauling a cardboard tube of poster proofs toward the café's ancient laser printer, entirely unbothered by the hour.
-Narrator: [Nora glancing at the sprawling flashcard fortress with an amused tilt of her head]
-Nora: Is this a study system or a hostage situation.
-Jules: (a real, tired laugh escaping him) Little of both. I've rewritten my discussion section six times. I'm starting to worry the seventh time is just going to be the first time with worse handwriting.
+
+Narrator: [SPRITE: Jules_Tired, left] The cafe never closed; neither did Jules. The three monitors have now been joined by a fourth combatant: a shoebox of color-coded flashcards, organized by an indexing system only Jules understands, plus a yellow highlighter tucked behind each ear like antennae.
+Narrator: [SPRITE: Maya_Tired, middle] [SPRITE: Nora_Calm, right] At 1:45 a.m., Maya finally zips her laptop into her bag at 750 words even. As she pushes open the glass exit door, she nearly bumps into Nora Vance arriving in oversized sweats, hauling a cardboard tube of poster proofs toward the cafe's ancient laser printer.
+Maya_Smiling(middle): (offering Nora a tired two-finger salute) Morning shift's all yours, Vance. Careful in the corner booth -- he bites about adjectives.
+Nora_Smiling(right): Noted. Go get some sleep, Sterling.
+Narrator: [HIDE: middle] [Nora glancing at the sprawling flashcard fortress with an amused tilt of her head]
+Nora_Smiling(right): Is this a study system or a hostage situation?
+Jules_Smiling(left): (a real, tired laugh escaping him) Little of both. I've rewritten my discussion section six times. I'm starting to worry the seventh time is just going to be the first time with worse handwriting.
 Narrator: Nora perches on the arm of the empty chair across from him, entirely at ease in the midnight quiet.
-Nora: Six. Okay. Can I ask a nosy question?
-Jules: You're printing poster proofs at two in the morning, Nora. I feel like we're well past the point of asking permission.
-Nora: Does it ever feel like the whole thing -- the GPA, the interview, all of it -- is one long held breath? Like something's about to fall apart if you exhale wrong?
-Jules: (voice dropping quiet) I--- yeah, every single day since August.
+Nora_Thinking(right): Six. Okay. Can I ask a nosy question?
+Jules_Tired(left): You're printing poster proofs at two in the morning, Nora. I feel like we're well past the point of asking permission.
+Nora_Speaking(right): Does it ever feel like the whole thing -- the GPA, the interview, all of it -- is one long held breath? Like something's about to fall apart if you exhale wrong?
+Jules_Distressed(left): (voice dropping quiet) I--- yeah. Every single day since August.
 Narrator: [Nora looking at him, not trying to fix it, but not flinching from it either]
-Nora: My biosensor project has failed eleven times. Eleven. I have a whole spreadsheet dedicated to tracking the wreckage. It's the most interesting thing I've worked on in four years, specifically because it keeps failing in brand new ways.
-Jules: That's not the same as maintaining a 3.9 GPA, Nora. Engineering doesn't celebrate failure as an aesthetic.
-Nora: No. It's not. I'm not saying trade your major in. I'm saying -- is there one class, just one, this semester, where you let yourself be bad at something on purpose? Not reckless-bad. Just human-bad. See what's on the other side of that.
+Nora_Calm(right): My biosensor project has failed eleven times. Eleven. I have a whole spreadsheet dedicated to tracking the wreckage. It's the most interesting thing I've worked on in four years, specifically because it keeps failing in brand new ways.
+Jules_Stressed(left): That's not the same as maintaining a 3.9 GPA, Nora. Engineering doesn't celebrate failure as an aesthetic.
+Nora_Speaking(right): No. It's not. I'm not saying trade your major in. I'm saying -- is there one class, just one, this semester, where you let yourself be bad at something on purpose? Not reckless-bad. Just human-bad. See what's on the other side of that.
 
 ? Narrator: How does Jules respond to Nora's radical suggestion?
     > Write it down. Actually consider letting go. (Embrace human imperfection)
-        Narrator: Jules hesitates. Then, he reaches into the shoebox and pulls out a fresh flashcard -- blank white, no color code assigned yet.
+        Narrator: [SPRITE: Jules_Thinking, left] Jules hesitates. Then, he reaches into the shoebox and pulls out a fresh flashcard -- blank white, no color code assigned yet.
         Narrator: With deliberate strokes, he writes: *one class, not perfect, see what happens.*
         Narrator: He doesn't know what he'll do with it. But he doesn't throw it away; he tucks it separate from the rest.
-        Nora: (observes how he wrote down her advise)
+        Nora_Smiling(right): (watches him tuck the unindexed white card into his pocket with a quiet, approving nod)
         System: [STAT_UPDATE: Vulnerability +1, Health & Boundaries +1]
     > Dismiss it, gently but completely. (Reaffirm the perfectionist standard)
-        Jules: That probably works for biotech, Nora. Computer engineering doesn't really have a 'be human-bad on purpose' elective. There's no partial credit on an IDE nor a compiler. Either it builds cleanly, or the system crashes and doesn't work.
+        Jules_Stressed(left): That probably works for biotech, Nora. Computer engineering doesn't really have a 'be human-bad on purpose' elective. There's no partial credit on an IDE or a compiler. Either it builds cleanly, or the system crashes and doesn't work.
         Narrator: He says it like a cold mathematical fact instead of a terrifying personal prison.
-        Nora: I see how it is...
+        Nora_Tired(right): I see how it is...
         System: [STAT_UPDATE: Vulnerability -1, Burnout +1]
 
 Narrator: Nora stands up, retrieving her warm poster tube from the printer tray.
-Nora: Symposium is Thursday, by the way. Two o'clock, CID Building CD-209. No pressure. I just -- it would be nice if a friendly face was there that wasn't my PI staring through my soul.
-Narrator: She leaves before he can answer that either.
+Nora_Smiling(right): Symposium is Thursday, by the way. Two-thirty, CID Building Atrium. No pressure. I just -- it would be nice if a friendly face was there that wasn't my PI staring through my soul.
+Narrator: [HIDE: right] She leaves before he can answer that either.
 
 # ------------------------------------------------------------------------------
 # Scene 4: Wednesday Afternoon - The Family Echo & The Breaking Point
 # ------------------------------------------------------------------------------
-Narrator: [Scene 4: Wednesday Afternoon - The Family Echo]
+
+Narrator: [Scene 4: Wednesday Afternoon - The Family Echo] [HIDE: all]
 Narrator: [BACKGROUND: The exterior breezeway of the Engineering building, 4:00 p.m. Jules leans against the brick wall, phone pressed to his ear.]
 Narrator: [AUDIO: The background noise of a cousin's birthday party bleeding through the line -- a festive radio, clattering dishes, children laughing.]
-Dad: Julian! I was just telling Tío Beto -- my son, senior year, already basically got RTX Technologies in the bag. You remember those bonuses I got up so you could have that first laptop? Look at you now.
-Jules: Yeah, Pa. I remember.
+
+Dad: [SPRITE: Jules_Stressed, left] Julian! I was just telling Tio Beto -- my son, senior year, already basically got RTX Technologies in the bag. You remember those bonuses I gave up so you could have that first laptop? Look at you now.
+Jules_Tired(left): Yeah, Pa. I remember.
 Narrator: Jules doesn't mention the compiler warnings still sitting unresolved in his terminal. It would take the shine off something his father is clearly enjoying, and Jules has gotten very good, over four years, at not being the one who takes the shine off things.
 Dad: We're counting on you, you know? First Computer Engineer in the family.
-Narrator: The call ends. The dial tone rings hollow in Jules's ear.
-Narrator: Jules remembers the beginning of it all, when his own father didn't even know what computer engineering was. He was against him studying that, as he thought it was a video game career.
+Narrator: [SPRITE: Jules_Distressed, left] The call ends. The dial tone rings hollow in Jules's ear.
+Narrator: [SPRITE: Maya_Distressed, right] Across the damp courtyard, on the steps of the Agricultural Sciences building, Jules spots Maya standing motionless by the heavy oak doors, staring down at her own shaking hands after a tall professor in a tweed blazer disappears inside.
+Narrator: [SPRITE: Nora_Tired, middle] A moment later, Nora hurries along the covered walkway between them, hugging a full-size mock-up poster tube against the gathering rain. She catches Jules's eye, offers a quiet, sympathetic nod, and heads off-campus before her own evening phone calls begin.
+Narrator: [HIDE: middle] [HIDE: right] Jules remembers when his father didn't even know what computer engineering was -- when he thought it was just playing video games. Three people on the same rain-slicked quad, all bracing for impact from voices that aren't even standing in the storm with them.
 
-Narrator: [Scene 4 Continued: Wednesday Night - The Breaking Point]
+Narrator: [Scene 4 Continued: Wednesday Night - The Breaking Point] [HIDE: all]
 Narrator: [BACKGROUND: The Mill, 10:30 p.m. Exactly six hours before the senior design discussion section is due. Rain lashes against the dark windows.]
 Narrator: [AUDIO: The sharp, unforgiving clack of an Enter key, followed by the sudden, deadening silence of an error report.]
-Narrator: Jules executes the final integration test on the sensor module that anchors his entire discussion section's data set. It should be routine. It has to be routine.
+
+Narrator: [SPRITE: Jules_Stressed, left] Jules executes the final integration test on the sensor module that anchors his entire discussion section's data set. It should be routine. It has to be routine.
 Narrator: The terminal flashes crimson:
 System: ERROR: calibration array mismatch -- 0 valid samples returned\nFATAL: dependency chain broken at compile-time (see: firmware_rev_9)
-Narrator: Not a typo. Not a missing semicolon. A structural, cascading failure four revisions deep, buried in code he trusted enough to stop double-checking three days ago.
+Narrator: [SPRITE: Jules_Distressed, left] Not a typo. Not a missing semicolon. A structural, cascading failure four revisions deep, buried in code he trusted enough to stop double-checking three days ago.
 Narrator: The entire data set underpinning his discussion section -- the empirical foundation Okoye is expecting on her desk at 9:00 a.m. -- does not exist.
-Jules: (V.O.) (chest seizing, breath catching) Okay. Okay. I can rebuild the calibration set by six if I don't stop moving. I can rebuild it by six if I don't--
+Jules_Distressed(left): (V.O.) (chest seizing, breath catching) Okay. Okay. I can rebuild the calibration set by six if I don't stop moving. I can rebuild it by six if I don't--
 Narrator: His hands are shaking violently on the keyboard. He knocks over his lukewarm espresso cup; the black liquid puddles across the table, soaking into his notes. He doesn't even move to wipe it up.
-Narrator: Maya walks into the café on a midnight snack run. She spots him instantly from across the room -- the rigid, unnatural stillness that isn't calm, the screen overflowing with red error text, the spilled drink.
+Narrator: [SPRITE: Maya_Distressed, right] At 10:45 p.m., Maya walks into the cafe on a late-night coffee-and-bagel run, still shaking off Dr. Hale's hallway ambush from that afternoon. She spots him instantly from across the room -- the rigid, unnatural stillness that isn't calm, the screen overflowing with red error text, the spilled drink.
 Narrator: [Maya walking over, sliding into the booth across from him, tone quiet and devoid of drama]
-Maya: Hey are you okay? What's the damage?
+Maya_Speaking(right): Hey, are you okay? What's the damage?
 
 ? Narrator: Does Jules hide the disaster, or let her see the truth?
     > Hold the line. "I've got it." (Protect the mask of self-reliance)
-        Jules: It's fine. It's just a computer software thing. I've got it, I can handle it.
+        Jules_Stressed(left): It's fine. It's just a computer software thing. I've got it, I can handle it.
         Narrator: His voice comes out thin and cracked, directly contradicting every word of the sentence.
         System: [STAT_UPDATE: Vulnerability -2, Burnout +2]
         Narrator: [Maya looking at him gently, not buying the lie for a second, but refusing to push him]
-        Maya: Okay. I'll be sitting right here if you need anything okay?
-        Narrator: She stays -- quietly, without asking permission, pulling up a chair at the next table to keep vigil. It doesn't fix the calibration array, but it changes, slightly, how suffocating the room feels.
+        Maya_Calm(right): Okay. I'll be sitting right here if you need anything, okay?
+        Narrator: She grabs a handful of napkins anyway, mopping up the espresso before it reaches his laptop vents.
     > Let it out. "I'm not okay." (Surrender the burden and ask for help)
-        Jules: (gripping table edges, knuckles white) My whole data set just -- evaporated. Six hours before it's due. I don't think I can rebuild this by morning and I don't know what happens to me if I can't. I'm tired, Maya, this shits been so fucking hard and I just ca---
+        Jules_Distressed(left): (gripping table edges, knuckles white) My whole data set just -- evaporated. Six hours before it's due. I don't think I can rebuild this by morning and I don't know what happens to me if I can't. I'm tired, Maya, this shit's been so fucking hard and I just ca---
         System: [STAT_UPDATE: Vulnerability +2, Health & Boundaries +1, Burnout -1]
         Narrator: [Maya pulling her chair around to his side of the table, calm and unhurried]
-        Maya: (with a softer calm voice) Hey breathe, because your face looks like it matches your screen color right now. Second -- I once got a D-minus in a class that was supposed to be my entire life plan, Jules. I promise you, the floor exists, and it did not, in fact, kill me. Let's look at what's actually broken instead of what it means if it's broken.
+        Maya_Calm(right): (with a softer calm voice) Hey, breathe, because your face looks like it matches your screen color right now. Second -- I once got a D-minus in a class that was supposed to be my entire life plan, Jules. I promise you, the floor exists, and it did not, in fact, kill me. Let's look at what's actually broken instead of what it means if it's broken.
 
-Narrator: Maya pulls a napkin to mop up the coffee and pulls the keyboard toward them both.
-Narrator: Somewhere around 1:15 a.m., working through the raw logs line by line, they spot the culprit: a schema mismatch introduced during a rushed refactor two nights ago. It's fixable. Not catastrophic. Just buried under a panic that made it look insurmountable.
-Jules: (V.O.) It wasn't unsolvable. It just felt unsolvable at eleven p.m. alone. That might be the actual finding of this whole semester. Thank you, Maya, I needed that...
-Maya: See? I dont even need to know about computers and programming to help!
+Narrator: [SPRITE: Maya_Thinking, right] As Maya pulls a stack of napkins across the laminate to mop up the coffee, her phone lights up with a photo from Nora: a full-size CRISPR biosensor poster taped to an apartment wall.
+Narrator: [SPRITE: Maya_Smiling, right] Maya fires back a one-handed text -- *Poster looks sick!! Currently at The Mill mopping espresso out of Rivera's keyboard, pray for us* -- before locking her phone and pulling the keyboard toward them both.
+Narrator: [SPRITE: Jules_Thinking, left] Somewhere around 1:15 a.m., working through the raw logs line by line, they spot the culprit: a schema mismatch introduced during a rushed refactor two nights ago. It didn't delete the data; it just pointed to an empty header.
+Jules_Smiling(left): (V.O.) It wasn't unsolvable. It just felt unsolvable at eleven p.m. alone. That might be the actual finding of this whole semester. Thank you, Maya, I needed that...
+Maya_Smiling(right): See? I don't even need to know about computers and programming to keep someone from drowning!
 
 # ------------------------------------------------------------------------------
 # Scene 5: Thursday - Showing Up & The Shared Plate
 # ------------------------------------------------------------------------------
-Narrator: [Scene 5: Thursday Afternoon - Showing Up]
-Narrator: [BACKGROUND: CID Building exterior, 1:45 p.m. Polished glass reflections under an overcast sky. Students and faculty stream into the building for the Research Symposium.]
+
+Narrator: [Scene 5: Thursday Afternoon - Showing Up] [HIDE: all]
+Narrator: [BACKGROUND: CID Building / Convention Center Atrium, 2:15 p.m. Polished glass reflections under an overcast sky. Students and faculty stream into the building for the Research Symposium.]
 Narrator: [AUDIO: The lively buzz of the convention atrium, punctuated by bursts of applause from the presentation halls.]
-Narrator: The calibration array is patched -- inelegantly, at 3:30 a.m., but functional. The discussion section is submitted, four hours late, accompanied by an honest, unvarnished email to Dr. Okoye that Jules rewrote exactly zero times.
+
+Narrator: [SPRITE: Jules_Tired, middle] The calibration array is patched -- inelegantly, at 3:30 a.m., but functional. The discussion section is submitted, four hours late, accompanied by an honest, unvarnished email to Dr. Okoye that Jules rewrote exactly zero times.
 Narrator: Nora's symposium presentation is in fifteen minutes. Back in his dorm room, his terminal still has two compiler warnings he hasn't chased down.
 
 ? Narrator: The symposium presentation, or chasing compiler warnings in the terminal?
     > Skip the symposium. The warnings won't fix themselves. (Choose the machine)
-        Narrator: Jules types a hurried text to Nora: *Good luck today, stuck on something in the lab, rooting for you.*
+        Narrator: [SPRITE: Jules_Stressed, middle] Jules types a hurried text to Nora: *Good luck today, stuck on something in the lab, rooting for you.*
         Narrator: He turns back towards the engineering building. The warnings take forty minutes to resolve. He spends the next twenty staring blankly at a green checkmark, feeling utterly hollow inside.
         System: [STAT_UPDATE: Health & Boundaries -1, Burnout +1]
     > Go to the symposium. The warnings can wait fifteen minutes. (Show up for someone else)
-        Narrator: Jules moves forward and pushes open the room door.
-        Narrator: He slides into a folding chair three rows back. He pulls his phone up, recording, as Nora takes the stage to present her sepsis biosensor. She talks openly about her eleventh failure and the breakthrough that followed. She is brilliant, unhurried, and genuinely having fun.
-        Narrator: A few rows over, Maya is holding a plastic-wrapped bouquet of gas-station carnations with a massive grin on her face.
+        Narrator: [SPRITE: Jules_Neutral, left] [SPRITE: Maya_Smiling, right] Jules moves forward and pushes open the atrium doors. Three rows back from the center podium, Maya is standing with a plastic-wrapped bouquet of $4.99 Shell gas-station carnations.
+        Maya_Smiling(right): (whispering as Jules slides in beside her) Look who made it out of the engineering bunker. They smell like unleaded fuel and desperation, don't judge me.
+        Jules_Smiling(left): (holding his phone up in landscape mode, camera primed) Second place or first place, she's walking away with flowers and archival footage.
+        Narrator: [SPRITE: Nora_Speaking, middle] As Nora takes the stage to present her sepsis biosensor, she talks openly about her eleventh failure and the breakthrough that followed. She is brilliant, unhurried, and genuinely in command of the room.
+        Narrator: [SPRITE: Nora_Distressed, middle] When the judges clip the shiny second-place Callahan Prize ribbon to her board at four o'clock, Nora's phone buzzes twice -- her mother and her girlfriend both dismissing her at once. Maya steps up shoulder-to-shoulder with her, and Jules lowers his phone, asking softly: *"Do you want to get out of here?"*
         System: [STAT_UPDATE: Vulnerability +1, Health & Boundaries +1, Burnout -1]
 
-Narrator: [Scene 5 Continued: Thursday Evening - The Shared Plate]
-Narrator: [BACKGROUND: The Student Center, 7:30 p.m. A shared box of hot and ready pizza sits between them at the round metal table.]
-Narrator: The three of them end up at the table that evening. Nora's presentation poster is rolled up beside her, bearing a shiny second-place ribbon for the Callahan Prize.
-Maya: (stealing a fry from the plate) So. Jules. Day four of the RTX Death March huh... Any updates?
-Jules: (and for the first time all week, his tone is almost light) Status report: the drone -- sorry, the calibration array -- did not, in fact, kill me. I have it on good authority the floor exists and I think it isn't fatal.
-Maya: (grinning broadly) Look at you, quoting me back to me.
-Nora: Anyways, It's not perfect. Neither is the semester. Turns out that's survivable too.
-Narrator: The three of them laugh and enjoy the rest of the night.
+Narrator: [Scene 5 Continued: Thursday Early Evening - The Shared Plate] [HIDE: all]
+Narrator: [BACKGROUND: The Mill / Student Center patio, 5:30 p.m. A shared plate of fries and a box of hot pizza sit between them at the round metal table.]
+
+Narrator: [SPRITE: Jules_Smiling, left] [SPRITE: Nora_Smiling, middle] [SPRITE: Maya_Smiling, right] The three of them end up at the table as the late afternoon light fades. Nora's presentation poster is rolled up beside her, bearing the second-place ribbon for the Callahan Prize, and Jules slides his phone across the table so she has proof of her talk.
+Maya_Smiling(right): (stealing a fry from the plate) So. Jules. Day four of the RTX Death March, huh... Any updates?
+Jules_Smiling(left): (and for the first time all week, his tone is almost light) Status report: the drone -- sorry, the calibration array -- did not, in fact, kill me. I have it on good authority the floor exists and I think it isn't fatal.
+Maya_Smiling(right): (grinning broadly) Look at you, quoting me back to me.
+Nora_Calm(middle): Anyways, it's not perfect. Neither is the semester. Turns out that's survivable too.
+Narrator: [SPRITE: Maya_Thinking, right] At 6:35 p.m., Maya's phone buzzes against the metal table. It's Jordan Reyes asking if she's still willing to meet at the dairy barn whiteboard before tomorrow's Horizon panel with Dr. Hale.
+Narrator: Maya exhales, zipping up her heavy coat as the Thursday evening rain begins to mist against the glass.
+Maya_Speaking(right): Duty calls. Wish me luck in the lion's den tomorrow morning at nine.
+Jules_Speaking(left): You don't need luck, Sterling. You already know the barn better than Hale does.
+Narrator: [HIDE: right] Maya grins, waves, and heads out into the rain, leaving Jules and Nora in the warm glow of the cafe.
 
 # ------------------------------------------------------------------------------
 # Scene 6: Friday Morning - The Fork in the Road
 # ------------------------------------------------------------------------------
-Narrator: [Scene 6: Friday Morning - The Fork in the Road]
-Narrator: [BACKGROUND: Jules's dorm room, 10:30 a.m. The kitchen light cuts through the blinds, illuminating the whole room]
-Narrator: Friday morning arrives. The week's toll is tallied, but the final step is still Jules's to make. Will he let others into his struggle, or carry the crushing weight alone?
+
+Narrator: [Scene 6: Friday Morning - The Fork in the Road] [HIDE: all]
+Narrator: [BACKGROUND: Jules's dorm room, 10:00 a.m. The post-rain morning sunlight cuts through the blinds, illuminating the whole room.]
+
+Narrator: [SPRITE: Jules_Thinking, middle] Friday morning arrives. At 8:45 a.m., right before Maya walked into her Horizon Fellowship panel with Dr. Hale, Jules sent her a single text to steady her nerves.
+Narrator: [HIDE: middle] [SPRITE: Nora_Calm, left] [SPRITE: Maya_Smiling, right] Looking down from his window toward the campus quad, he watches the week's storm clear. Near the center benches, Nora sits in the morning sun, lowering her phone with the quiet relief of someone who just set down a heavy bag after carrying it three miles too far. Across the grass, Maya pushes open the heavy doors of the Agricultural Sciences building in a borrowed blazer, tilting her face up to the crisp post-rain sky.
+Narrator: [HIDE: all] [SPRITE: Jules_Thinking, middle] The week's toll is tallied, but the final step is still Jules's to make. Will he let others into his struggle, or carry the crushing weight alone?
 
 ? Narrator: How does Jules face Friday morning? Does he let them in, or carry it alone one more time?
     > Let them in. (Branch A: Dropping the Guard -- Reach out, plan off-campus, tell Dad the truth)
@@ -209,51 +244,59 @@ Narrator: Friday morning arrives. The week's toll is tallied, but the final step
 # ------------------------------------------------------------------------------
 # Branch A: Dropping the Guard
 # ------------------------------------------------------------------------------
+
 :: branch_a
-Narrator: [Branch A: Dropping the Guard]
-Narrator: [BACKGROUND: Jules's dorm room, 11:00 a.m. The room begins to feel heavy]
-Narrator: Jules sits at his desk. He opens a blank Google Doc, but instead of an eighth rewrite of the discussion section, he builds a color-coded itinerary.
+Narrator: [Scene 6A: Branch A - Dropping the Guard] [HIDE: all]
+Narrator: [BACKGROUND: Jules's dorm room, 10:30 a.m. Warm morning light fills the desk corner.]
+
+Narrator: [SPRITE: Jules_Smiling, middle] Jules sits at his desk. He opens a blank Google Doc, but instead of an eighth rewrite of the discussion section, he builds a color-coded itinerary.
 Narrator: It's the same instinct that organizes his flashcards, but aimed at something completely different:\n*Saturday: Off Campus, Finally.*\nA hiking trailhead circled in green. A vintage diner circled in yellow. And absolutely nothing circled in red.
-Jules: (V.O.) Turns out I contain multitudes outside of the discussion section. Who knew the color-coding instinct had other uses.
-Narrator: He drops the link into a group chat with Maya and Nora.\nMaya immediately replies: *Finally. Please save me from bovine genetics.*
+Jules_Smiling(middle): (V.O.) Turns out I contain multitudes outside of the discussion section. Who knew the color-coding instinct had other uses.
+Narrator: He drops the link into a group chat with Maya and Nora.\nMaya immediately replies: *Finally. Please save me from bovine genetics.*\nNora replies: *On my way to the cafe now. Bring your spreadsheets.*
+
 Narrator: [BACKGROUND: The main door landing outside the apartment building, Friday, 6:30 p.m. The city skyline is turning a brilliant orange.]
 Narrator: [AUDIO: The distant hum of evening traffic and the gentle gust of wind through the iron railings.]
-Narrator: Jules sits on the iron grating with his back against the brick wall. His phone is in his hand. He doesn't text. He dials his parents' number, because some things demand a human voice.
-Jules: Hey, Ma, bendicion... Is Dad around too? I want to tell you both something.
+
+Narrator: [SPRITE: Jules_Tired, middle] Jules sits on the iron grating with his back against the brick wall. His phone is in his hand. He doesn't text. He dials his parents' number, because some things demand a human voice.
+Jules_Speaking(middle): Hey, Ma, bendicion... Is Dad around too? I want to tell you both something.
 Narrator: His father picks up the extension, his voice booming with pride. But Jules cuts in gently before the usual script can start.
-Narrator: Jules tells them everything. He tells them about the calibration failure, the four-hour late submission, the C+ on the midterm he hid, and not sleeping properly for three weeks. He tells them how terrified he was of letting them down.
-Narrator: There is a long, deafening silence on the line. Long enough that Jules's stomach drops into freefall. He can feel his tears already swelling up from the pent up frustration of what has proven to be a very difficult semester.
+Narrator: [SPRITE: Jules_Distressed, middle] Jules tells them everything. He tells them about the calibration failure, the four-hour late submission, the C+ on the midterm he hid, and not sleeping properly for three weeks. He tells them how terrified he was of letting them down.
+Narrator: There is a long, deafening silence on the line. Long enough that Jules's stomach drops into freefall. He can feel his tears already swelling up from the pent-up frustration of what has proven to be a brutal semester.
 Narrator: Then his father speaks. His voice is quieter than Jules has ever heard it, stripped of all bravado.
-Dad: Julian, the three point nine was never supposed to cost you your soul. Your mom has told me studying in this college isn't easy, and I won't pretend to understand it, But...
-Narrator: Jules feels something held taut for four years finally snap clean. A tear slips down his cheek, followed by a shaky, genuine laugh.
-Jules: I know, Pa. I'm starting to know that now.
+Dad: Julian, the three point nine was never supposed to cost you your soul. Your mom has told me studying in this college isn't easy, and I won't pretend to understand it, but we love you, mijo. Not the number.
+Narrator: [SPRITE: Jules_Smiling, middle] Jules feels something held taut for four years finally snap clean. A tear slips down his cheek, followed by a shaky, genuine laugh.
+Jules_Smiling(middle): I know, Pa. I'm starting to know that now.
 Narrator: He doesn't fix the whole semester that night. The C+ still posts to his transcript. The RTX interview still looms on Monday, nerves and all.
 Narrator: But for the first time in four years, the interview isn't the only thing standing between him and being allowed to exist. Tomorrow morning, there is a trailhead, a diner booth, and two people who already know the worst things that happened this week and showed up anyway.
 System: [FINAL STATS: Vulnerability MAXED | Health & Boundaries HIGH | Burnout RESOLVED]
-Narrator: "The weight didn't disappear. It never does... It just stopped being only his to carry."
+Narrator: [HIDE: all] "The weight didn't disappear. It never does... It just stopped being only his to carry."
 System: *Ending A: Dropping the Guard.*
 
 # ------------------------------------------------------------------------------
 # Branch B: Complete Burnout
 # ------------------------------------------------------------------------------
+
 :: branch_b
-Narrator: [Branch B: Complete Burnout]
+Narrator: [Scene 6B: Branch B - Complete Burnout] [HIDE: all]
 Narrator: [BACKGROUND: Jules's dorm room, 11:00 a.m. The blinds are drawn shut, keeping the room in a cold, artificial twilight.]
-Narrator: Jules's phone buzzes on the desk. A text from Maya: *Pizza again tonight? Nora's in.*
+
+Narrator: [SPRITE: Jules_Stressed, middle] Jules's phone buzzes on the desk. A text from Maya: *Coffee or pizza later? Nora's in.*
 Narrator: Jules stares at the screen. He types a single thumbs-up emoji, hits send, and immediately silences all notifications.
 Narrator: He opens the discussion section document for an eighth rewrite that no one requested. He logs back into his terminal and chases the two compiler warnings down to zero. Then he compiles it again, just to be sure.
-Jules: (V.O.) I don't have room for a diner and a trailhead. I have room for the 3.9 and the interview. That's the whole equation. That's always been the whole equation.
+Jules_Tired(middle): (V.O.) I don't have room for a diner and a trailhead. I have room for the 3.9 and the interview. That's the whole equation. That's always been the whole equation.
+
 Narrator: [BACKGROUND: Jules's dorm room, Friday, 9:00 p.m. The room is pitch black except for the blinding blue glare of the monitors.]
 Narrator: [AUDIO: The loud, lonely buzz of a vibrating cell phone against bare wood.]
-Narrator: His father calls. Jules answers on the second ring.
+
+Narrator: [SPRITE: Jules_Distressed, middle] His father calls. Jules answers on the second ring.
 Dad: (delighted, shouting over music) Three point nine, Julian! RTX on Monday! I'm telling everyone at work on Monday!
-Jules: (voice completely flat, hollow, robotic) Yeah, Pa. Three point nine holds.
+Jules_Distressed(middle): (voice completely flat, hollow, robotic) Yeah, Pa. Three point nine holds.
 Dad: That's my boy. Unstoppable. Get some rest this weekend!
 Narrator: The line goes dead. Jules lowers the phone.
-Narrator: He doesn't mention that he hasn't eaten a real meal since Tuesday. He doesn't mention Maya's unanswered texts, or the shoebox of flashcards now spilling onto the floor.
+Narrator: He doesn't mention that he hasn't eaten a real meal since Tuesday. He doesn't mention Maya's and Nora's unanswered texts, or the shoebox of flashcards now spilling onto the floor.
 Narrator: He got everything he set out to get this week. The GPA held. The interview is on the calendar. By every external metric known to his family and the department, he is an unqualified success.
 Narrator: He falls asleep sitting upright in his desk chair, his chest vibrating faintly from too much caffeine, his phone clutched face-up in his hand in case RTX emails early.
-Narrator: The room is quiet. He is entirely, precisely alone. Like he always has been...
+Narrator: [HIDE: all] The room is quiet. He is entirely, precisely alone. Like he always has been...
 System: [FINAL STATS: Burnout CRITICAL | Vulnerability ZERO | Health DEPLETED]
 Narrator: "The weight was still there. It was still only his to bear, and his alone. He didn't want to be a burden. Now he knows it..."
 System: *Ending B: Complete Burnout.*

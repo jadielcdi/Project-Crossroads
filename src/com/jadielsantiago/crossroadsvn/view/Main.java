@@ -688,11 +688,14 @@ public class Main extends Application {
 
     private void startStory(int storyId) {
         backgroundManager.stopAmbientZoom();
-        backgroundManager.setBackground(STORY_PLACEHOLDER_BACKGROUND);
         this.currentStoryId = storyId;
         this.currentSceneHeading = "";
         gameManager.clearDialogueHistory();
         JSCParser.StoryMetadata meta = JSCParser.getStoryMetadata(storyId);
+        String initialBg = (meta != null && meta.getDefaultBackground() != null)
+                ? meta.getDefaultBackground()
+                : STORY_PLACEHOLDER_BACKGROUND;
+        backgroundManager.setBackground(initialBg);
         Queue<DialogueLine> scene = JSCParser.loadStory(storyId);
 
         if (meta != null && meta.getDefaultMusic() != null) {
@@ -955,7 +958,56 @@ public class Main extends Application {
             cleanText = hideTagPat.matcher(cleanText).replaceAll("").trim();
         }
 
+        // 3. Check for background directives: e.g. [BG: Campus_Quad.jpg] or [BACKGROUND: Campus_Quad.jpg]
+        if (cleanText.contains("[BG:") || cleanText.contains("[bg:") ||
+                cleanText.contains("[BACKGROUND:") || cleanText.contains("[background:")) {
+            java.util.regex.Pattern bgTagPat = java.util.regex.Pattern.compile("\\[(?i)(?:BG|BACKGROUND):\\s*([^\\]]+)\\s*\\]");
+            java.util.regex.Matcher m = bgTagPat.matcher(cleanText);
+            StringBuilder sb = new StringBuilder();
+            while (m.find()) {
+                String fullTag = m.group(0);
+                String target = m.group(1).trim();
+                if ((target.startsWith("\"") && target.endsWith("\"")) || (target.startsWith("'") && target.endsWith("'"))) {
+                    target = target.substring(1, target.length() - 1).trim();
+                }
+
+                if (isBackgroundImageDirective(fullTag, target)) {
+                    if (backgroundManager != null) {
+                        backgroundManager.changeBackground(target);
+                    }
+                    m.appendReplacement(sb, "");
+                } else {
+                    m.appendReplacement(sb, java.util.regex.Matcher.quoteReplacement(fullTag));
+                }
+            }
+            m.appendTail(sb);
+            cleanText = sb.toString().trim();
+        }
+
         return new ParsedDialogue(cleanSpeaker, cleanText);
+    }
+
+    private boolean isBackgroundImageDirective(String fullTag, String target) {
+        if (target == null || target.isEmpty()) {
+            return false;
+        }
+        // Explicit [BG: ...] tag is always a background change directive
+        if (fullTag.regionMatches(true, 0, "[bg:", 0, 4)) {
+            return true;
+        }
+        // Image extension present (.jpg, .jpeg, .png, .webp, .gif)
+        if (target.toLowerCase().matches(".*\\.(jpg|jpeg|png|webp|gif)$")) {
+            return true;
+        }
+        // Exists in background assets
+        if (backgroundManager != null && backgroundManager.hasBackground(target)) {
+            return true;
+        }
+        // Short identifier without sentence punctuation/commas (under 40 chars)
+        if (target.length() <= 40 && !target.contains(",") && !target.contains(".") && !target.contains("!")) {
+            return true;
+        }
+        return false;
     }
 
     private CharacterPosition findCharacterPositionOrMiddle(String characterId) {
