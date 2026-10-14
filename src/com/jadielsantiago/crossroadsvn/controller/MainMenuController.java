@@ -127,23 +127,23 @@ public class MainMenuController {
         box.setAlignment(Pos.CENTER);
         menuButtons.clear();
 
-        // 01 // START STORY (Primary Action)
-        Button startBtn = createHudNavButton("01 //", "START STORY", true,
+        // Start Story (Primary Action)
+        Button startBtn = createHudNavButton("Start Story", true,
                 this::showRouteSelection);
 
-        // 02 // LOAD GAME
-        Button loadBtn = createHudNavButton("02 //", "LOAD GAME", false, () -> {
+        // Load Game
+        Button loadBtn = createHudNavButton("Load Game", false, () -> {
             if (loadGameHandler != null) {
                 loadGameHandler.run();
             }
         });
 
-        // 03 // SETTINGS
-        Button settingsBtn = createHudNavButton("03 //", "SETTINGS", false,
+        // Settings
+        Button settingsBtn = createHudNavButton("Settings", false,
                 this::showSettingsDialog);
 
-        // 04 // QUIT GAME
-        Button quitBtn = createHudNavButton("04 //", "QUIT", false,
+        // Quit Game
+        Button quitBtn = createHudNavButton("Quit", false,
                 this::showQuitConfirmation);
 
         menuButtons.add(startBtn);
@@ -155,24 +155,16 @@ public class MainMenuController {
         return box;
     }
 
-    private Button createHudNavButton(String indexTag, String title, boolean isPrimary,
+    private Button createHudNavButton(String title, boolean isPrimary,
             Runnable action) {
         Button btn = new Button();
         btn.getStyleClass().add(isPrimary ? "glass-hud-button-primary" : "glass-hud-button");
 
-        HBox content = new HBox(6);
-        content.setAlignment(Pos.CENTER);
-
-        Label indexLabel = new Label(indexTag);
-        indexLabel.setFont(Font.font("Segoe UI", FontWeight.BOLD, 11));
-        indexLabel.setTextFill(isPrimary ? Color.web("#5fe09a") : Color.web("#7aa896"));
-
         Label titleLabel = new Label(title);
-        titleLabel.setFont(Font.font("Segoe UI", FontWeight.BOLD, 12));
-        titleLabel.setTextFill(Color.WHITE);
+        titleLabel.setFont(Font.font("Segoe UI", FontWeight.BOLD, 12.5));
+        titleLabel.setTextFill(isPrimary ? Color.web("#00391C") : Color.web("#E1E3DF"));
 
-        content.getChildren().addAll(indexLabel, titleLabel);
-        btn.setGraphic(content);
+        btn.setGraphic(titleLabel);
 
         attachHoverSlideAnimation(btn, -3);
         btn.setOnAction(e -> action.run());
@@ -238,7 +230,7 @@ public class MainMenuController {
                 "route-card-maya",
                 new String[] { "Pre-Vet", "Animal Science", "Opportunity",
                         "Second Chances" },
-                "At 4:45 AM in the freezing university dairy barn, Maya Sterling is in her element—steady, capable, and trusted with the entire herd. Having fought her way back from academic probation and a crushing D- in her first year, she has earned a shot at the prestigious Ansel Center Horizon Fellowship. But standing between Maya and veterinary school is an interview panel led by the exact professor who once doubted her—and a struggling younger classmate begging for a lifeline. Can Maya overcome the ghost of past failure and claim her future without sacrificing herself?"));
+                "At 4:45 AM in the freezing university dairy barn, Maya Sterling is in her element—steady, capable, and trusted with the entire herd. Having fought her way back from academic probation and a crushing D- in his first year, she has earned a shot at the prestigious Ansel Center Horizon Fellowship. But standing between Maya and veterinary school is an interview panel led by the exact professor who once doubted her—and a struggling younger classmate begging for a lifeline. Can Maya overcome the ghost of past failure and claim her future without sacrificing herself?"));
 
         STORY_INFOS.put(3, new StoryRouteInfo(
                 3,
@@ -263,39 +255,38 @@ public class MainMenuController {
 
         StoryRouteInfo maya = STORY_INFOS.get(2);
         Button mayaBtn = createRouteHudButton(
-                maya.indexTag, "MAYA", maya.category,
+                "Maya", maya.category,
                 Color.web(maya.accentColorHex), 2);
 
         StoryRouteInfo jules = STORY_INFOS.get(1);
         Button julesBtn = createRouteHudButton(
-                jules.indexTag, "JULES", jules.category,
+                "Jules", jules.category,
                 Color.web(jules.accentColorHex), 1);
 
         StoryRouteInfo nora = STORY_INFOS.get(3);
         Button noraBtn = createRouteHudButton(
-                nora.indexTag, "NORA", nora.category,
+                "Nora", nora.category,
                 Color.web(nora.accentColorHex), 3);
 
-        Button backBtn = new Button("← BACK");
+        Button backBtn = new Button("← Back");
         backBtn.getStyleClass().add("glass-hud-button");
+        backBtn.setFont(Font.font("Segoe UI", FontWeight.BOLD, 12));
+        backBtn.setStyle("-fx-text-fill: #E1E3DF;");
         attachHoverSlideAnimation(backBtn, -3);
         backBtn.setOnAction(e -> showMainActions());
 
-        // Positioned matching character placement on the title visual: Maya (Left), Jules (Middle), Nora (Right)
+        // Positioned matching character placement on the title visual: Maya (Left),
+        // Jules (Middle), Nora (Right)
         box.getChildren().addAll(mayaBtn, julesBtn, noraBtn, backBtn);
         return box;
     }
 
-    private Button createRouteHudButton(String num, String name, String tag, Color accent, int storyId) {
+    private Button createRouteHudButton(String name, String tag, Color accent, int storyId) {
         Button btn = new Button();
         btn.getStyleClass().add("glass-hud-button");
 
-        HBox content = new HBox(6);
+        HBox content = new HBox(8);
         content.setAlignment(Pos.CENTER);
-
-        Label numLabel = new Label(num);
-        numLabel.setFont(Font.font("Segoe UI", FontWeight.BOLD, 11));
-        numLabel.setTextFill(accent);
 
         Label nameLabel = new Label(name);
         nameLabel.setFont(Font.font("Segoe UI", FontWeight.BOLD, 12));
@@ -303,9 +294,10 @@ public class MainMenuController {
 
         Label tagBadge = new Label(tag);
         tagBadge.setStyle(
-                "-fx-background-color: rgba(255, 255, 255, 0.10); -fx-text-fill: " + toRgbCode(accent) + "; -fx-font-size: 8.5px; -fx-font-weight: bold; -fx-padding: 1 5; -fx-background-radius: 3;");
+                "-fx-background-color: rgba(255, 255, 255, 0.12); -fx-text-fill: " + toRgbCode(accent)
+                        + "; -fx-font-size: 9px; -fx-font-weight: bold; -fx-padding: 2 8; -fx-background-radius: 12px;");
 
-        content.getChildren().addAll(numLabel, nameLabel, tagBadge);
+        content.getChildren().addAll(nameLabel, tagBadge);
         btn.setGraphic(content);
 
         attachHoverSlideAnimation(btn, -3);
@@ -339,16 +331,17 @@ public class MainMenuController {
         dialogCard.getStyleClass().add("glass-modal-card");
         dialogCard.setAlignment(Pos.CENTER);
         dialogCard.setMaxWidth(480);
+        dialogCard.setMaxHeight(Region.USE_PREF_SIZE);
 
         // Header Section
-        VBox headerBox = new VBox(4);
+        VBox headerBox = new VBox(6);
         headerBox.setAlignment(Pos.CENTER);
 
-        Label routeBadge = new Label("✦ ROUTE " + String.format("%02d", info.id) + " // " + info.category + " ✦");
-        routeBadge.setFont(Font.font("Segoe UI", FontWeight.BOLD, 10.5));
+        Label routeBadge = new Label(info.category + " • Route " + info.id);
+        routeBadge.setFont(Font.font("Segoe UI", FontWeight.BOLD, 11));
         routeBadge.setTextFill(Color.web(info.accentColorHex));
         routeBadge.setStyle(
-                "-fx-background-color: rgba(255, 255, 255, 0.08); -fx-padding: 3 9; -fx-background-radius: 10;");
+                "-fx-background-color: rgba(255, 255, 255, 0.08); -fx-padding: 4 12; -fx-background-radius: 14px;");
 
         Label nameLabel = new Label(info.fullName);
         nameLabel.setFont(Font.font("Segoe UI", FontWeight.EXTRA_BOLD, 20));
@@ -365,13 +358,9 @@ public class MainMenuController {
         headerBox.getChildren().addAll(routeBadge, nameLabel, titleLabel, divider);
 
         // Synopsis Card
-        VBox synopsisBox = new VBox(8);
+        VBox synopsisBox = new VBox(10);
         synopsisBox.getStyleClass().add("glass-sub-panel");
         synopsisBox.setAlignment(Pos.CENTER_LEFT);
-
-        Label synTitle = new Label("// STORY OVERVIEW");
-        synTitle.setFont(Font.font("Segoe UI", FontWeight.BOLD, 10));
-        synTitle.setTextFill(Color.web("#80d8b4"));
 
         Label synText = new Label(info.synopsis);
         synText.setFont(Font.font("Segoe UI", 12));
@@ -388,7 +377,7 @@ public class MainMenuController {
             tagsBox.getChildren().add(chip);
         }
 
-        synopsisBox.getChildren().addAll(synTitle, synText, tagsBox);
+        synopsisBox.getChildren().addAll(synText, tagsBox);
 
         // Action Buttons
         HBox btnBox = new HBox(12);
@@ -534,7 +523,8 @@ public class MainMenuController {
     }
 
     /**
-     * Displays a frosted glass Settings dialog modal with Audio, Video, and Controls subcategories.
+     * Displays a frosted glass Settings dialog modal with Audio, Video, and
+     * Controls subcategories.
      */
     private void showSettingsDialog() {
         Stage stage = (rootPane.getScene() != null && rootPane.getScene().getWindow() instanceof Stage)
@@ -552,6 +542,7 @@ public class MainMenuController {
         dialogCard.getStyleClass().add("glass-modal-card");
         dialogCard.setAlignment(Pos.CENTER);
         dialogCard.setMaxWidth(360);
+        dialogCard.setMaxHeight(Region.USE_PREF_SIZE);
 
         Label title = new Label("Quit Game?");
         title.setFont(Font.font("Segoe UI", FontWeight.BOLD, 20));

@@ -23,7 +23,8 @@ import javafx.util.Duration;
  * Modern Glassmorphic Settings Dialog View for Project Crossroads.
  * Provides organized subcategories:
  * 1. Audio: Volume slider, presets, and turn off music (full silence)
- * 2. Video: Fullscreen toggle, match display resolution, 1280x720 fallback, and presets
+ * 2. Video: Fullscreen toggle, match display resolution, 1280x720 fallback, and
+ * presets
  * 3. Controls: Gameplay shortcuts and navigation guide
  */
 public class SettingsView {
@@ -31,6 +32,7 @@ public class SettingsView {
     private enum Tab {
         AUDIO,
         VIDEO,
+        DIALOGUE,
         CONTROLS
     }
 
@@ -38,7 +40,8 @@ public class SettingsView {
      * Creates the complete frosted glass settings modal card.
      *
      * @param musicPlayer the active MusicPlayer controller
-     * @param stage       the primary game window Stage (can be null if not yet shown)
+     * @param stage       the primary game window Stage (can be null if not yet
+     *                    shown)
      * @param onDone      callback executed when the user closes the modal
      * @return the assembled Node ready to display in modal overlays
      */
@@ -46,19 +49,20 @@ public class SettingsView {
         VBox dialogCard = new VBox(10);
         dialogCard.getStyleClass().add("glass-modal-card");
         dialogCard.setAlignment(Pos.CENTER);
-        dialogCard.setPrefWidth(520);
-        dialogCard.setMaxWidth(540);
-        dialogCard.setStyle("-fx-padding: 20 26;");
+        dialogCard.setPrefWidth(540);
+        dialogCard.setMaxWidth(560);
+        dialogCard.setMaxHeight(Region.USE_PREF_SIZE);
+        dialogCard.setStyle("-fx-padding: 20 24;");
 
         // Header Section
-        Label badgeLabel = new Label("✦ SYSTEM PREFERENCES ✦");
+        Label badgeLabel = new Label("Preferences");
         badgeLabel.getStyleClass().add("glass-badge");
 
         Label titleLabel = new Label("Game Settings");
         titleLabel.setFont(Font.font("Segoe UI", FontWeight.BOLD, 18));
         titleLabel.setTextFill(Color.WHITE);
 
-        Label subLabel = new Label("Configure sound output, display scaling, and controls");
+        Label subLabel = new Label("Configure sound output, display scaling, dialogue animation, and controls");
         subLabel.setFont(Font.font("Segoe UI", 11.5));
         subLabel.setTextFill(Color.web("#a2bdb4"));
 
@@ -71,14 +75,16 @@ public class SettingsView {
         VBox.setMargin(divider, new Insets(3, 0, 2, 0));
 
         // Subcategory Navigation Tabs
-        HBox tabsBox = new HBox(8);
+        HBox tabsBox = new HBox(6);
         tabsBox.setAlignment(Pos.CENTER);
+        tabsBox.setStyle("-fx-background-color: #1A241E; -fx-background-radius: 24px; -fx-padding: 4;");
 
         Button audioTabBtn = new Button("🔊  Audio");
         Button videoTabBtn = new Button("🖥  Video");
+        Button dialogueTabBtn = new Button("💬  Text Speed");
         Button controlsTabBtn = new Button("⌨  How to Play");
 
-        tabsBox.getChildren().addAll(audioTabBtn, videoTabBtn, controlsTabBtn);
+        tabsBox.getChildren().addAll(audioTabBtn, videoTabBtn, dialogueTabBtn, controlsTabBtn);
 
         // Content Area Container for Subcategories
         StackPane contentContainer = new StackPane();
@@ -89,6 +95,7 @@ public class SettingsView {
         // Build individual panels
         VBox audioPanel = buildAudioPanel(musicPlayer);
         VBox videoPanel = buildVideoPanel(stage);
+        VBox dialoguePanel = buildDialoguePanel();
         VBox controlsPanel = buildControlsPanel();
 
         // Tab selection logic
@@ -97,6 +104,7 @@ public class SettingsView {
             // Default select Audio
             setTabActive(audioTabBtn, true);
             setTabActive(videoTabBtn, false);
+            setTabActive(dialogueTabBtn, false);
             setTabActive(controlsTabBtn, false);
             contentContainer.getChildren().setAll(audioPanel);
         };
@@ -104,6 +112,7 @@ public class SettingsView {
         audioTabBtn.setOnAction(e -> {
             setTabActive(audioTabBtn, true);
             setTabActive(videoTabBtn, false);
+            setTabActive(dialogueTabBtn, false);
             setTabActive(controlsTabBtn, false);
             switchContent(contentContainer, audioPanel);
         });
@@ -111,13 +120,23 @@ public class SettingsView {
         videoTabBtn.setOnAction(e -> {
             setTabActive(audioTabBtn, false);
             setTabActive(videoTabBtn, true);
+            setTabActive(dialogueTabBtn, false);
             setTabActive(controlsTabBtn, false);
             switchContent(contentContainer, videoPanel);
+        });
+
+        dialogueTabBtn.setOnAction(e -> {
+            setTabActive(audioTabBtn, false);
+            setTabActive(videoTabBtn, false);
+            setTabActive(dialogueTabBtn, true);
+            setTabActive(controlsTabBtn, false);
+            switchContent(contentContainer, dialoguePanel);
         });
 
         controlsTabBtn.setOnAction(e -> {
             setTabActive(audioTabBtn, false);
             setTabActive(videoTabBtn, false);
+            setTabActive(dialogueTabBtn, false);
             setTabActive(controlsTabBtn, true);
             switchContent(contentContainer, controlsPanel);
         });
@@ -142,7 +161,8 @@ public class SettingsView {
     }
 
     private static void setTabActive(Button btn, boolean active) {
-        btn.getStyleClass().removeAll("glass-tab-btn", "glass-tab-btn-active", "glass-page-btn", "glass-page-btn-active");
+        btn.getStyleClass().removeAll("glass-tab-btn", "glass-tab-btn-active", "glass-page-btn",
+                "glass-page-btn-active");
         if (active) {
             btn.getStyleClass().add("glass-tab-btn-active");
         } else {
@@ -184,7 +204,8 @@ public class SettingsView {
         HBox.setHgrow(spacerVol, Priority.ALWAYS);
 
         Label volBadge = new Label((int) (initialVol * 100) + "%");
-        volBadge.setStyle("-fx-background-color: rgba(0, 154, 68, 0.25); -fx-text-fill: #5fe09a; -fx-font-size: 11px; -fx-font-weight: bold; -fx-padding: 2 8; -fx-background-radius: 6;");
+        volBadge.setStyle(
+                "-fx-background-color: rgba(0, 154, 68, 0.25); -fx-text-fill: #5fe09a; -fx-font-size: 11px; -fx-font-weight: bold; -fx-padding: 2 8; -fx-background-radius: 6;");
 
         volTopRow.getChildren().addAll(volTitle, spacerVol, volBadge);
 
@@ -200,7 +221,7 @@ public class SettingsView {
         presetLbl.setTextFill(Color.web("#80a89a"));
 
         presetBox.getChildren().add(presetLbl);
-        int[] presets = {0, 25, 50, 75, 100};
+        int[] presets = { 0, 25, 50, 75, 100 };
         for (int p : presets) {
             Button pBtn = new Button(p + "%");
             pBtn.getStyleClass().add("glass-pill-btn");
@@ -273,7 +294,8 @@ public class SettingsView {
         return panel;
     }
 
-    private static void updateMuteButtonState(Button btn, boolean muted, Slider slider, Label badge, double currentVol) {
+    private static void updateMuteButtonState(Button btn, boolean muted, Slider slider, Label badge,
+            double currentVol) {
         btn.getStyleClass().removeAll("glass-toggle-on", "glass-toggle-off", "glass-button-primary", "glass-button");
         if (muted) {
             btn.setText("🔇  Music: OFF");
@@ -330,7 +352,8 @@ public class SettingsView {
                 ? SettingsManager.logicalToPhysicalHeight(stage.getHeight())
                 : SettingsManager.getWindowHeight();
         Label curResBadge = new Label("Current: " + curW + " × " + curH);
-        curResBadge.setStyle("-fx-background-color: rgba(0, 154, 68, 0.25); -fx-text-fill: #5fe09a; -fx-font-size: 11px; -fx-font-weight: bold; -fx-padding: 2 8; -fx-background-radius: 6;");
+        curResBadge.setStyle(
+                "-fx-background-color: rgba(0, 154, 68, 0.25); -fx-text-fill: #5fe09a; -fx-font-size: 11px; -fx-font-weight: bold; -fx-padding: 2 8; -fx-background-radius: 6;");
 
         fsToggleBtn.setOnAction(e -> {
             if (stage != null) {
@@ -403,7 +426,8 @@ public class SettingsView {
         fallbackBtn.setMaxWidth(Double.MAX_VALUE);
 
         fallbackBtn.setOnAction(e -> {
-            applyResolution(stage, SettingsManager.DEFAULT_WIDTH, SettingsManager.DEFAULT_HEIGHT, curResBadge, fsToggleBtn);
+            applyResolution(stage, SettingsManager.DEFAULT_WIDTH, SettingsManager.DEFAULT_HEIGHT, curResBadge,
+                    fsToggleBtn);
         });
 
         quickActionRow.getChildren().addAll(matchDisplayBtn, fallbackBtn);
@@ -415,14 +439,15 @@ public class SettingsView {
         Label presetsLabel = new Label("Presets:");
         presetsLabel.setFont(Font.font("Segoe UI", 10.5));
         presetsLabel.setTextFill(Color.web("#80a89a"));
+        presetsLabel.setMinWidth(Region.USE_PREF_SIZE);
         presetPillsRow.getChildren().add(presetsLabel);
 
         int[][] commonResolutions = {
-                {1920, 1200},
-                {1920, 1080},
-                {1600, 900},
-                {1280, 720},
-                {800, 600}
+                { 1920, 1200 },
+                { 1920, 1080 },
+                { 1600, 900 },
+                { 1280, 720 },
+                { 800, 600 }
         };
 
         for (int[] r : commonResolutions) {
@@ -431,6 +456,7 @@ public class SettingsView {
             if (w <= displayW && h <= displayH) {
                 Button pillBtn = new Button(w + "×" + h);
                 pillBtn.getStyleClass().add("glass-pill-btn");
+                pillBtn.setMinWidth(Region.USE_PREF_SIZE);
                 pillBtn.setOnAction(e -> applyResolution(stage, w, h, curResBadge, fsToggleBtn));
                 presetPillsRow.getChildren().add(pillBtn);
             }
@@ -449,7 +475,8 @@ public class SettingsView {
         return panel;
     }
 
-    private static void applyResolution(Stage stage, int targetPhysW, int targetPhysH, Label curResBadge, Button fsToggleBtn) {
+    private static void applyResolution(Stage stage, int targetPhysW, int targetPhysH, Label curResBadge,
+            Button fsToggleBtn) {
         if (stage != null) {
             if (stage.isFullScreen()) {
                 stage.setFullScreen(false);
@@ -491,6 +518,141 @@ public class SettingsView {
     }
 
     // =========================================================================
+    // DIALOGUE & TEXT SPEED SUBCATEGORY
+    // =========================================================================
+
+    private static VBox buildDialoguePanel() {
+        VBox panel = new VBox(10);
+        panel.setAlignment(Pos.TOP_CENTER);
+
+        int currentSpeed = SettingsManager.getTextSpeed();
+        boolean currentSound = SettingsManager.isTextSoundEnabled();
+
+        // 1. Text Speed Card
+        VBox speedCard = new VBox(8);
+        speedCard.getStyleClass().add("glass-sub-panel");
+
+        HBox speedTopRow = new HBox(8);
+        speedTopRow.setAlignment(Pos.CENTER_LEFT);
+
+        Label speedTitle = new Label("⚡  Dialogue Text Speed");
+        speedTitle.setFont(Font.font("Segoe UI", FontWeight.BOLD, 13));
+        speedTitle.setTextFill(Color.WHITE);
+
+        Region spacerSpeed = new Region();
+        HBox.setHgrow(spacerSpeed, Priority.ALWAYS);
+
+        Label speedBadge = new Label(getSpeedLabel(currentSpeed));
+        speedBadge.setStyle(
+                "-fx-background-color: rgba(0, 154, 68, 0.25); -fx-text-fill: #5fe09a; -fx-font-size: 11px; -fx-font-weight: bold; -fx-padding: 2 8; -fx-background-radius: 6;");
+
+        speedTopRow.getChildren().addAll(speedTitle, spacerSpeed, speedBadge);
+
+        HBox speedButtonsRow = new HBox(6);
+        speedButtonsRow.setAlignment(Pos.CENTER_LEFT);
+
+        Button instantBtn = new Button("Instant (Off)");
+        Button fastBtn = new Button("Fast (~80 cps)");
+        Button normalBtn = new Button("Normal (~40 cps)");
+        Button slowBtn = new Button("Slow (~22 cps)");
+
+        Button[] speedBtns = { instantBtn, fastBtn, normalBtn, slowBtn };
+        for (int i = 0; i < speedBtns.length; i++) {
+            Button btn = speedBtns[i];
+            btn.getStyleClass().add("glass-pill-btn");
+            final int speedIndex = i;
+            btn.setOnAction(e -> {
+                SettingsManager.setTextSpeed(speedIndex);
+                SettingsManager.saveSettings();
+                speedBadge.setText(getSpeedLabel(speedIndex));
+                updateSpeedButtonStyles(speedBtns, speedIndex);
+            });
+        }
+        updateSpeedButtonStyles(speedBtns, currentSpeed);
+
+        speedButtonsRow.getChildren().addAll(instantBtn, fastBtn, normalBtn, slowBtn);
+
+        Label speedDesc = new Label("Controls typewriter speed when story dialogue is displayed.");
+        speedDesc.setFont(Font.font("Segoe UI", 10.5));
+        speedDesc.setTextFill(Color.web("#80a89a"));
+
+        speedCard.getChildren().addAll(speedTopRow, speedButtonsRow, speedDesc);
+
+        // 2. Typewriter SFX Blip Card
+        VBox soundCard = new VBox(6);
+        soundCard.getStyleClass().add("glass-sub-panel");
+
+        HBox soundRow = new HBox(12);
+        soundRow.setAlignment(Pos.CENTER_LEFT);
+
+        VBox soundText = new VBox(2);
+        Label soundTitle = new Label("⌨  Typewriter Audio Blips");
+        soundTitle.setFont(Font.font("Segoe UI", FontWeight.BOLD, 13));
+        soundTitle.setTextFill(Color.WHITE);
+
+        Label soundDesc = new Label("Subtle tactile audio clicks on characters for authentic visual novel feel");
+        soundDesc.setFont(Font.font("Segoe UI", 11));
+        soundDesc.setTextFill(Color.web("#95b8ab"));
+        soundText.getChildren().addAll(soundTitle, soundDesc);
+
+        Region spacerSound = new Region();
+        HBox.setHgrow(spacerSound, Priority.ALWAYS);
+
+        Button soundToggleBtn = new Button();
+        updateSoundButtonState(soundToggleBtn, currentSound);
+
+        soundToggleBtn.setOnAction(e -> {
+            boolean nextState = !SettingsManager.isTextSoundEnabled();
+            SettingsManager.setTextSoundEnabled(nextState);
+            SettingsManager.saveSettings();
+            updateSoundButtonState(soundToggleBtn, nextState);
+        });
+
+        soundRow.getChildren().addAll(soundText, spacerSound, soundToggleBtn);
+        soundCard.getChildren().add(soundRow);
+
+        // Tip Card
+        Label tipLabel = new Label("💡 Tip: Click anywhere or press Space during dialogue to finish typing instantly.");
+        tipLabel.setFont(Font.font("Segoe UI", 11));
+        tipLabel.setTextFill(Color.web("#75e4ab"));
+        tipLabel.setStyle("-fx-padding: 3 2;");
+
+        panel.getChildren().addAll(speedCard, soundCard, tipLabel);
+        return panel;
+    }
+
+    private static String getSpeedLabel(int speedIndex) {
+        return switch (speedIndex) {
+            case 0 -> "Instant";
+            case 1 -> "Fast";
+            case 3 -> "Slow";
+            default -> "Normal";
+        };
+    }
+
+    private static void updateSpeedButtonStyles(Button[] btns, int activeIndex) {
+        for (int i = 0; i < btns.length; i++) {
+            Button btn = btns[i];
+            if (i == activeIndex) {
+                btn.setStyle("-fx-background-color: #7ADC9B; -fx-text-fill: #00391C; -fx-font-weight: 800; -fx-background-radius: 24px;");
+            } else {
+                btn.setStyle("-fx-background-radius: 24px;");
+            }
+        }
+    }
+
+    private static void updateSoundButtonState(Button btn, boolean enabled) {
+        btn.getStyleClass().removeAll("glass-toggle-on", "glass-toggle-off", "glass-button-primary", "glass-button");
+        if (enabled) {
+            btn.setText("🔊  Sound: ON");
+            btn.getStyleClass().add("glass-toggle-on");
+        } else {
+            btn.setText("🔇  Sound: OFF");
+            btn.getStyleClass().add("glass-button");
+        }
+    }
+
+    // =========================================================================
     // CONTROLS SUBCATEGORY
     // =========================================================================
 
@@ -506,13 +668,12 @@ public class SettingsView {
         infoTitle.setTextFill(Color.web("#75e4ab"));
 
         Label infoKeys = new Label(
-                "• Spacebar or Left Click: Read the next line of story dialogue\n" +
-                "• [Esc]: Open Save & Load menu (includes Settings & History)\n" +
-                "• [H]: Open Dialogue History backlog queue\n" +
-                "• [V]: Hide dialogue text box to view the background artwork\n" +
-                "• [F11]: Quick toggle Full Screen mode\n" +
-                "• Choices: Click choice buttons to steer branch narrative decisions"
-        );
+                "• Spacebar or Left Click: Finish typing instantly, or advance to next line\n" +
+                        "• [Esc]: Open Save & Load menu (includes Settings & History)\n" +
+                        "• [H]: Open Dialogue History backlog queue\n" +
+                        "• [V]: Hide dialogue text box to view the background artwork\n" +
+                        "• [F11]: Quick toggle Full Screen mode\n" +
+                        "• Choices: Click choice buttons to steer branch narrative decisions");
         infoKeys.setFont(Font.font("Segoe UI", 12));
         infoKeys.setTextFill(Color.web("#d1e3dc"));
 

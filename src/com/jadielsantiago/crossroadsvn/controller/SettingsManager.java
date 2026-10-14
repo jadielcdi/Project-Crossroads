@@ -24,6 +24,8 @@ public class SettingsManager {
     private static boolean fullScreen = false;
     private static int windowWidth = DEFAULT_WIDTH;
     private static int windowHeight = DEFAULT_HEIGHT;
+    private static int textSpeed = 2; // 0 = Instant, 1 = Fast, 2 = Normal, 3 = Slow
+    private static boolean textSoundEnabled = true;
     private static boolean initialized = false;
 
     static {
@@ -48,6 +50,8 @@ public class SettingsManager {
                 fullScreen = Boolean.parseBoolean(props.getProperty("video.fullscreen", "false"));
                 windowWidth = Integer.parseInt(props.getProperty("video.width", String.valueOf(DEFAULT_WIDTH)));
                 windowHeight = Integer.parseInt(props.getProperty("video.height", String.valueOf(DEFAULT_HEIGHT)));
+                textSpeed = Integer.parseInt(props.getProperty("gameplay.text_speed", "2"));
+                textSoundEnabled = Boolean.parseBoolean(props.getProperty("audio.text_sound", "true"));
             } catch (Exception e) {
                 System.err.println("[SettingsManager] Failed to load settings: " + e.getMessage());
             }
@@ -66,6 +70,8 @@ public class SettingsManager {
         props.setProperty("video.fullscreen", String.valueOf(fullScreen));
         props.setProperty("video.width", String.valueOf(windowWidth));
         props.setProperty("video.height", String.valueOf(windowHeight));
+        props.setProperty("gameplay.text_speed", String.valueOf(textSpeed));
+        props.setProperty("audio.text_sound", String.valueOf(textSoundEnabled));
 
         try (OutputStream out = new FileOutputStream(file)) {
             props.store(new OutputStreamWriter(out, StandardCharsets.UTF_8), "Project Crossroads - Settings Configuration");
@@ -263,5 +269,45 @@ public class SettingsManager {
      */
     public static int logicalToPhysicalHeight(double logicalH) {
         return (int) Math.round(logicalH * getScaleY());
+    }
+
+    /**
+     * Returns the text speed index (0=Instant, 1=Fast, 2=Normal, 3=Slow).
+     */
+    public static int getTextSpeed() {
+        return textSpeed;
+    }
+
+    /**
+     * Sets the text speed index (0=Instant, 1=Fast, 2=Normal, 3=Slow).
+     */
+    public static void setTextSpeed(int speed) {
+        textSpeed = Math.max(0, Math.min(3, speed));
+    }
+
+    /**
+     * Returns the delay in nanoseconds corresponding to the configured text speed.
+     */
+    public static long getTextDelayNanos() {
+        return switch (textSpeed) {
+            case 0 -> com.jadielsantiago.crossroadsvn.view.TextAnimator.INSTANT_DELAY_NANOS;
+            case 1 -> com.jadielsantiago.crossroadsvn.view.TextAnimator.FAST_DELAY_NANOS;
+            case 3 -> com.jadielsantiago.crossroadsvn.view.TextAnimator.SLOW_DELAY_NANOS;
+            default -> com.jadielsantiago.crossroadsvn.view.TextAnimator.DEFAULT_DELAY_NANOS;
+        };
+    }
+
+    /**
+     * Returns true if dialogue typewriter audio blips are enabled.
+     */
+    public static boolean isTextSoundEnabled() {
+        return textSoundEnabled;
+    }
+
+    /**
+     * Toggles dialogue typewriter audio blips on or off.
+     */
+    public static void setTextSoundEnabled(boolean enabled) {
+        textSoundEnabled = enabled;
     }
 }

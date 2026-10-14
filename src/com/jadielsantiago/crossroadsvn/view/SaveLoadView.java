@@ -74,43 +74,46 @@ public class SaveLoadView extends StackPane {
     private Label toastLabel;
 
     public SaveLoadView(Mode initialMode,
-                        Consumer<Integer> saveHandler,
-                        Consumer<Integer> loadHandler,
-                        Runnable returnHandler,
-                        Runnable newGameHandler,
-                        Runnable quitHandler) {
-        this(initialMode, saveHandler, loadHandler, returnHandler, newGameHandler, quitHandler, null, (Supplier<Queue<DialogueLine>>) null);
+            Consumer<Integer> saveHandler,
+            Consumer<Integer> loadHandler,
+            Runnable returnHandler,
+            Runnable newGameHandler,
+            Runnable quitHandler) {
+        this(initialMode, saveHandler, loadHandler, returnHandler, newGameHandler, quitHandler, null,
+                (Supplier<Queue<DialogueLine>>) null);
     }
 
     public SaveLoadView(Mode initialMode,
-                        Consumer<Integer> saveHandler,
-                        Consumer<Integer> loadHandler,
-                        Runnable returnHandler,
-                        Runnable newGameHandler,
-                        Runnable quitHandler,
-                        MusicPlayer musicPlayer) {
-        this(initialMode, saveHandler, loadHandler, returnHandler, newGameHandler, quitHandler, musicPlayer, (Supplier<Queue<DialogueLine>>) null);
+            Consumer<Integer> saveHandler,
+            Consumer<Integer> loadHandler,
+            Runnable returnHandler,
+            Runnable newGameHandler,
+            Runnable quitHandler,
+            MusicPlayer musicPlayer) {
+        this(initialMode, saveHandler, loadHandler, returnHandler, newGameHandler, quitHandler, musicPlayer,
+                (Supplier<Queue<DialogueLine>>) null);
     }
 
     public SaveLoadView(Mode initialMode,
-                        Consumer<Integer> saveHandler,
-                        Consumer<Integer> loadHandler,
-                        Runnable returnHandler,
-                        Runnable newGameHandler,
-                        Runnable quitHandler,
-                        MusicPlayer musicPlayer,
-                        Queue<DialogueLine> historyQueue) {
-        this(initialMode, saveHandler, loadHandler, returnHandler, newGameHandler, quitHandler, musicPlayer, () -> historyQueue);
+            Consumer<Integer> saveHandler,
+            Consumer<Integer> loadHandler,
+            Runnable returnHandler,
+            Runnable newGameHandler,
+            Runnable quitHandler,
+            MusicPlayer musicPlayer,
+            Queue<DialogueLine> historyQueue) {
+        this(initialMode, saveHandler, loadHandler, returnHandler, newGameHandler, quitHandler, musicPlayer,
+                () -> historyQueue);
     }
 
     public SaveLoadView(Mode initialMode,
-                        Consumer<Integer> saveHandler,
-                        Consumer<Integer> loadHandler,
-                        Runnable returnHandler,
-                        Runnable newGameHandler,
-                        Runnable quitHandler,
-                        MusicPlayer musicPlayer,
-                        Supplier<Queue<DialogueLine>> historySupplier) {
+            Consumer<Integer> saveHandler,
+            Consumer<Integer> loadHandler,
+            Runnable returnHandler,
+            Runnable newGameHandler,
+            Runnable quitHandler,
+            MusicPlayer musicPlayer,
+            Supplier<Queue<DialogueLine>> historySupplier) {
         this.currentMode = initialMode;
         this.saveHandler = saveHandler;
         this.loadHandler = loadHandler;
@@ -165,7 +168,8 @@ public class SaveLoadView extends StackPane {
     }
 
     /**
-     * Creates an ambient dark frosted backdrop featuring glowing crossroads geometric lines
+     * Creates an ambient dark frosted backdrop featuring glowing crossroads
+     * geometric lines
      * and soft emerald light orbs.
      */
     private Pane createAmbientGlassBackground() {
@@ -191,9 +195,9 @@ public class SaveLoadView extends StackPane {
 
         // Soft ambient floating light orbs in emerald
         double[][] circles = {
-                {110, 80, 65, 0.06}, {260, 120, 80, 0.04}, {690, 100, 90, 0.05},
-                {150, 320, 70, 0.05}, {380, 270, 85, 0.06}, {760, 260, 65, 0.04},
-                {220, 490, 80, 0.05}, {450, 480, 70, 0.05}, {660, 470, 85, 0.04}
+                { 110, 80, 65, 0.06 }, { 260, 120, 80, 0.04 }, { 690, 100, 90, 0.05 },
+                { 150, 320, 70, 0.05 }, { 380, 270, 85, 0.06 }, { 760, 260, 65, 0.04 },
+                { 220, 490, 80, 0.05 }, { 450, 480, 70, 0.05 }, { 660, 470, 85, 0.04 }
         };
 
         for (double[] c : circles) {
@@ -206,7 +210,8 @@ public class SaveLoadView extends StackPane {
     }
 
     /**
-     * Builds the left frosted glass sidebar card containing navigation & mode switching.
+     * Builds the left frosted glass sidebar card containing navigation & mode
+     * switching.
      */
     private VBox buildSidebar() {
         VBox sidebar = new VBox(12);
@@ -217,7 +222,7 @@ public class SaveLoadView extends StackPane {
         sidebar.setAlignment(Pos.TOP_CENTER);
 
         // Header Section
-        Label badgeLabel = new Label("✦ SAVED GAMES ✦");
+        Label badgeLabel = new Label("Archive");
         badgeLabel.getStyleClass().add("glass-badge");
 
         titleLabel = new Label(currentMode == Mode.SAVE ? "Save Game" : "Load Game");
@@ -226,6 +231,8 @@ public class SaveLoadView extends StackPane {
 
         Label subtitle = new Label("Save your place or pick up where you left off");
         subtitle.getStyleClass().add("glass-subtitle");
+        subtitle.setWrapText(true);
+        subtitle.setTextAlignment(javafx.scene.text.TextAlignment.CENTER);
 
         Region frostedDivider = new Region();
         frostedDivider.getStyleClass().add("glass-divider");
@@ -256,10 +263,12 @@ public class SaveLoadView extends StackPane {
         VBox navLinks = new VBox(7);
         navLinks.setAlignment(Pos.BOTTOM_CENTER);
 
-        Button newGameBtn = createSidebarNavButton("✦  New Story", () -> {
-            showConfirmationDialog("Start a New Story?", "Return to character selection? Make sure you have saved your game first!", () -> {
-                if (newGameHandler != null) newGameHandler.run();
-            });
+        Button newGameBtn = createSidebarNavButton("New Story", () -> {
+            showConfirmationDialog("Start a New Story?",
+                    "Return to character selection? Make sure you have saved your game first!", () -> {
+                        if (newGameHandler != null)
+                            newGameHandler.run();
+                    });
         });
 
         Button historyBtn = createSidebarNavButton("📜  History", this::showHistoryDialog);
@@ -268,7 +277,8 @@ public class SaveLoadView extends StackPane {
 
         Button quitBtn = createSidebarNavButton("✕  Quit Game", () -> {
             showConfirmationDialog("Quit Game?", "Are you sure you want to quit the game?", () -> {
-                if (quitHandler != null) quitHandler.run();
+                if (quitHandler != null)
+                    quitHandler.run();
             });
         });
 
@@ -277,7 +287,8 @@ public class SaveLoadView extends StackPane {
         returnBtn.setMaxWidth(Double.MAX_VALUE);
         attachHoverSlideAnimation(returnBtn, -6);
         returnBtn.setOnAction(e -> {
-            if (returnHandler != null) returnHandler.run();
+            if (returnHandler != null)
+                returnHandler.run();
         });
 
         navLinks.getChildren().addAll(newGameBtn, historyBtn, settingsBtn, helpBtn, quitBtn, returnBtn);
@@ -311,7 +322,8 @@ public class SaveLoadView extends StackPane {
     }
 
     /**
-     * Builds the right frosted glass card containing pagination and the 2x3 slots grid.
+     * Builds the right frosted glass card containing pagination and the 2x3 slots
+     * grid.
      */
     private VBox buildContentArea() {
         VBox contentArea = new VBox(12);
@@ -326,8 +338,10 @@ public class SaveLoadView extends StackPane {
         pageIndicatorLabel.setFont(Font.font("Segoe UI", FontWeight.BOLD, 17));
         pageIndicatorLabel.setTextFill(Color.WHITE);
 
-        Label slotRangeBadge = new Label("Saves " + ((currentPage - 1) * SLOTS_PER_PAGE + 1) + " - " + (currentPage * SLOTS_PER_PAGE));
-        slotRangeBadge.setStyle("-fx-background-color: rgba(0, 154, 68, 0.22); -fx-text-fill: #5fe09a; -fx-font-size: 11px; -fx-font-weight: bold; -fx-padding: 3 8; -fx-background-radius: 6;");
+        Label slotRangeBadge = new Label(
+                "Saves " + ((currentPage - 1) * SLOTS_PER_PAGE + 1) + " - " + (currentPage * SLOTS_PER_PAGE));
+        slotRangeBadge.setStyle(
+                "-fx-background-color: rgba(0, 154, 68, 0.22); -fx-text-fill: #5fe09a; -fx-font-size: 11px; -fx-font-weight: bold; -fx-padding: 3 8; -fx-background-radius: 6;");
 
         Region spacer = new Region();
         HBox.setHgrow(spacer, Priority.ALWAYS);
@@ -399,18 +413,19 @@ public class SaveLoadView extends StackPane {
     }
 
     /**
-     * Builds a single frosted glass save slot card with thumbnail, tags, and micro-animations.
+     * Builds a single frosted glass save slot card with thumbnail, tags, and
+     * micro-animations.
      */
     private Node buildSlotCard(int slotNum, SaveState state) {
-        VBox card = new VBox(5);
+        VBox card = new VBox(6);
         card.setAlignment(Pos.CENTER);
-        card.setPrefSize(164, 134);
+        card.setPrefSize(270, 210);
         card.setStyle("-fx-cursor: hand;");
 
         StackPane frameBox = new StackPane();
-        frameBox.setPrefSize(158, 88);
-        frameBox.setMinSize(158, 88);
-        frameBox.setMaxSize(158, 88);
+        frameBox.setPrefSize(256, 144);
+        frameBox.setMinSize(256, 144);
+        frameBox.setMaxSize(256, 144);
 
         VBox textInfoBox = new VBox(2);
         textInfoBox.setAlignment(Pos.CENTER);
@@ -419,22 +434,27 @@ public class SaveLoadView extends StackPane {
             // Empty slot card
             frameBox.getStyleClass().add("glass-slot-empty");
 
-            VBox emptyContent = new VBox(3);
+            VBox emptyContent = new VBox(8);
             emptyContent.setAlignment(Pos.CENTER);
 
-            Label plusIcon = new Label("✦");
-            plusIcon.setFont(Font.font("Segoe UI", FontWeight.BOLD, 14));
-            plusIcon.setTextFill(Color.web("#5fe09a"));
+            Label plusIcon = new Label("+");
+            plusIcon.setFont(Font.font("Segoe UI", FontWeight.BOLD, 18));
+            plusIcon.setTextFill(Color.web("#7ADC9B"));
+            plusIcon.setAlignment(Pos.CENTER);
+            plusIcon.setMinSize(32, 32);
+            plusIcon.setPrefSize(32, 32);
+            plusIcon.setMaxSize(32, 32);
+            plusIcon.setStyle("-fx-background-color: #25332A; -fx-background-radius: 16px;");
 
             Label emptyLabel = new Label("Slot " + slotNum + " (Empty)");
-            emptyLabel.setFont(Font.font("Segoe UI", FontWeight.BOLD, 11));
+            emptyLabel.setFont(Font.font("Segoe UI", FontWeight.BOLD, 12));
             emptyLabel.setTextFill(Color.web("#80a89a"));
 
             emptyContent.getChildren().addAll(plusIcon, emptyLabel);
             frameBox.getChildren().add(emptyContent);
 
             Label subHint = new Label(currentMode == Mode.SAVE ? "Click to save here" : "Nothing saved here");
-            subHint.setFont(Font.font("Segoe UI", 10));
+            subHint.setFont(Font.font("Segoe UI", 10.5));
             subHint.setTextFill(Color.web("#5a7a70"));
             textInfoBox.getChildren().add(subHint);
         } else {
@@ -444,15 +464,15 @@ public class SaveLoadView extends StackPane {
             Image thumb = SaveManager.getThumbnail(slotNum);
             if (thumb != null) {
                 ImageView thumbView = new ImageView(thumb);
-                thumbView.setFitWidth(154);
-                thumbView.setFitHeight(84);
+                thumbView.setFitWidth(252);
+                thumbView.setFitHeight(140);
                 thumbView.setPreserveRatio(false);
                 thumbView.setSmooth(true);
 
                 // Clip corners of the thumbnail to fit cleanly
-                Rectangle clip = new Rectangle(154, 84);
-                clip.setArcWidth(10);
-                clip.setArcHeight(10);
+                Rectangle clip = new Rectangle(252, 140);
+                clip.setArcWidth(22);
+                clip.setArcHeight(22);
                 thumbView.setClip(clip);
 
                 frameBox.getChildren().add(thumbView);
@@ -460,23 +480,25 @@ public class SaveLoadView extends StackPane {
 
             // Top-left slot number badge
             Label slotBadge = new Label("Save #" + slotNum);
-            slotBadge.setStyle("-fx-background-color: rgba(10, 24, 18, 0.85); -fx-text-fill: #5fe09a; -fx-font-size: 9.5px; -fx-font-weight: bold; -fx-padding: 2 5; -fx-background-radius: 5;");
+            slotBadge.setStyle(
+                    "-fx-background-color: rgba(10, 24, 18, 0.85); -fx-text-fill: #5fe09a; -fx-font-size: 10px; -fx-font-weight: bold; -fx-padding: 3 8; -fx-background-radius: 14px;");
             StackPane.setAlignment(slotBadge, Pos.TOP_LEFT);
-            StackPane.setMargin(slotBadge, new Insets(4));
+            StackPane.setMargin(slotBadge, new Insets(6));
             frameBox.getChildren().add(slotBadge);
 
             // Delete button in top-right corner
             Button deleteBtn = new Button("✕");
             deleteBtn.getStyleClass().add("glass-delete-btn");
             StackPane.setAlignment(deleteBtn, Pos.TOP_RIGHT);
-            StackPane.setMargin(deleteBtn, new Insets(4));
+            StackPane.setMargin(deleteBtn, new Insets(6));
             deleteBtn.setOnAction(e -> {
                 e.consume();
-                showConfirmationDialog("Delete Save #" + slotNum + "?", "Are you sure you want to delete this saved game? This cannot be undone.", () -> {
-                    SaveManager.deleteSave(slotNum);
-                    showToast("Save #" + slotNum + " deleted.");
-                    refreshSlots();
-                });
+                showConfirmationDialog("Delete Save #" + slotNum + "?",
+                        "Are you sure you want to delete this saved game? This cannot be undone.", () -> {
+                            SaveManager.deleteSave(slotNum);
+                            showToast("Save #" + slotNum + " deleted.");
+                            refreshSlots();
+                        });
             });
             frameBox.getChildren().add(deleteBtn);
 
@@ -485,14 +507,16 @@ public class SaveLoadView extends StackPane {
                 case 1 -> "Jules's Story";
                 case 2 -> "Maya's Story";
                 case 3 -> "Nora's Story";
-                default -> (state.getStoryTitle() != null && !state.getStoryTitle().isEmpty() && !state.getStoryTitle().equals("Route"))
-                        ? state.getStoryTitle() : "Project Crossroads";
+                default -> (state.getStoryTitle() != null && !state.getStoryTitle().isEmpty()
+                        && !state.getStoryTitle().equals("Route"))
+                                ? state.getStoryTitle()
+                                : "Project Crossroads";
             };
             String sceneInfo = state.getSceneHeading() != null ? state.getSceneHeading() : "";
             Label headerLbl = new Label(routeName + (sceneInfo.isEmpty() ? "" : " • " + sceneInfo));
-            headerLbl.setFont(Font.font("Segoe UI", FontWeight.BOLD, 11));
+            headerLbl.setFont(Font.font("Segoe UI", FontWeight.BOLD, 11.5));
             headerLbl.setTextFill(Color.WHITE);
-            headerLbl.setMaxWidth(160);
+            headerLbl.setMaxWidth(250);
             headerLbl.setAlignment(Pos.CENTER);
 
             Label timeLbl = new Label(state.getTimestamp() != null ? state.getTimestamp() : "");
@@ -521,19 +545,21 @@ public class SaveLoadView extends StackPane {
                 if (state == null) {
                     executeSave(slotNum);
                 } else {
-                    showConfirmationDialog("Save Over Slot #" + slotNum + "?", "A saved game already exists here. Do you want to replace it?", () -> {
-                        executeSave(slotNum);
-                    });
+                    showConfirmationDialog("Save Over Slot #" + slotNum + "?",
+                            "A saved game already exists here. Do you want to replace it?", () -> {
+                                executeSave(slotNum);
+                            });
                 }
             } else { // Mode.LOAD
                 if (state == null) {
                     showToast("Slot #" + slotNum + " is empty! Pick a saved game to play.");
                 } else {
-                    showConfirmationDialog("Load Save #" + slotNum + "?", "Jump back to this point in the story?", () -> {
-                        if (loadHandler != null) {
-                            loadHandler.accept(slotNum);
-                        }
-                    });
+                    showConfirmationDialog("Load Save #" + slotNum + "?", "Jump back to this point in the story?",
+                            () -> {
+                                if (loadHandler != null) {
+                                    loadHandler.accept(slotNum);
+                                }
+                            });
                 }
             }
         });
@@ -567,6 +593,7 @@ public class SaveLoadView extends StackPane {
         dialogBox.getStyleClass().add("glass-modal-card");
         dialogBox.setAlignment(Pos.CENTER);
         dialogBox.setMaxWidth(360);
+        dialogBox.setMaxHeight(Region.USE_PREF_SIZE);
 
         Label titleLbl = new Label(title);
         titleLbl.setFont(Font.font("Segoe UI", FontWeight.BOLD, 19));
@@ -595,7 +622,8 @@ public class SaveLoadView extends StackPane {
         attachHoverSlideAnimation(yesBtn, 4);
         yesBtn.setOnAction(e -> {
             hideModal();
-            if (onConfirm != null) onConfirm.run();
+            if (onConfirm != null)
+                onConfirm.run();
         });
 
         btnBox.getChildren().addAll(noBtn, yesBtn);
@@ -617,6 +645,7 @@ public class SaveLoadView extends StackPane {
         dialogBox.getStyleClass().add("glass-modal-card");
         dialogBox.setAlignment(Pos.CENTER);
         dialogBox.setMaxWidth(400);
+        dialogBox.setMaxHeight(Region.USE_PREF_SIZE);
 
         Label titleLbl = new Label("How to Play & Save");
         titleLbl.setFont(Font.font("Segoe UI", FontWeight.BOLD, 20));
@@ -627,12 +656,11 @@ public class SaveLoadView extends StackPane {
 
         Label descLbl = new Label(
                 "• Saving: Click any slot to save your progress.\n" +
-                "• Loading: Click a saved game to keep playing.\n" +
-                "• History: Click 📜 History to review dialogue read so far.\n" +
-                "• Deleting: Click the ✕ on a slot to remove it.\n" +
-                "• Turn Pages: Click 1 to 9 at the top to see more slots.\n" +
-                "• Menu: Press [Esc] during the story to open this menu anytime."
-        );
+                        "• Loading: Click a saved game to keep playing.\n" +
+                        "• History: Click 📜 History to review dialogue read so far.\n" +
+                        "• Deleting: Click the ✕ on a slot to remove it.\n" +
+                        "• Turn Pages: Click 1 to 9 at the top to see more slots.\n" +
+                        "• Menu: Press [Esc] during the story to open this menu anytime.");
         descLbl.setFont(Font.font("Segoe UI", 12));
         descLbl.setTextFill(Color.web("#d1e3dc"));
         infoBox.getChildren().add(descLbl);
@@ -648,7 +676,8 @@ public class SaveLoadView extends StackPane {
     }
 
     /**
-     * Displays a scrollable modal backlog showing all dialogue lines read from the screenbox,
+     * Displays a scrollable modal backlog showing all dialogue lines read from the
+     * screenbox,
      * fetched in FIFO order from the history Queue.
      */
     public void showHistoryDialog() {
@@ -657,10 +686,10 @@ public class SaveLoadView extends StackPane {
         dialogBox.setAlignment(Pos.CENTER);
         dialogBox.setPrefWidth(540);
         dialogBox.setMaxWidth(560);
-        dialogBox.setMaxHeight(490);
+        dialogBox.setMaxHeight(Region.USE_PREF_SIZE);
 
         // Header Section
-        Label badgeLabel = new Label("✦ DIALOGUE ARCHIVE ✦");
+        Label badgeLabel = new Label("Archive");
         badgeLabel.getStyleClass().add("glass-badge");
 
         Label titleLbl = new Label("Dialogue History");
@@ -689,7 +718,8 @@ public class SaveLoadView extends StackPane {
         controlBar.setPadding(new Insets(0, 4, 2, 4));
 
         Label countBadge = new Label(count + (count == 1 ? " line read" : " lines read"));
-        countBadge.setStyle("-fx-background-color: rgba(0, 154, 68, 0.22); -fx-text-fill: #5fe09a; -fx-font-size: 11px; -fx-font-weight: bold; -fx-padding: 3 9; -fx-background-radius: 6;");
+        countBadge.setStyle(
+                "-fx-background-color: rgba(0, 154, 68, 0.22); -fx-text-fill: #5fe09a; -fx-font-size: 11px; -fx-font-weight: bold; -fx-padding: 3 9; -fx-background-radius: 6;");
 
         Region spacer = new Region();
         HBox.setHgrow(spacer, Priority.ALWAYS);
@@ -720,7 +750,8 @@ public class SaveLoadView extends StackPane {
             emptyTitle.setFont(Font.font("Segoe UI", FontWeight.BOLD, 15));
             emptyTitle.setTextFill(Color.web("#b4d1c6"));
 
-            Label emptyDesc = new Label("Progress through the story to record screenbox dialogue into your backlog queue.");
+            Label emptyDesc = new Label(
+                    "Progress through the story to record screenbox dialogue into your backlog queue.");
             emptyDesc.setFont(Font.font("Segoe UI", 12));
             emptyDesc.setTextFill(Color.web("#6e8a80"));
             emptyDesc.setWrapText(true);
@@ -767,7 +798,8 @@ public class SaveLoadView extends StackPane {
     }
 
     private Node buildHistoryItem(DialogueLine line) {
-        if (line == null) return null;
+        if (line == null)
+            return null;
 
         String speaker = line.getSpeaker();
         String text = line.getText() != null ? line.getText() : "";
@@ -777,7 +809,8 @@ public class SaveLoadView extends StackPane {
             HBox sceneBox = new HBox(8);
             sceneBox.setAlignment(Pos.CENTER_LEFT);
             sceneBox.setPadding(new Insets(6, 12, 6, 12));
-            sceneBox.setStyle("-fx-background-color: rgba(0, 154, 68, 0.18); -fx-background-radius: 6; -fx-border-color: rgba(0, 186, 82, 0.35); -fx-border-radius: 6; -fx-border-width: 1;");
+            sceneBox.setStyle(
+                    "-fx-background-color: rgba(0, 154, 68, 0.18); -fx-background-radius: 6; -fx-border-color: rgba(0, 186, 82, 0.35); -fx-border-radius: 6; -fx-border-width: 1;");
 
             Label icon = new Label("✦");
             icon.setTextFill(Color.web("#5fe09a"));
@@ -794,7 +827,8 @@ public class SaveLoadView extends StackPane {
         // Standard dialogue entry card
         VBox card = new VBox(3);
         card.setPadding(new Insets(8, 12, 8, 12));
-        card.setStyle("-fx-background-color: rgba(255, 255, 255, 0.04); -fx-background-radius: 8; -fx-border-color: rgba(255, 255, 255, 0.07); -fx-border-radius: 8; -fx-border-width: 1;");
+        card.setStyle(
+                "-fx-background-color: rgba(255, 255, 255, 0.04); -fx-background-radius: 8; -fx-border-color: rgba(255, 255, 255, 0.07); -fx-border-radius: 8; -fx-border-width: 1;");
 
         // Character speaker badge/name
         if (speaker != null && !speaker.trim().isEmpty()) {
@@ -827,8 +861,10 @@ public class SaveLoadView extends StackPane {
         card.getChildren().add(textLabel);
 
         // Hover micro-animation
-        card.setOnMouseEntered(e -> card.setStyle("-fx-background-color: rgba(0, 154, 68, 0.12); -fx-background-radius: 8; -fx-border-color: rgba(0, 186, 82, 0.35); -fx-border-radius: 8; -fx-border-width: 1;"));
-        card.setOnMouseExited(e -> card.setStyle("-fx-background-color: rgba(255, 255, 255, 0.04); -fx-background-radius: 8; -fx-border-color: rgba(255, 255, 255, 0.07); -fx-border-radius: 8; -fx-border-width: 1;"));
+        card.setOnMouseEntered(e -> card.setStyle(
+                "-fx-background-color: rgba(0, 154, 68, 0.12); -fx-background-radius: 8; -fx-border-color: rgba(0, 186, 82, 0.35); -fx-border-radius: 8; -fx-border-width: 1;"));
+        card.setOnMouseExited(e -> card.setStyle(
+                "-fx-background-color: rgba(255, 255, 255, 0.04); -fx-background-radius: 8; -fx-border-color: rgba(255, 255, 255, 0.07); -fx-border-radius: 8; -fx-border-width: 1;"));
 
         return card;
     }

@@ -1,7 +1,9 @@
 package com.jadielsantiago.crossroadsvn.model;
 
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Map;
 
 public class SaveState implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -19,10 +21,12 @@ public class SaveState implements Serializable {
     private LinkedList<DialogueLine> remainingQueue;
     private boolean isChoiceActive;
     private LinkedList<DialogueLine> historyQueue;
+    private Map<CharacterPosition, CharacterSlotState> activeCharacters;
 
     public SaveState() {
         this.remainingQueue = new LinkedList<>();
         this.historyQueue = new LinkedList<>();
+        this.activeCharacters = new HashMap<>();
     }
 
     public SaveState(int slotIndex, int storyId, String storyTitle, String timestamp,
@@ -30,7 +34,7 @@ public class SaveState implements Serializable {
                      String currentMusic, String currentBackground, DialogueLine currentLine,
                      LinkedList<DialogueLine> remainingQueue, boolean isChoiceActive) {
         this(slotIndex, storyId, storyTitle, timestamp, sceneHeading, currentSpeaker, currentText,
-             currentMusic, currentBackground, currentLine, remainingQueue, isChoiceActive, null);
+             currentMusic, currentBackground, currentLine, remainingQueue, isChoiceActive, null, null);
     }
 
     public SaveState(int slotIndex, int storyId, String storyTitle, String timestamp,
@@ -38,6 +42,16 @@ public class SaveState implements Serializable {
                      String currentMusic, String currentBackground, DialogueLine currentLine,
                      LinkedList<DialogueLine> remainingQueue, boolean isChoiceActive,
                      LinkedList<DialogueLine> historyQueue) {
+        this(slotIndex, storyId, storyTitle, timestamp, sceneHeading, currentSpeaker, currentText,
+             currentMusic, currentBackground, currentLine, remainingQueue, isChoiceActive, historyQueue, null);
+    }
+
+    public SaveState(int slotIndex, int storyId, String storyTitle, String timestamp,
+                     String sceneHeading, String currentSpeaker, String currentText,
+                     String currentMusic, String currentBackground, DialogueLine currentLine,
+                     LinkedList<DialogueLine> remainingQueue, boolean isChoiceActive,
+                     LinkedList<DialogueLine> historyQueue,
+                     Map<CharacterPosition, CharacterSlotState> activeCharacters) {
         this.slotIndex = slotIndex;
         this.storyId = storyId;
         this.storyTitle = storyTitle;
@@ -51,6 +65,7 @@ public class SaveState implements Serializable {
         this.remainingQueue = remainingQueue != null ? new LinkedList<>(remainingQueue) : new LinkedList<>();
         this.isChoiceActive = isChoiceActive;
         this.historyQueue = historyQueue != null ? new LinkedList<>(historyQueue) : new LinkedList<>();
+        this.activeCharacters = activeCharacters != null ? new HashMap<>(activeCharacters) : new HashMap<>();
     }
 
     public int getSlotIndex() {
@@ -155,5 +170,16 @@ public class SaveState implements Serializable {
 
     public void setHistoryQueue(LinkedList<DialogueLine> historyQueue) {
         this.historyQueue = historyQueue != null ? new LinkedList<>(historyQueue) : new LinkedList<>();
+    }
+
+    public Map<CharacterPosition, CharacterSlotState> getActiveCharacters() {
+        if (activeCharacters == null) {
+            activeCharacters = new HashMap<>();
+        }
+        return activeCharacters;
+    }
+
+    public void setActiveCharacters(Map<CharacterPosition, CharacterSlotState> activeCharacters) {
+        this.activeCharacters = activeCharacters != null ? new HashMap<>(activeCharacters) : new HashMap<>();
     }
 }

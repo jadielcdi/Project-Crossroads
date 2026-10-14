@@ -6,9 +6,9 @@
  */
 package com.jadielsantiago.crossroadsvn.view;
 
-
 import javafx.animation.FadeTransition;
 import javafx.animation.PauseTransition;
+import javafx.animation.ScaleTransition;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
@@ -28,6 +28,7 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import javafx.scene.media.AudioClip;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -45,6 +46,8 @@ import com.jadielsantiago.crossroadsvn.model.*;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Queue;
 
 public class Main extends Application {
@@ -82,6 +85,19 @@ public class Main extends Application {
     private String currentSceneHeading = "";
     private SaveLoadView activeSaveLoadView = null;
     private boolean isMenuOpen = false;
+    private boolean isAutoMode = false;
+    private Button autoChip = null;
+    private final PauseTransition autoAdvanceTimer = new PauseTransition(Duration.seconds(7));
+
+    // Typewriter dialogue animator and visual novel prompt
+    private TextAnimator textAnimator;
+    private Label continuePromptLabel;
+    private FadeTransition continuePromptPulse;
+    private AudioClip charTickClip;
+
+    // Sound effect resource paths
+    private static final String SOUND_DIR = "/com/jadielsantiago/crossroadsvn/media/sounds/";
+    private static final String TICK_SOUND = SOUND_DIR + "typewriter_tick.wav";
 
     // Music resource paths (loaded from the classpath)
     private static final String MUSIC_DIR = "/com/jadielsantiago/crossroadsvn/media/music/";
@@ -113,6 +129,15 @@ public class Main extends Application {
         musicPlayer.setVolume(SettingsManager.getMusicVolume());
         musicPlayer.setMuted(SettingsManager.isMusicMuted());
 
+        try {
+            java.net.URL tickUrl = getClass().getResource(TICK_SOUND);
+            if (tickUrl != null) {
+                charTickClip = new AudioClip(tickUrl.toExternalForm());
+            }
+        } catch (Exception e) {
+            System.err.println("Note: Typewriter sound clip could not be loaded: " + e.getMessage());
+        }
+
         // Fixed 16:9 game canvas container
         root = new StackPane();
         root.setStyle("-fx-background-color: #070e0b;");
@@ -120,14 +145,16 @@ public class Main extends Application {
         root.setMinSize(VIRTUAL_WIDTH, VIRTUAL_HEIGHT);
         root.setMaxSize(VIRTUAL_WIDTH, VIRTUAL_HEIGHT);
 
-        // Dynamic clip ensures scaling and ambient zoom stays cleanly bounded to the 16:9 canvas
+        // Dynamic clip ensures scaling and ambient zoom stays cleanly bounded to the
+        // 16:9 canvas
         javafx.scene.shape.Rectangle gameClip = new javafx.scene.shape.Rectangle(VIRTUAL_WIDTH, VIRTUAL_HEIGHT);
         root.setClip(gameClip);
 
         uiLayer = new StackPane();
         uiLayer.setPickOnBounds(false);
 
-        // Dedicated character sprite layer locked to the 1280x720 virtual coordinate space
+        // Dedicated character sprite layer locked to the 1280x720 virtual coordinate
+        // space
         characterLayer = new StackPane();
         characterLayer.setPrefSize(VIRTUAL_WIDTH, VIRTUAL_HEIGHT);
         characterLayer.setMinSize(VIRTUAL_WIDTH, VIRTUAL_HEIGHT);
@@ -139,7 +166,8 @@ public class Main extends Application {
 
         characterManager = new CharacterManager(characterLayer);
 
-        // Ambient blurred backdrop: takes active scene/title artwork colors and creates a soft glowing letterbox
+        // Ambient blurred backdrop: takes active scene/title artwork colors and creates
+        // a soft glowing letterbox
         ambientBackdropView = new ImageView();
         ambientBackdropView.setSmooth(true);
         ambientBackdropView.setPreserveRatio(true);
@@ -174,7 +202,8 @@ public class Main extends Application {
         ambientClip.heightProperty().bind(ambientBackdropPane.heightProperty());
         ambientBackdropPane.setClip(ambientClip);
 
-        // Outer viewport container housing ambient blurred glow and framed 16:9 game canvas
+        // Outer viewport container housing ambient blurred glow and framed 16:9 game
+        // canvas
         appRoot = new StackPane(ambientBackdropPane, root);
         StackPane.setAlignment(root, Pos.CENTER);
 
@@ -195,8 +224,7 @@ public class Main extends Application {
                 () -> openSaveLoadMenu(SaveLoadView.Mode.LOAD),
                 Platform::exit,
                 backgroundManager,
-                musicPlayer
-        );
+                musicPlayer);
 
         showMainMenu();
 
@@ -254,8 +282,10 @@ public class Main extends Application {
     }
 
     /**
-     * Dynamically scales the 16:9 game viewport to fit any window/display resolution
-     * while strictly maintaining the 16:9 aspect ratio and letterboxing/pillarboxing outer margins.
+     * Dynamically scales the 16:9 game viewport to fit any window/display
+     * resolution
+     * while strictly maintaining the 16:9 aspect ratio and
+     * letterboxing/pillarboxing outer margins.
      */
     private void updateViewportScale() {
         if (appRoot == null || root == null) {
@@ -297,7 +327,8 @@ public class Main extends Application {
             return;
         }
 
-        // Cover scale with 12% bleed margin so blurred edges don't fade to black at screen borders
+        // Cover scale with 12% bleed margin so blurred edges don't fade to black at
+        // screen borders
         double scale = Math.max(w / iw, h / ih) * 1.12;
         ambientBackdropView.setFitWidth(iw * scale);
         ambientBackdropView.setFitHeight(ih * scale);
@@ -307,6 +338,16 @@ public class Main extends Application {
         isMenuOpen = false;
         activeSaveLoadView = null;
         currentStoryId = 0;
+        setAutoMode(false);
+        if (autoAdvanceTimer != null) {
+            autoAdvanceTimer.stop();
+        }
+        if (textAnimator != null) {
+            textAnimator.stop();
+        }
+        if (continuePromptLabel != null) {
+            continuePromptLabel.setVisible(false);
+        }
         uiLayer.getChildren().clear();
         if (characterManager != null) {
             characterManager.clearAllCharacters();
@@ -348,37 +389,137 @@ public class Main extends Application {
         if (hoverUnhideTimer != null) {
             hoverUnhideTimer.stop();
         }
+        if (autoAdvanceTimer != null) {
+            autoAdvanceTimer.stop();
+            autoAdvanceTimer.setOnFinished(e -> {
+                if (isAutoMode && !isMenuOpen && currentStoryId > 0) {
+                    if (choiceBoxContainer != null && choiceBoxContainer.isVisible()) {
+                        setAutoMode(false);
+                        return;
+                    }
+                    advanceDialogue();
+                }
+            });
+        }
 
-        // Dialogue Box setup with subtle Pantone 347 C border
+        // Dialogue Box setup with M3 Expressive Dark Bento HUD
         dialogueBox = new VBox(8);
-        dialogueBox.setStyle("-fx-background-color: rgba(255, 255, 255, 0.94); -fx-background-radius: 12; -fx-border-color: rgba(0, 154, 68, 0.35); -fx-border-width: 1.5; -fx-border-radius: 12; -fx-effect: dropshadow(two-pass-box, rgba(0,0,0,0.3), 10, 0, 0, 3);");
-        // Dialogue box intentionally leaves bitmap caching disabled to preserve razor-sharp vector text on 1080p/1440p/4K displays
-        dialogueBox.setPadding(new Insets(16, 20, 16, 20));
-        dialogueBox.setMaxHeight(160);
+        dialogueBox.getStyleClass().add("m3-dialogue-card");
+        dialogueBox.setPadding(new Insets(18, 28, 18, 28));
+        dialogueBox.setMinWidth(1140);
+        dialogueBox.setPrefWidth(1140);
+        dialogueBox.setMaxWidth(1140);
+        dialogueBox.setMinHeight(155);
+        dialogueBox.setPrefHeight(165);
+        dialogueBox.setMaxHeight(175);
         dialogueBox.setOpacity(1.0);
         dialogueBox.setVisible(true);
         StackPane.setAlignment(dialogueBox, Pos.BOTTOM_CENTER);
-        StackPane.setMargin(dialogueBox, new Insets(20));
+        StackPane.setMargin(dialogueBox, new Insets(0, 0, 22, 0));
 
-        speakerNameLabel = new Label(currentLine != null ? currentLine.getSpeaker() : "Speaker");
-        speakerNameLabel.setFont(Font.font("Segoe UI", FontWeight.BOLD, 19));
-        speakerNameLabel.setTextFill(Color.web("#14384a"));
+        speakerNameLabel = new Label();
+        updateSpeakerBadge(currentLine != null ? currentLine.getSpeaker() : "");
+
+        Region spacer = new Region();
+        HBox.setHgrow(spacer, Priority.ALWAYS);
+
+        // Quick-HUD Pill Bar
+        HBox quickToolbar = new HBox(4);
+        quickToolbar.getStyleClass().add("m3-quick-toolbar");
+        quickToolbar.setAlignment(Pos.CENTER_RIGHT);
+
+        autoChip = createQuickChip("Auto", this::toggleAutoMode);
+        if (isAutoMode) {
+            autoChip.getStyleClass().add("m3-quick-chip-active");
+            autoChip.setStyle("-fx-text-fill: #7ADC9B; -fx-font-weight: 800;");
+        }
+
+        Button historyChip = createQuickChip("History", () -> {
+            openSaveLoadMenu(SaveLoadView.Mode.SAVE);
+            if (activeSaveLoadView != null) {
+                activeSaveLoadView.showHistoryDialog();
+            }
+        });
+
+        Button saveChip = createQuickChip("Save", () -> {
+            openSaveLoadMenu(SaveLoadView.Mode.SAVE);
+        });
+
+        Button loadChip = createQuickChip("Load", () -> {
+            openSaveLoadMenu(SaveLoadView.Mode.LOAD);
+        });
+
+        Button hideChip = createQuickChip("Hide", this::toggleDialogueHidden);
+
+        Button menuChip = createQuickChip("Menu", () -> {
+            openSaveLoadMenu(SaveLoadView.Mode.SAVE);
+        });
+
+        quickToolbar.getChildren().addAll(autoChip, historyChip, saveChip, loadChip, hideChip, menuChip);
+
+        HBox headerRow = new HBox(8, speakerNameLabel, spacer, quickToolbar);
+        headerRow.setAlignment(Pos.CENTER_LEFT);
 
         // Dialogue Text
-        dialogueTextLabel = new Label(currentLine != null ? currentLine.getText() : "Text...");
-        dialogueTextLabel.setFont(Font.font("Segoe UI", 16));
+        dialogueTextLabel = new Label(currentLine != null ? currentLine.getText() : "");
+        dialogueTextLabel.setFont(Font.font("Segoe UI", FontWeight.MEDIUM, 17.5));
+        dialogueTextLabel.setTextFill(Color.web("#E6ECE8"));
+        dialogueTextLabel.setLineSpacing(4.0);
         dialogueTextLabel.setWrapText(true);
 
-        dialogueBox.getChildren().addAll(speakerNameLabel, dialogueTextLabel);
+        // Blinking Continue Indicator (▾)
+        continuePromptLabel = new Label("▾");
+        continuePromptLabel.setFont(Font.font("Segoe UI", FontWeight.BOLD, 16));
+        continuePromptLabel.setTextFill(Color.web("#7ADC9B"));
+        continuePromptLabel.setVisible(false);
 
-        // Invisible Hover Zone: Detects mouse hover over where the dialogue box is supposed to be when hidden
+        continuePromptPulse = new FadeTransition(Duration.millis(550), continuePromptLabel);
+        continuePromptPulse.setFromValue(1.0);
+        continuePromptPulse.setToValue(0.2);
+        continuePromptPulse.setCycleCount(FadeTransition.INDEFINITE);
+        continuePromptPulse.setAutoReverse(true);
+        continuePromptPulse.play();
+
+        StackPane dialogueContentStack = new StackPane();
+        dialogueContentStack.setAlignment(Pos.TOP_LEFT);
+        dialogueContentStack.getChildren().addAll(dialogueTextLabel, continuePromptLabel);
+        StackPane.setAlignment(continuePromptLabel, Pos.BOTTOM_RIGHT);
+        StackPane.setMargin(continuePromptLabel, new Insets(0, 4, 0, 0));
+
+        dialogueBox.getChildren().setAll(headerRow, dialogueContentStack);
+
+        // Initialize TextAnimator
+        textAnimator = new TextAnimator(dialogueTextLabel, charTickClip);
+        textAnimator.setIndicatorNode(continuePromptLabel);
+        textAnimator.setDelayNanos(SettingsManager.getTextDelayNanos());
+        textAnimator.setSoundEnabled(SettingsManager.isTextSoundEnabled() && !SettingsManager.isMusicMuted());
+
+        // Dialogue box click handler
+        dialogueBox.setOnMouseClicked(event -> {
+            if (isDialogueHidden) {
+                setDialogueHidden(false);
+                event.consume();
+                return;
+            }
+            if (!isMenuOpen) {
+                handleDialogueInteraction();
+                event.consume();
+            }
+        });
+
+        // Invisible Hover Zone: Detects mouse hover over where the dialogue box is
+        // supposed to be when hidden
         dialogueHoverZone = new Region();
-        dialogueHoverZone.setMaxHeight(160);
-        dialogueHoverZone.setPrefHeight(160);
+        dialogueHoverZone.setMinWidth(1140);
+        dialogueHoverZone.setPrefWidth(1140);
+        dialogueHoverZone.setMaxWidth(1140);
+        dialogueHoverZone.setMinHeight(155);
+        dialogueHoverZone.setPrefHeight(165);
+        dialogueHoverZone.setMaxHeight(175);
         dialogueHoverZone.setPickOnBounds(true);
         dialogueHoverZone.setVisible(false); // Only active while dialogue is hidden
         StackPane.setAlignment(dialogueHoverZone, Pos.BOTTOM_CENTER);
-        StackPane.setMargin(dialogueHoverZone, new Insets(20));
+        StackPane.setMargin(dialogueHoverZone, new Insets(0, 0, 22, 0));
 
         dialogueHoverZone.setOnMouseEntered(e -> {
             if (isDialogueHidden) {
@@ -405,8 +546,11 @@ public class Main extends Application {
         topMenuBtn.setFocusTraversable(false);
         topMenuBtn.setOpacity(0.0); // Transparent until hover
 
-        String normalStyle = "-fx-background-color: rgba(14, 38, 30, 0.85); -fx-text-fill: #cbf0de; -fx-font-size: 14px; -fx-font-weight: bold; -fx-padding: 7 18; -fx-background-radius: 18; -fx-cursor: hand; -fx-border-color: " + COLOR_PANTONE_347C + "; -fx-border-radius: 18; -fx-border-width: 1.5;";
-        String hoverStyle = "-fx-background-color: " + COLOR_PANTONE_HOVER + "; -fx-text-fill: white; -fx-font-size: 14px; -fx-font-weight: bold; -fx-padding: 7 18; -fx-background-radius: 18; -fx-cursor: hand; -fx-effect: dropshadow(gaussian, " + COLOR_PANTONE_HOVER + ", 10, 0.5, 0, 0);";
+        String normalStyle = "-fx-background-color: rgba(14, 38, 30, 0.85); -fx-text-fill: #cbf0de; -fx-font-size: 14px; -fx-font-weight: bold; -fx-padding: 7 18; -fx-background-radius: 18; -fx-cursor: hand; -fx-border-color: "
+                + COLOR_PANTONE_347C + "; -fx-border-radius: 18; -fx-border-width: 1.5;";
+        String hoverStyle = "-fx-background-color: " + COLOR_PANTONE_HOVER
+                + "; -fx-text-fill: white; -fx-font-size: 14px; -fx-font-weight: bold; -fx-padding: 7 18; -fx-background-radius: 18; -fx-cursor: hand; -fx-effect: dropshadow(gaussian, "
+                + COLOR_PANTONE_HOVER + ", 10, 0.5, 0, 0);";
 
         topMenuBtn.setStyle(normalStyle);
 
@@ -435,14 +579,15 @@ public class Main extends Application {
 
         uiLayer.getChildren().addAll(dialogueHoverZone, dialogueBox, choiceBoxContainer, menuHitArea);
 
-        // Click on background or letterbox margins: if dialogue is hidden, unhide it; otherwise advance dialogue
+        // Click on background or letterbox margins: if dialogue is hidden, unhide it;
+        // otherwise advance dialogue
         root.setOnMouseClicked(event -> {
             if (isDialogueHidden) {
                 setDialogueHidden(false);
                 return;
             }
             if (!isMenuOpen) {
-                advanceDialogue();
+                handleDialogueInteraction();
             }
         });
 
@@ -453,12 +598,13 @@ public class Main extends Application {
                     return;
                 }
                 if (!isMenuOpen && currentStoryId > 0) {
-                    advanceDialogue();
+                    handleDialogueInteraction();
                 }
             });
         }
 
-        // Key bindings: SPACE advances dialogue, ESCAPE toggles menu, V toggles dialogue visibility
+        // Key bindings: SPACE advances dialogue, ESCAPE toggles menu, V toggles
+        // dialogue visibility
         if (root.getScene() != null) {
             root.getScene().setOnKeyPressed(event -> {
                 if (event.getCode() == KeyCode.ESCAPE) {
@@ -498,16 +644,43 @@ public class Main extends Application {
                         toggleDialogueHidden();
                     }
                     event.consume();
+                } else if (event.getCode() == KeyCode.A) {
+                    if (!isMenuOpen) {
+                        toggleAutoMode();
+                    }
+                    event.consume();
                 } else if (event.getCode() == KeyCode.SPACE) {
                     if (isDialogueHidden) {
                         setDialogueHidden(false);
                     } else if (!isMenuOpen) {
-                        advanceDialogue();
+                        handleDialogueInteraction();
                     }
                     event.consume();
                 }
             });
         }
+    }
+
+    /**
+     * Handles player click or spacebar input during story playback.
+     * If dialogue text is currently actively typing out, immediately finishes the
+     * line.
+     * If dialogue text is already complete, advances to the next dialogue line.
+     */
+    private void handleDialogueInteraction() {
+        // Prevent advancing while choice options are waiting on screen
+        if (choiceBoxContainer != null && choiceBoxContainer.isVisible()) {
+            return;
+        }
+
+        // If typewriter is actively typing characters, reveal full line immediately
+        if (textAnimator != null && textAnimator.isRunning()) {
+            textAnimator.finishImmediately();
+            return;
+        }
+
+        // Advance to next dialogue line
+        advanceDialogue();
     }
 
     private void setDialogueHidden(boolean hidden) {
@@ -544,6 +717,12 @@ public class Main extends Application {
     }
 
     private void openSaveLoadMenu(SaveLoadView.Mode mode) {
+        if (autoAdvanceTimer != null) {
+            autoAdvanceTimer.stop();
+        }
+        if (textAnimator != null && textAnimator.isRunning()) {
+            textAnimator.finishImmediately();
+        }
         if (isMenuOpen && activeSaveLoadView != null) {
             activeSaveLoadView.setMode(mode);
             return;
@@ -569,8 +748,7 @@ public class Main extends Application {
                 this::showMainMenu,
                 Platform::exit,
                 musicPlayer,
-                () -> gameManager.getDialogueHistoryQueue()
-        );
+                () -> gameManager.getDialogueHistoryQueue());
 
         uiLayer.getChildren().add(activeSaveLoadView);
 
@@ -597,9 +775,16 @@ public class Main extends Application {
         }
         isMenuOpen = false;
 
+        if (textAnimator != null) {
+            textAnimator.setDelayNanos(SettingsManager.getTextDelayNanos());
+            textAnimator.setSoundEnabled(SettingsManager.isTextSoundEnabled() && !SettingsManager.isMusicMuted());
+        }
+
         // If returned while in main menu and nothing else was loaded
         if (currentStoryId == 0) {
             showMainMenu();
+        } else if (isAutoMode && (choiceBoxContainer == null || !choiceBoxContainer.isVisible())) {
+            scheduleAutoAdvance();
         }
     }
 
@@ -619,6 +804,10 @@ public class Main extends Application {
         String time = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
         boolean isChoice = choiceBoxContainer != null && choiceBoxContainer.isVisible();
 
+        Map<CharacterPosition, CharacterSlotState> activeChars = characterManager != null
+                ? characterManager.getActiveCharacters()
+                : new HashMap<>();
+
         SaveState state = new SaveState(
                 slotIndex,
                 currentStoryId,
@@ -632,8 +821,8 @@ public class Main extends Application {
                 currentLine,
                 gameManager.getCurrentSceneQueue(),
                 isChoice,
-                gameManager.getHistoryLinkedList()
-        );
+                gameManager.getHistoryLinkedList(),
+                activeChars);
 
         SaveManager.saveGame(slotIndex, state, screenshot);
     }
@@ -669,11 +858,16 @@ public class Main extends Application {
         showDialogueScreen();
 
         if (characterManager != null) {
-            characterManager.clearAllCharacters();
+            characterManager.restoreCharacters(state.getActiveCharacters());
+            characterManager.highlightSpeaker(state.getCurrentSpeaker());
         }
 
-        speakerNameLabel.setText(state.getCurrentSpeaker());
+        updateSpeakerBadge(state.getCurrentSpeaker());
         dialogueTextLabel.setText(state.getCurrentText());
+
+        if (textAnimator != null) {
+            textAnimator.stop();
+        }
 
         if (gameManager.getDialogueHistoryQueue().isEmpty() && currentLine != null) {
             gameManager.recordDialogue(currentLine);
@@ -681,8 +875,14 @@ public class Main extends Application {
 
         if (state.isChoiceActive() && currentLine instanceof Choice) {
             presentChoices((Choice) currentLine);
+            if (continuePromptLabel != null) {
+                continuePromptLabel.setVisible(false);
+            }
         } else {
             choiceBoxContainer.setVisible(false);
+            if (continuePromptLabel != null) {
+                continuePromptLabel.setVisible(true);
+            }
         }
     }
 
@@ -726,6 +926,10 @@ public class Main extends Application {
     }
 
     private void advanceDialogue() {
+        if (autoAdvanceTimer != null) {
+            autoAdvanceTimer.stop();
+        }
+
         // Prevent advancing by clicking while a choice is pending on screen
         if (choiceBoxContainer != null && choiceBoxContainer.isVisible()) {
             return;
@@ -735,7 +939,8 @@ public class Main extends Application {
         this.currentLine = nextLine;
 
         if (nextLine != null) {
-            // Process sprite directives from speaker tags (e.g. Jules_Stressed(left)) and inline text tags
+            // Process sprite directives from speaker tags (e.g. Jules_Stressed(left)) and
+            // inline text tags
             ParsedDialogue parsed = processSpriteDirectives(nextLine);
 
             // Track scene headings for save state labels
@@ -747,8 +952,7 @@ public class Main extends Application {
                 }
             }
 
-            speakerNameLabel.setText(parsed.cleanSpeaker());
-            dialogueTextLabel.setText(parsed.cleanText());
+            updateSpeakerBadge(parsed.cleanSpeaker());
 
             if (characterManager != null) {
                 characterManager.highlightSpeaker(parsed.cleanSpeaker());
@@ -757,11 +961,38 @@ public class Main extends Application {
             // Save screenbox dialogue text to history queue with clean speaker and text
             gameManager.recordDialogue(parsed.cleanSpeaker(), parsed.cleanText());
 
-            // If this line contains player choices, render them
-            if (nextLine instanceof Choice) {
-                presentChoices((Choice) nextLine);
+            // Animate dialogue text with typewriter effect
+            if (nextLine instanceof Choice choice) {
+                setAutoMode(false);
+                choiceBoxContainer.setVisible(false);
+                if (textAnimator != null) {
+                    textAnimator.setDelayNanos(SettingsManager.getTextDelayNanos());
+                    textAnimator
+                            .setSoundEnabled(SettingsManager.isTextSoundEnabled() && !SettingsManager.isMusicMuted());
+                    textAnimator.animate(parsed.cleanText(), () -> presentChoices(choice));
+                } else {
+                    dialogueTextLabel.setText(parsed.cleanText());
+                    presentChoices(choice);
+                }
+            } else {
+                if (textAnimator != null) {
+                    textAnimator.setDelayNanos(SettingsManager.getTextDelayNanos());
+                    textAnimator
+                            .setSoundEnabled(SettingsManager.isTextSoundEnabled() && !SettingsManager.isMusicMuted());
+                    textAnimator.animate(parsed.cleanText(), () -> {
+                        if (isAutoMode) {
+                            scheduleAutoAdvance();
+                        }
+                    });
+                } else {
+                    dialogueTextLabel.setText(parsed.cleanText());
+                    if (isAutoMode) {
+                        scheduleAutoAdvance();
+                    }
+                }
             }
         } else {
+            setAutoMode(false);
             if (currentStoryId > 0) {
                 ProgressManager.recordStoryCompletion(currentStoryId);
             }
@@ -769,13 +1000,104 @@ public class Main extends Application {
         }
     }
 
+    private void toggleAutoMode() {
+        setAutoMode(!isAutoMode);
+    }
+
+    private void setAutoMode(boolean active) {
+        this.isAutoMode = active;
+        if (autoChip != null) {
+            autoChip.getStyleClass().remove("m3-quick-chip-active");
+            if (active) {
+                autoChip.getStyleClass().add("m3-quick-chip-active");
+                autoChip.setStyle("-fx-text-fill: #7ADC9B; -fx-font-weight: 800;");
+            } else {
+                autoChip.setStyle("");
+            }
+        }
+        if (!active) {
+            if (autoAdvanceTimer != null) {
+                autoAdvanceTimer.stop();
+            }
+        } else {
+            if (choiceBoxContainer != null && choiceBoxContainer.isVisible()) {
+                setAutoMode(false);
+                return;
+            }
+            if (textAnimator != null && !textAnimator.isRunning()) {
+                scheduleAutoAdvance();
+            }
+        }
+    }
+
+    private void scheduleAutoAdvance() {
+        if (!isAutoMode || isMenuOpen) {
+            return;
+        }
+        if (choiceBoxContainer != null && choiceBoxContainer.isVisible()) {
+            setAutoMode(false);
+            return;
+        }
+        if (autoAdvanceTimer != null) {
+            autoAdvanceTimer.stop();
+            autoAdvanceTimer.playFromStart();
+        }
+    }
+
+    private Button createQuickChip(String text, Runnable action) {
+        Button chip = new Button(text);
+        chip.getStyleClass().add("m3-quick-chip");
+        chip.setFocusTraversable(false);
+        chip.addEventHandler(javafx.scene.input.MouseEvent.MOUSE_CLICKED, javafx.event.Event::consume);
+        chip.setOnAction(e -> {
+            e.consume();
+            action.run();
+        });
+        return chip;
+    }
+
+    private void updateSpeakerBadge(String speaker) {
+        if (speakerNameLabel == null) {
+            return;
+        }
+        speakerNameLabel.getStyleClass().removeAll("m3-speaker-pill", "m3-speaker-pill-narrator");
+        if (speaker == null || speaker.trim().isEmpty() || "Narrator".equalsIgnoreCase(speaker.trim())) {
+            speakerNameLabel.getStyleClass().add("m3-speaker-pill-narrator");
+            speakerNameLabel.setText(speaker != null && !speaker.trim().isEmpty() ? speaker : "Narrator");
+        } else {
+            speakerNameLabel.getStyleClass().add("m3-speaker-pill");
+            speakerNameLabel.setText(speaker);
+        }
+    }
+
     private void presentChoices(Choice choice) {
+        setAutoMode(false);
         choiceBoxContainer.getChildren().clear();
+        choiceBoxContainer.setMaxWidth(680);
+        choiceBoxContainer.setMaxHeight(Region.USE_PREF_SIZE);
+        StackPane.setMargin(choiceBoxContainer, new Insets(0, 0, 140, 0));
 
         for (ChoiceOption option : choice.getOptions()) {
             Button optionBtn = new Button(option.getOptionText());
-            optionBtn.setStyle("-fx-font-size: 15px; -fx-padding: 10 25; -fx-background-color: #1e3d59; -fx-text-fill: white; -fx-background-radius: 8; -fx-cursor: hand;");
+            optionBtn.getStyleClass().add("m3-choice-card");
+            optionBtn.setMaxWidth(640);
             optionBtn.setFocusTraversable(false); // Prevents accidental spacebar selection
+
+            ScaleTransition stIn = new ScaleTransition(Duration.millis(120), optionBtn);
+            stIn.setToX(1.02);
+            stIn.setToY(1.02);
+            ScaleTransition stOut = new ScaleTransition(Duration.millis(120), optionBtn);
+            stOut.setToX(1.0);
+            stOut.setToY(1.0);
+
+            optionBtn.setOnMouseEntered(ev -> {
+                stOut.stop();
+                stIn.playFromStart();
+            });
+            optionBtn.setOnMouseExited(ev -> {
+                stIn.stop();
+                stOut.playFromStart();
+            });
 
             optionBtn.setOnAction(e -> {
                 // Hide choice box and inject the selected branch
@@ -786,6 +1108,11 @@ public class Main extends Application {
             });
 
             choiceBoxContainer.getChildren().add(optionBtn);
+        }
+
+        // Hide continue prompt while choice is pending player selection
+        if (continuePromptLabel != null) {
+            continuePromptLabel.setVisible(false);
         }
 
         choiceBoxContainer.setVisible(true);
@@ -834,7 +1161,8 @@ public class Main extends Application {
     }
 
     /**
-     * Sets the opacity of a character position slot (useful for dimming inactive speakers).
+     * Sets the opacity of a character position slot (useful for dimming inactive
+     * speakers).
      */
     public void setCharacterPositionOpacity(CharacterPosition position, double opacity) {
         if (characterManager != null) {
@@ -845,12 +1173,15 @@ public class Main extends Application {
     /**
      * Data record containing sanitized speaker name and cleaned dialogue text.
      */
-    private record ParsedDialogue(String cleanSpeaker, String cleanText) {}
+    private record ParsedDialogue(String cleanSpeaker, String cleanText) {
+    }
 
     /**
      * Parses speaker strings (e.g. "Jules_Stressed(left)", "Jules(Stressed, left)")
-     * and inline dialogue text tags (e.g. "[SPRITE: Jules_Stressed, left]", "[HIDE: left]")
-     * to dynamically invoke the CharacterManager while displaying a clean speaker name on screen.
+     * and inline dialogue text tags (e.g. "[SPRITE: Jules_Stressed, left]", "[HIDE:
+     * left]")
+     * to dynamically invoke the CharacterManager while displaying a clean speaker
+     * name on screen.
      */
     private ParsedDialogue processSpriteDirectives(DialogueLine line) {
         if (line == null) {
@@ -862,9 +1193,11 @@ public class Main extends Application {
         String cleanSpeaker = rawSpeaker;
         String cleanText = rawText;
 
-        // 1. Check for speaker tag syntax: e.g. "Jules_Stressed(left)" or "Jules(Stressed, left)"
+        // 1. Check for speaker tag syntax: e.g. "Jules_Stressed(left)" or
+        // "Jules(Stressed, left)"
         // Pattern A: Character_Expression(position) -> e.g. Jules_Stressed(left)
-        java.util.regex.Pattern patA = java.util.regex.Pattern.compile("^([A-Za-z0-9_]+)_([A-Za-z0-9_]+)\\s*\\(\\s*([A-Za-z]+)\\s*\\)$");
+        java.util.regex.Pattern patA = java.util.regex.Pattern
+                .compile("^([A-Za-z0-9_]+)_([A-Za-z0-9_]+)\\s*\\(\\s*([A-Za-z]+)\\s*\\)$");
         java.util.regex.Matcher matA = patA.matcher(rawSpeaker.trim());
         if (matA.matches()) {
             String charId = matA.group(1);
@@ -876,7 +1209,8 @@ public class Main extends Application {
             }
         } else {
             // Pattern B: Character(expression, position) -> e.g. Jules(Stressed, left)
-            java.util.regex.Pattern patB = java.util.regex.Pattern.compile("^([A-Za-z0-9_]+)\\s*\\(\\s*([A-Za-z0-9_]+)\\s*,\\s*([A-Za-z]+)\\s*\\)$");
+            java.util.regex.Pattern patB = java.util.regex.Pattern
+                    .compile("^([A-Za-z0-9_]+)\\s*\\(\\s*([A-Za-z0-9_]+)\\s*,\\s*([A-Za-z]+)\\s*\\)$");
             java.util.regex.Matcher matB = patB.matcher(rawSpeaker.trim());
             if (matB.matches()) {
                 String charId = matB.group(1);
@@ -902,9 +1236,11 @@ public class Main extends Application {
             }
         }
 
-        // 2. Check for inline bracket tags in dialogue text: e.g. [SPRITE: Jules_Stressed, left] or [HIDE: left]
+        // 2. Check for inline bracket tags in dialogue text: e.g. [SPRITE:
+        // Jules_Stressed, left] or [HIDE: left]
         if (cleanText.contains("[SPRITE:") || cleanText.contains("[sprite:")) {
-            java.util.regex.Pattern spriteTagPat = java.util.regex.Pattern.compile("\\[(?i)SPRITE:\\s*([A-Za-z0-9_]+)(?:[_,\\s]+([A-Za-z0-9_]+))?(?:[_,\\s]+([A-Za-z]+))?\\s*\\]");
+            java.util.regex.Pattern spriteTagPat = java.util.regex.Pattern.compile(
+                    "\\[(?i)SPRITE:\\s*([A-Za-z0-9_]+)(?:[_,\\s]+([A-Za-z0-9_]+))?(?:[_,\\s]+([A-Za-z]+))?\\s*\\]");
             java.util.regex.Matcher m = spriteTagPat.matcher(cleanText);
             while (m.find()) {
                 String p1 = m.group(1);
@@ -919,6 +1255,10 @@ public class Main extends Application {
                     charId = parts[0];
                     expr = parts[1];
                     pos = CharacterPosition.fromString(p2);
+                } else if (p3 == null && p2 != null && (p2.equalsIgnoreCase("left") || p2.equalsIgnoreCase("middle")
+                        || p2.equalsIgnoreCase("center") || p2.equalsIgnoreCase("right"))) {
+                    expr = "Reference";
+                    pos = CharacterPosition.fromString(p2);
                 }
 
                 if (characterManager != null) {
@@ -929,14 +1269,16 @@ public class Main extends Application {
         }
 
         if (cleanText.contains("[HIDE:") || cleanText.contains("[hide:")) {
-            java.util.regex.Pattern hideTagPat = java.util.regex.Pattern.compile("\\[(?i)HIDE:\\s*([A-Za-z0-9_]+)\\s*\\]");
+            java.util.regex.Pattern hideTagPat = java.util.regex.Pattern
+                    .compile("\\[(?i)HIDE:\\s*([A-Za-z0-9_]+)\\s*\\]");
             java.util.regex.Matcher m = hideTagPat.matcher(cleanText);
             while (m.find()) {
                 String target = m.group(1).toLowerCase();
                 if (characterManager != null) {
                     if (target.contains("all")) {
                         characterManager.clearAllCharacters();
-                    } else if (target.equals("left") || target.equals("right") || target.equals("middle") || target.equals("center")) {
+                    } else if (target.equals("left") || target.equals("right") || target.equals("middle")
+                            || target.equals("center")) {
                         characterManager.hideCharacter(CharacterPosition.fromString(target));
                     } else {
                         String charName = target.contains("_") ? target.split("_")[0] : target;
@@ -958,16 +1300,19 @@ public class Main extends Application {
             cleanText = hideTagPat.matcher(cleanText).replaceAll("").trim();
         }
 
-        // 3. Check for background directives: e.g. [BG: Campus_Quad.jpg] or [BACKGROUND: Campus_Quad.jpg]
+        // 3. Check for background directives: e.g. [BG: Campus_Quad.jpg] or
+        // [BACKGROUND: Campus_Quad.jpg]
         if (cleanText.contains("[BG:") || cleanText.contains("[bg:") ||
                 cleanText.contains("[BACKGROUND:") || cleanText.contains("[background:")) {
-            java.util.regex.Pattern bgTagPat = java.util.regex.Pattern.compile("\\[(?i)(?:BG|BACKGROUND):\\s*([^\\]]+)\\s*\\]");
+            java.util.regex.Pattern bgTagPat = java.util.regex.Pattern
+                    .compile("\\[(?i)(?:BG|BACKGROUND):\\s*([^\\]]+)\\s*\\]");
             java.util.regex.Matcher m = bgTagPat.matcher(cleanText);
             StringBuilder sb = new StringBuilder();
             while (m.find()) {
                 String fullTag = m.group(0);
                 String target = m.group(1).trim();
-                if ((target.startsWith("\"") && target.endsWith("\"")) || (target.startsWith("'") && target.endsWith("'"))) {
+                if ((target.startsWith("\"") && target.endsWith("\""))
+                        || (target.startsWith("'") && target.endsWith("'"))) {
                     target = target.substring(1, target.length() - 1).trim();
                 }
 

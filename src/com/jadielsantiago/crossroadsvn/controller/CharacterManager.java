@@ -7,6 +7,7 @@
 package com.jadielsantiago.crossroadsvn.controller;
 
 import com.jadielsantiago.crossroadsvn.model.CharacterPosition;
+import com.jadielsantiago.crossroadsvn.model.CharacterSlotState;
 import javafx.animation.FadeTransition;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -17,6 +18,7 @@ import javafx.util.Duration;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.EnumMap;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -42,6 +44,7 @@ public class CharacterManager {
     private final Map<CharacterPosition, StackPane> slotContainers = new EnumMap<>(CharacterPosition.class);
     private final Map<CharacterPosition, ImageView> activeViews = new EnumMap<>(CharacterPosition.class);
     private final Map<CharacterPosition, String> activeCharacterIds = new EnumMap<>(CharacterPosition.class);
+    private final Map<CharacterPosition, String> activeExpressions = new EnumMap<>(CharacterPosition.class);
     private final Map<CharacterPosition, Double> positionOpacities = new EnumMap<>(CharacterPosition.class);
     private final Map<String, Image> imageCache = new ConcurrentHashMap<>();
 
@@ -80,6 +83,18 @@ public class CharacterManager {
      * @param position          the stage position slot (LEFT, MIDDLE, RIGHT)
      */
     public void showCharacter(String characterId, String expressionOrPose, CharacterPosition position) {
+        showCharacter(characterId, expressionOrPose, position, false);
+    }
+
+    /**
+     * Displays a character sprite at the specified position, optionally skipping the cross-fade animation.
+     *
+     * @param characterId        the identifier or name of the character
+     * @param expressionOrPose  the expression, pose, or filename
+     * @param position          the stage position slot (LEFT, MIDDLE, RIGHT)
+     * @param immediate         if true, renders the sprite immediately without a fade-in animation (ideal for save loading)
+     */
+    public void showCharacter(String characterId, String expressionOrPose, CharacterPosition position, boolean immediate) {
         if (position == null) {
             position = CharacterPosition.MIDDLE;
         }
@@ -113,12 +128,16 @@ public class CharacterManager {
         }
 
         ImageView oldView = activeViews.get(position);
+        String expr = (expressionOrPose != null && !expressionOrPose.trim().isEmpty())
+                ? expressionOrPose.trim()
+                : "Reference";
 
         // If the identical image is already active and visible at this slot, update opacity and return
         if (oldView != null && oldView.getImage() == image && oldView.getOpacity() > 0.0) {
             double targetOpacity = positionOpacities.getOrDefault(position, 1.0);
             setPositionOpacity(position, targetOpacity);
             activeCharacterIds.put(position, characterId);
+            activeExpressions.put(position, expr);
             return;
         }
 
@@ -134,24 +153,32 @@ public class CharacterManager {
         newView.setMouseTransparent(true);
 
         double targetOpacity = positionOpacities.getOrDefault(position, 1.0);
-        newView.setOpacity(0.0);
         StackPane.setAlignment(newView, position.getAlignment());
 
         slot.getChildren().add(newView);
         activeViews.put(position, newView);
         activeCharacterIds.put(position, characterId);
+        activeExpressions.put(position, expr);
 
-        // Smooth cross-fade between old and new expression
-        if (oldView != null) {
-            FadeTransition fadeOut = new FadeTransition(Duration.millis(CROSS_FADE_DURATION_MS), oldView);
-            fadeOut.setToValue(0.0);
-            fadeOut.setOnFinished(e -> slot.getChildren().remove(oldView));
-            fadeOut.play();
+        if (immediate) {
+            if (oldView != null) {
+                slot.getChildren().remove(oldView);
+            }
+            newView.setOpacity(targetOpacity);
+        } else {
+            newView.setOpacity(0.0);
+            // Smooth cross-fade between old and new expression
+            if (oldView != null) {
+                FadeTransition fadeOut = new FadeTransition(Duration.millis(CROSS_FADE_DURATION_MS), oldView);
+                fadeOut.setToValue(0.0);
+                fadeOut.setOnFinished(e -> slot.getChildren().remove(oldView));
+                fadeOut.play();
+            }
+
+            FadeTransition fadeIn = new FadeTransition(Duration.millis(CROSS_FADE_DURATION_MS), newView);
+            fadeIn.setToValue(targetOpacity);
+            fadeIn.play();
         }
-
-        FadeTransition fadeIn = new FadeTransition(Duration.millis(CROSS_FADE_DURATION_MS), newView);
-        fadeIn.setToValue(targetOpacity);
-        fadeIn.play();
     }
 
     /**
@@ -173,6 +200,7 @@ public class CharacterManager {
 
         ImageView currentView = activeViews.remove(position);
         activeCharacterIds.remove(position);
+        activeExpressions.remove(position);
 
         if (currentView != null) {
             StackPane slot = slotContainers.get(position);
@@ -194,6 +222,7 @@ public class CharacterManager {
         for (CharacterPosition pos : CharacterPosition.values()) {
             activeViews.remove(pos);
             activeCharacterIds.remove(pos);
+            activeExpressions.remove(pos);
             StackPane slot = slotContainers.get(pos);
             if (slot != null) {
                 slot.getChildren().clear();
@@ -255,6 +284,48 @@ public class CharacterManager {
      */
     public String getActiveCharacter(CharacterPosition position) {
         return activeCharacterIds.get(position);
+    }
+
+    /**
+     * Returns the active expression or pose name currently occupying the given position, or null if empty.
+     */
+    public String getActiveExpression(CharacterPosition position) {
+        return activeExpressions.get(position);
+    }
+
+    /**
+     * Returns a snapshot map of all currently rendered characters on stage with their poses and positions.
+     */
+    public Map<CharacterPosition, CharacterSlotState> getActiveCharacters() {
+        Map<CharacterPosition, CharacterSlotState> snapshot = new HashMap<>();
+        for (CharacterPosition pos : CharacterPosition.values()) {
+            String charId = activeCharacterIds.get(pos);
+            if (charId != null) {
+                String expr = activeExpressions.getOrDefault(pos, "Reference");
+                snapshot.put(pos, new CharacterSlotState(charId, expr, pos));
+            }
+        }
+        return snapshot;
+    }
+
+    /**
+     * Restores characters onto the stage from saved state, immediately displaying them
+     * at their preserved stage positions and expressions.
+     *
+     * @param savedCharacters the map of character slot states to restore
+     */
+    public void restoreCharacters(Map<CharacterPosition, CharacterSlotState> savedCharacters) {
+        clearAllCharacters();
+        if (savedCharacters == null || savedCharacters.isEmpty()) {
+            return;
+        }
+        for (Map.Entry<CharacterPosition, CharacterSlotState> entry : savedCharacters.entrySet()) {
+            CharacterSlotState slotState = entry.getValue();
+            if (slotState != null && slotState.getCharacterId() != null) {
+                CharacterPosition pos = slotState.getPosition() != null ? slotState.getPosition() : entry.getKey();
+                showCharacter(slotState.getCharacterId(), slotState.getExpression(), pos, true);
+            }
+        }
     }
 
     /**
