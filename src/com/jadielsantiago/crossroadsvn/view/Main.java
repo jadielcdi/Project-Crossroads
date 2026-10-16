@@ -87,7 +87,7 @@ public class Main extends Application {
     private boolean isMenuOpen = false;
     private boolean isAutoMode = false;
     private Button autoChip = null;
-    private final PauseTransition autoAdvanceTimer = new PauseTransition(Duration.seconds(7));
+    private final PauseTransition autoAdvanceTimer = new PauseTransition(Duration.seconds(5));
 
     // Typewriter dialogue animator and visual novel prompt
     private TextAnimator textAnimator;
