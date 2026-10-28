@@ -228,21 +228,32 @@ public class JSCParser {
                 "Julian \"Jules\" Rivera",
                 "The Weight of Expectations",
                 "/com/jadielsantiago/crossroadsvn/media/scripts/jules_story.jsc",
-                "/com/jadielsantiago/crossroadsvn/media/music/Jules_Test.mp3"));
+                "/com/jadielsantiago/crossroadsvn/media/music/Jules_Test.mp3",
+                "Jules_Dorm_Morning.jpg"));
         registerStory(new StoryMetadata(
                 2,
                 "Maya's Story",
                 "Maya Sterling",
                 "The Breaking Point",
                 "/com/jadielsantiago/crossroadsvn/media/scripts/mayas_story.jsc",
-                "/com/jadielsantiago/crossroadsvn/media/music/Maya_Test.mp3"));
+                "/com/jadielsantiago/crossroadsvn/media/music/Maya_Test.mp3",
+                "Dairy_Barn_Dawn.jpg"));
         registerStory(new StoryMetadata(
                 3,
                 "Nora's Story",
                 "Nora Vance",
                 "The Metronome & The Airlock",
                 "/com/jadielsantiago/crossroadsvn/media/scripts/noras_story.jsc",
-                "/com/jadielsantiago/crossroadsvn/media/music/Nora_Test.mp3"));
+                "/com/jadielsantiago/crossroadsvn/media/music/Nora_Test.mp3",
+                "Biotech_Lab.jpg"));
+        registerStory(new StoryMetadata(
+                4,
+                "Bonus Story: Saturday Off-Campus",
+                "The Airlock Survivors",
+                "Saturday Off-Campus",
+                "/com/jadielsantiago/crossroadsvn/media/scripts/bonus_story.jsc",
+                "/com/jadielsantiago/crossroadsvn/media/music/MainMenu_Test.mp3",
+                "El_Mirador_Trailhead.jpg"));
     }
 
     public static void registerStory(StoryMetadata metadata) {
@@ -258,7 +269,7 @@ public class JSCParser {
     }
 
     /**
-     * Loads a registered story by its numerical ID (1=Jules, 2=Maya, 3=Nora).
+     * Loads a registered story by its numerical ID (1=Jules, 2=Maya, 3=Nora, 4=Bonus Story).
      * Returns a fresh copy of the DialogueLine queue.
      */
     public static Queue<DialogueLine> loadStory(int storyId) {
@@ -431,9 +442,9 @@ public class JSCParser {
     }
 
     private static final java.util.regex.Pattern STANDALONE_SPRITE_PAT_A =
-            java.util.regex.Pattern.compile("^([A-Za-z0-9_]+)_([A-Za-z0-9_]+)\\s*\\(\\s*([A-Za-z]+)\\s*\\):?$");
+            java.util.regex.Pattern.compile("^([A-Za-z0-9]+)_([A-Za-z0-9_]+)\\s*\\(\\s*([A-Za-z]+)\\s*\\):?$");
     private static final java.util.regex.Pattern STANDALONE_SPRITE_PAT_B =
-            java.util.regex.Pattern.compile("^([A-Za-z0-9_]+)\\s*\\(\\s*([A-Za-z0-9_]+)\\s*,\\s*([A-Za-z]+)\\s*\\):?$");
+            java.util.regex.Pattern.compile("^([A-Za-z0-9]+)\\s*\\(\\s*([A-Za-z0-9_]+)\\s*,\\s*([A-Za-z]+)\\s*\\):?$");
     private static final java.util.regex.Pattern STANDALONE_BRACKET_TAG =
             java.util.regex.Pattern.compile("^\\[(?i)(SPRITE|HIDE|BG|BACKGROUND):[^\\]]+\\]$");
     private static final java.util.regex.Pattern STANDALONE_HIDE_PAT =

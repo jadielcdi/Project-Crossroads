@@ -18,6 +18,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
+import javafx.scene.control.Tooltip;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -244,6 +245,17 @@ public class MainMenuController {
                 new String[] { "Biotech", "Research", "Priorities",
                         "Family Dynamics" },
                 "Inside the sterile quiet of the biotechnology lab, Nora Vance works like a metronome—calm, precise, and unshakeable. Her CRISPR-based sepsis biosensor has made her a finalist for the university's highest research honor, the Callahan Prize. Yet beyond the laboratory airlocks, constant emotional crises from afar and an indifferent family threaten to flood her sanctuary. As the symposium clock ticks down, Nora is forced to confront what lies outside her clean room: is her fortress protecting her, or keeping her from the connections that truly matter?"));
+        STORY_INFOS.put(4, new StoryRouteInfo(
+                4,
+                "04 //",
+                "EPILOGUE",
+                "The Airlock Survivors (Jules, Maya, & Nora)",
+                "Saturday Off-Campus",
+                "EPILOGUE",
+                "#c084fc",
+                "route-card-bonus",
+                new String[] { "Epilogue", "Jules", "Maya", "Nora", "Off-Campus" },
+                "The senior capstone is submitted, the dairy barn is turned over to capable hands, and the Callahan symposium has crowned its winners. Now, for the first time in months, Jules, Maya, and Nora leave campus behind for a Saturday hike at El Mirador Trailhead. Without compilers, calving pens, or laboratory airlocks standing between them, the trio discovers what lies beyond the pressure: real friendship, open skies, and the freedom to breathe."));
     }
 
     /**
@@ -252,6 +264,21 @@ public class MainMenuController {
     private HBox buildRouteSelectionBox() {
         HBox box = new HBox(8);
         box.setAlignment(Pos.CENTER);
+        populateRouteSelectionBox(box);
+        return box;
+    }
+
+    /**
+     * Dynamically updates the route selection HUD to reflect current story unlock progress.
+     */
+    private void refreshRouteSelectionBox() {
+        if (routeSelectionBox != null) {
+            populateRouteSelectionBox(routeSelectionBox);
+        }
+    }
+
+    private void populateRouteSelectionBox(HBox box) {
+        box.getChildren().clear();
 
         StoryRouteInfo maya = STORY_INFOS.get(2);
         Button mayaBtn = createRouteHudButton(
@@ -268,6 +295,16 @@ public class MainMenuController {
                 "Nora", nora.category,
                 Color.web(nora.accentColorHex), 3);
 
+        Button bonusBtn;
+        if (ProgressManager.canUnlockSecretStory()) {
+            StoryRouteInfo bonus = STORY_INFOS.get(4);
+            bonusBtn = createRouteHudButton(
+                    "Epilogue", bonus.category,
+                    Color.web(bonus.accentColorHex), 4);
+        } else {
+            bonusBtn = createLockedStoryButton();
+        }
+
         Button backBtn = new Button("← Back");
         backBtn.getStyleClass().add("glass-hud-button");
         backBtn.setFont(Font.font("Segoe UI", FontWeight.BOLD, 12));
@@ -275,10 +312,61 @@ public class MainMenuController {
         attachHoverSlideAnimation(backBtn, -3);
         backBtn.setOnAction(e -> showMainActions());
 
-        // Positioned matching character placement on the title visual: Maya (Left),
-        // Jules (Middle), Nora (Right)
-        box.getChildren().addAll(mayaBtn, julesBtn, noraBtn, backBtn);
-        return box;
+        // Positioned: Maya (Left), Jules (Middle), Nora (Right), Epilogue/Locked, Back
+        box.getChildren().addAll(mayaBtn, julesBtn, noraBtn, bonusBtn, backBtn);
+    }
+
+    private Button createLockedStoryButton() {
+        Button btn = new Button();
+        btn.getStyleClass().add("glass-hud-button");
+        btn.setStyle("-fx-opacity: 0.8; -fx-padding: 8 18;");
+
+        HBox content = new HBox(6);
+        content.setAlignment(Pos.CENTER);
+
+        Label lockIcon = new Label("🔒");
+        lockIcon.setFont(Font.font("Segoe UI Emoji", FontWeight.BOLD, 13));
+        lockIcon.setTextFill(Color.web("#94a3b8"));
+
+        content.getChildren().add(lockIcon);
+        btn.setGraphic(content);
+        btn.setTooltip(new Tooltip("Can't play this yet..."));
+
+        attachHoverSlideAnimation(btn, -3);
+        btn.setOnAction(e -> showLockedStoryModal());
+
+        return btn;
+    }
+
+    private void showLockedStoryModal() {
+        VBox dialogCard = new VBox(14);
+        dialogCard.getStyleClass().add("glass-modal-card");
+        dialogCard.setAlignment(Pos.CENTER);
+        dialogCard.setMaxWidth(380);
+        dialogCard.setMaxHeight(Region.USE_PREF_SIZE);
+
+        Label lockIcon = new Label("🔒");
+        lockIcon.setFont(Font.font("Segoe UI Emoji", 28));
+
+        Label title = new Label("Can't play this yet...");
+        title.setFont(Font.font("Segoe UI", FontWeight.BOLD, 18));
+        title.setTextFill(Color.WHITE);
+
+        Label message = new Label(
+                "Complete all three core stories (Maya, Jules, and Nora) to unlock this bonus epilogue.");
+        message.setFont(Font.font("Segoe UI", 12.5));
+        message.setTextFill(Color.web("#b4d1c6"));
+        message.setWrapText(true);
+        message.setTextAlignment(javafx.scene.text.TextAlignment.CENTER);
+
+        Button okBtn = new Button("Understood");
+        okBtn.getStyleClass().add("glass-button-primary");
+        okBtn.setMaxWidth(160);
+        attachHoverSlideAnimation(okBtn, 2);
+        okBtn.setOnAction(e -> hideModal());
+
+        dialogCard.getChildren().addAll(lockIcon, title, message, okBtn);
+        showModal(dialogCard);
     }
 
     private Button createRouteHudButton(String name, String tag, Color accent, int storyId) {
@@ -337,7 +425,7 @@ public class MainMenuController {
         VBox headerBox = new VBox(6);
         headerBox.setAlignment(Pos.CENTER);
 
-        Label routeBadge = new Label(info.category + " • Route " + info.id);
+        Label routeBadge = new Label(info.id == 4 ? "BONUS • Epilogue" : info.category + " • Route " + info.id);
         routeBadge.setFont(Font.font("Segoe UI", FontWeight.BOLD, 11));
         routeBadge.setTextFill(Color.web(info.accentColorHex));
         routeBadge.setStyle(
@@ -410,6 +498,7 @@ public class MainMenuController {
     }
 
     private void showRouteSelection() {
+        refreshRouteSelectionBox();
         FadeTransition fadeOut = new FadeTransition(Duration.millis(150), mainActionsBox);
         fadeOut.setToValue(0.0);
         fadeOut.setOnFinished(e -> {
@@ -653,6 +742,7 @@ public class MainMenuController {
         mainActionsBox.setOpacity(1.0);
         mainActionsBox.setVisible(true);
         mainActionsBox.setManaged(true);
+        refreshRouteSelectionBox();
         routeSelectionBox.setVisible(false);
         routeSelectionBox.setManaged(false);
         hideModal();

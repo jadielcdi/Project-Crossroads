@@ -10,36 +10,37 @@
 @title Maya's Story: Fighting for the Horizon
 @character Maya Sterling
 @music /com/jadielsantiago/crossroadsvn/media/music/Maya_Test.mp3
+@bg Dairy_Barn_Dawn.jpg
 
 # ------------------------------------------------------------------------------
 # Scene 1: Monday Dawn - The Breaking Point
 # ------------------------------------------------------------------------------
 
 Narrator: [Scene 1: Monday Dawn - The Breaking Point] [HIDE: all]
-Narrator: [BACKGROUND: The university dairy barn, 4:45 a.m. The air is frigid and thick with the smell of sweet fermented silage, betadine scrub, and damp straw. Harsh halogen floodlights overhead cast long, utilitarian shadows across the concrete alleyway.]
+Narrator: [BG: Dairy_Barn_Dawn.jpg] [BACKGROUND: The university dairy barn, 4:45 a.m. The air is frigid and thick with the smell of sweet fermented silage, betadine scrub, and damp straw. Harsh halogen floodlights overhead cast long, utilitarian shadows across the concrete alleyway.]
 Narrator: [AUDIO: The low, rhythmic clanking of steel headlocks, the soft huffing of twelve-hundred-pound Holsteins shifting weight in the cold, and the quiet beep of a portable ultrasound unit.]
-Narrator: [SPRITE: Maya_Thinking, left] At a quarter to five on a Monday morning, half the campus is still dead to the world, and the other half is just turning off their third alarm. Maya Sterling has already been in the palpation chute for forty minutes.
+Narrator: [SPRITE: Maya_Tired_Barn, left] At a quarter to five on a Monday morning, half the campus is still dead to the world, and the other half is just turning off their third alarm. Maya Sterling has already been in the palpation chute for forty minutes.
 Narrator: Her rubber muck boots are numb from the hose-water pooling in the concrete gutter, and her left shoulder aches from holding the portable IBEX ultrasound monitor steady at chest height, but inside her shoulder-length obstetrical sleeve, her fingers are completely calm.
 Dr. Vasquez: Keep the transducer steady, Maya. You're drifting two centimeters off the left uterine horn. Let the peristalsis pass, don't fight the tissue. Find the ovary.
 Narrator: Maya shifts her weight in the cold muck, exhaling a cloud of white steam into the halogen glare. She ignores the cramp in her forearm, watching the grainy black-and-white scan lines on the monitor until a clean, dark, circular follicle blooms into focus against the gray stroma.
-Maya_Speaking(left): Got it. Right horn is quiet, left ovary has a dominant follicle. Callipers put it at... a solid 14.2 millimeters. Good wall integrity. She's responding right on schedule to the CIDR protocol.
+Maya_Tired_Barn(left): Got it. Right horn is quiet, left ovary has a dominant follicle. Callipers put it at... a solid 14.2 millimeters. Good wall integrity. She's responding right on schedule to the CIDR protocol.
 Narrator: [Dr. Vasquez stepping back from the chute rail, snapping off her latex exam glove with a rare, approving nod]
 Dr. Vasquez: Good eye. Lock the freeze-frame for the herd log and pull out slowly. You've got the touch for this, Sterling. Half my first-year vet students are either terrified of getting kicked by a twelve-hundred-pound animal or so heavy-handed with the probe they bruise the tract. You're neither.
-Maya_Smiling(left): (stripping off her plastic shoulder sleeve and tossing it into the biohazard bin, a warm flush of pride cutting through the morning chill) Helps when the cow knows you're the one who brings the sweet grain at four-thirty, Dr. Vasquez. Number 408 and I have an understanding. She contemplated kicking my kneecap into low Earth orbit at five past four, but decided my breakfast ration was worth keeping me alive.
+Maya_Smiling_Barn(left): (stripping off her plastic shoulder sleeve and tossing it into the biohazard bin, a warm flush of pride cutting through the morning chill) Helps when the cow knows you're the one who brings the sweet grain at four-thirty, Dr. Vasquez. Number 408 and I have an understanding. She contemplated kicking my kneecap into low Earth orbit at five past four, but decided my breakfast ration was worth keeping me alive.
 Dr. Vasquez: (a faint, dry smirk twitching on her weathered face) A practical truce. The basis of all good veterinary medicine.
 Narrator: Dr. Vasquez wipes down the transducer cable with a chlorhexidine towel, then reaches into the deep breast pocket of her weathered Carhartt coat. She pulls out a folded, slightly crumpled white department envelope and hands it across the steel rail to Maya.
 Dr. Vasquez: Read that after you wash your hands. Or read it now. You're going to stare at it all morning anyway.
 Narrator: Maya wipes her palms on her jeans and flips the envelope over. Across the top left corner, embossed in crisp navy ink, is the letterhead of the *Ansel Center for Comparative Reproductive Genomics*.
 Dr. Vasquez: The Ansel Center Horizon Fellowship. Ten weeks this summer, fully funded stipend, housing included, strictly bovine embryo transfer, IVF micromanipulation, and CRISPR reproductive genetics. They take three undergraduates nationally. I submitted your dossier and practical logs last month. You made the final shortlist. You've got a panel interview Friday morning at nine.
-Narrator: [SPRITE: Maya_Smiling, left] Maya's heart seizes against her ribs. The Horizon Fellowship isn't just a summer lab job; it's a golden ticket. Every single Horizon Fellow from the last five years walked straight into a funded DVM-PhD dual-degree slot at Cornell, UC Davis, or Colorado State.
+Narrator: [SPRITE: Maya_Smiling_Barn, left] Maya's heart seizes against her ribs. The Horizon Fellowship isn't just a summer lab job; it's a golden ticket. Every single Horizon Fellow from the last five years walked straight into a funded DVM-PhD dual-degree slot at Cornell, UC Davis, or Colorado State.
 Narrator: For someone who came into college on a 4.0 high-school wave, cruised through her first year like she was invincible, and then crashed so hard in her mid-college transition that she spent a whole semester clawing her way back from the edge, holding this envelope feels like vindication made of paper.
-Maya_Speaking(left): Dr. Vasquez... I don't know what to say. Seriously. I didn't even apply because the website said they wanted an unbroken 3.7 transcript, and after my stumble in the middle there, my cumulative GPA--
+Maya_Smiling_Barn(left): Dr. Vasquez... I don't know what to say. Seriously. I didn't even apply because the website said they wanted an unbroken 3.7 transcript, and after my stumble in the middle there, my cumulative GPA--
 Dr. Vasquez: Is a 3.42 now, and you've pulled straight A's across every upper-division lab since you started working in my barn. More importantly, you're the only undergraduate on this farm I trust to run a forty-head synchronized prostaglandin breeding protocol without me holding your hand.
 Dr. Vasquez: Anyone can look like a genius in freshman general biology when the answers are on flashcards, Maya. I don't care that you stumbled when the curriculum got real. I care that when you hit the concrete, you didn't quit -- you put on boots and learned the science with your hands. The paper is the paper. The barn is the barn.
-Maya_Smiling(left): Thank you. I won't let you down. I'll know the embryo grading manuals inside and out by Friday.
+Maya_Smiling_Barn(left): Thank you. I won't let you down. I'll know the embryo grading manuals inside and out by Friday.
 Dr. Vasquez: (her expression tightening just a fraction as she checks her steel wristwatch) Know the metabolic literature too, not just the barn manuals. Because Chen isn't interviewing you alone. The department chair insisted on sitting on the campus vetting panel.
-Narrator: [SPRITE: Maya_Stressed, left] The warmth in Maya's stomach turns to ice.
-Maya_Stressed(left): Wait. The department chair? Dr. Hale is on my panel?
+Narrator: [SPRITE: Maya_Distressed_Barn, left] The warmth in Maya's stomach turns to ice.
+Maya_Distressed_Barn(left): Wait. The department chair? Dr. Hale is on my panel?
 Narrator: [Dr. Vasquez sighing, the steam of her breath hanging between them]
 Dr. Vasquez: It's a national fellowship nomination coming out of his department; technically it's his prerogative. And you know Arthur Hale. He still divides students into the ones who aced his lecture hall and the ones who broke in it. He is exacting, and he has a long memory. Don't let him rattle you on Friday.
 Dr. Vasquez: Now, coil up those power cables and get the portable unit into the charging locker. Reyes is supposed to be mucking stall four before the six o'clock milking shift, and I haven't heard a pitchfork hit concrete in ten minutes.
@@ -47,8 +48,8 @@ Narrator: Vasquez strides out through the heavy sliding barn doors into the gray
 Narrator: Maya stands frozen beside the palpation chute, the folded envelope suddenly burning like dry ice in her coat pocket. *Dr. Arthur Hale.*
 Narrator: Even now, with two semesters of rock-solid upper-division mastery under her belt, just hearing his name sets off a phantom tremor in her fingers. For her first year and a half of college, Maya had been the department golden girl -- effortless A's, Dean's List, the kid who never needed office hours. Then she hit that brutal mid-college wall: taking twenty-one credits at once, burning the candle at both ends, and walking into Hale's `ANSC 101` foundational physiology weed-out block assuming her natural talent would carry her.
 Narrator: It hadn't. She had bombed the midterm with a 38%, spiraled into a full-blown confidence collapse, and finished his course with a **D-** that shattered her 4.0 identity in a single semester. She still remembers sitting in his office as he peered over his wire-rimmed glasses, tapped her transcript with a silver Montblanc pen, and asked her in a quiet, clinical tone whether she was just "another early bloomer who lacked the rigor for advanced science."
-Narrator: [SPRITE: Maya_Distressed, left] The violent clang of a galvanized steel gate slamming against a concrete post snaps her out of the memory.
-Narrator: Maya_Speaking(left): (stepping over the gutter, her voice completely deadpan) Jordan, take a breath. Cow 408 just dropped sixty pounds of fertilizer two inches from my left boot and she is handling Monday morning with significantly more emotional composure than you are. Pick up the pitchfork before Vasquez catches you having a spiritual breakdown in front of the manure gutter.
+Narrator: [SPRITE: Maya_Distressed_Barn, left] The violent clang of a galvanized steel gate slamming against a concrete post snaps her out of the memory.
+Maya_Tired_Barn(left): (stepping over the gutter, her voice completely deadpan) Jordan, take a breath. Cow 408 just dropped sixty pounds of fertilizer two inches from my left boot and she is handling Monday morning with significantly more emotional composure than you are. Pick up the pitchfork before Vasquez catches you having a spiritual breakdown in front of the manure gutter.
 Jordan: (turning around, his face chalk-white under the halogen lights, his phone clutched in his trembling hand) Maya. Hale just posted the midterm grades for 101 on Canvas. At five in the morning.
 Jordan: I got a 42.
 Narrator: Jordan's fingers go slack. The heavy iron pitchfork slips from his glove and clatters loudly against the concrete drainage apron.
@@ -59,41 +60,41 @@ Narrator: Part of her wants to protect the armor she spent the last year rebuild
 
 ? Narrator: How does Maya answer Jordan's desperate question about her history with Dr. Hale?
     > Tell Jordan the brutal truth. Tell him about the D- and how she rebuilt herself.
-        Maya_Speaking(left): (stepping over the gutter, picking up Jordan's fallen pitchfork, and leaning it quietly against the stall wall) Hey. Look at me, Reyes. Stop looking at your phone screen.
-        Maya_Calm(left): There is no trick. And whoever in the pre-vet club told you I breezed through this department without a scratch only looked at my freshman year.
-        Maya_Speaking(left): I came in with a 4.0 too, Jordan. I thought I was untouchable. Then I hit Hale's physiology block when I was overloaded, tried to cram his pathways with 3:00 a.m. flashcards just like you did, and I got a 38 on that exact midterm. Four points lower than you right now. I spiraled so hard I finished his class with a D-minus.
+        Maya_Tired_Barn(left): (stepping over the gutter, picking up Jordan's fallen pitchfork, and leaning it quietly against the stall wall) Hey. Look at me, Reyes. Stop looking at your phone screen.
+        Maya_Tired_Barn(left): There is no trick. And whoever in the pre-vet club told you I breezed through this department without a scratch only looked at my freshman year.
+        Maya_Tired_Barn(left): I came in with a 4.0 too, Jordan. I thought I was untouchable. Then I hit Hale's physiology block when I was overloaded, tried to cram his pathways with 3:00 a.m. flashcards just like you did, and I got a 38 on that exact midterm. Four points lower than you right now. I spiraled so hard I finished his class with a D-minus.
         Narrator: [Jordan blinking hard, his panicked breathing hitching in total shock]
         Jordan: Wait... what? You got a D-minus? With Hale? But... Vasquez literally leaves you in charge of the entire donor herd! You're up for the national genetics fellowship!
-        Maya_Calm(left): Yeah. *Now.* Because that D-minus was the wake-up call that saved my career, even if it still gives me nightmares sometimes. It taught me that coasting on talent stops working the second the science gets real.
-        Maya_Speaking(left): I didn't let that grade stop me. I swallowed my pride, begged Dr. Vasquez for the 4:30 a.m. mucking shift, and spent an entire summer reteaching myself physiology from the cow up instead of the textbook down. Stumbling in the middle doesn't mean you're a fraud, Jordan. It just means it's time to change how you climb.
+        Maya_Smiling_Barn(left): Yeah. *Now.* Because that D-minus was the wake-up call that saved my career, even if it still gives me nightmares sometimes. It taught me that coasting on talent stops working the second the science gets real.
+        Maya_Smiling_Barn(left): I didn't let that grade stop me. I swallowed my pride, begged Dr. Vasquez for the 4:30 a.m. mucking shift, and spent an entire summer reteaching myself physiology from the cow up instead of the textbook down. Stumbling in the middle doesn't mean you're a fraud, Jordan. It just means it's time to change how you climb.
         System: [STAT_UPDATE: +Confidence, +Mentorship]
         Narrator: Jordan lets out a long, shaky breath, wiping his nose on his coat sleeve as the sheer panic in his eyes gives way to a lifeline of hope.
         Jordan: Can you... if I print out the exam key after lecture today, can you look at my blue book? Just show me how to study it the way you do now?
-        Maya_Smiling(left): Bring it by the Life Sciences basement lab at five-thirty. Now grab that fork and scrape Stall 4 before Vasquez comes back with the tractor.
+        Maya_Smiling_Barn(left): Bring it by the Life Sciences basement lab at five-thirty. Now grab that fork and scrape Stall 4 before Vasquez comes back with the tractor.
     > Give practical advice but deflect the personal question. Keep the stumble buried.
         Narrator: Maya tightens her grip on the coiled ultrasound cables, her stomach knotting at the thought of dredging up that shaky memory four days before she has to sit across a mahogany table from Arthur Hale.
-        Maya_Stressed(left): The jump from freshman general classes to Hale's block catches everyone off guard, Jordan. You just have to learn how he constructs his multiple-choice traps. He uses double-negatives in the stem, and he tests on the receptor cascade footnotes in Chapter 6, not just the lecture slides. Flashcards won't cut it anymore; you have to memorize the feedback loops.
+        Maya_Distressed_Barn(left): The jump from freshman general classes to Hale's block catches everyone off guard, Jordan. You just have to learn how he constructs his multiple-choice traps. He uses double-negatives in the stem, and he tests on the receptor cascade footnotes in Chapter 6, not just the lecture slides. Flashcards won't cut it anymore; you have to memorize the feedback loops.
         Narrator: [Jordan slumping back against the cold iron bars of the stall, looking utterly defeated]
         Jordan: Right. The footnotes and feedback loops. I read Chapter 6 three times and it still looked like Greek. I guess I just... hit my ceiling. It comes so naturally to people like you who never stumble.
         Narrator: Maya swallows the lump in her throat, the ghost of her own 38% pressing cold against her breastbone. She doesn't correct him. She lets the myth of her unbroken streak stand, even as it makes her own shaky memories feel heavier.
         System: [STAT_UPDATE: -Mentorship, -Confidence]
-        Maya_Tired(left): Just... print your exam breakdown and bring it by the lab later this week, okay? I'll look at it when I have a window. Now finish Stall 4 before six.
+        Maya_Tired_Barn(left): Just... print your exam breakdown and bring it by the lab later this week, okay? I'll look at it when I have a window. Now finish Stall 4 before six.
 
 Narrator: [HIDE: all]
-Narrator: [BACKGROUND: The Campus Quad, 8:10 a.m. Cold morning mist clings to the brutalist concrete buildings as the campus clock tower chimes the hour.]
-Narrator: [SPRITE: Maya_Tired, left] By ten past eight, after hosing down the palpation chute and grabbing three lukewarm swallows of coffee from the barn breakroom thermos, Maya trudges up the main concrete walkway from the pasture path.
+Narrator: [BG: Campus_Quad_Morning.jpg] [BACKGROUND: The Campus Quad, 8:10 a.m. Cold morning mist clings to the brutalist concrete buildings as the campus clock tower chimes the hour.]
+Narrator: [SPRITE: Maya_Tired_Barn, left] By ten past eight, after hosing down the palpation chute and grabbing three lukewarm swallows of coffee from the barn breakroom thermos, Maya trudges up the main concrete walkway from the pasture path.
 Narrator: Her mud-caked boots feel heavy, but her mind is already racing ahead to Friday. In her calloused hands, she's staring down at the crumpled white Horizon Fellowship envelope again, reading the panel roster -- *Dr. E. Vasquez, Dr. R. Chen, Dr. A. Hale* -- while ten paces behind her, Jordan is nearly hyperventilating into his phone to his roommate about his forty-two.
 Narrator: [SPRITE: Jules_Stressed, right] Right where the agricultural path forks into the main Engineering quad, a senior in a dark canvas jacket speed-walks past her, his jaw clenched tight and a heavy laptop messenger bag digging a deep trench into his shoulder.
 Jules_Stressed(right): (passing within two feet of her, muttering furiously under his breath) Six rewrites. Six. Okoye hasn't even seen draft four yet and I'm already picking apart five...
 Narrator: [HIDE: right] Maya pauses for a half-beat, glancing back over her shoulder as the guy disappears toward the Engineering annex stairs, walking with the exact brittle, high-wire terror she used to carry right before her sophomore-year crash.
-Maya_Thinking(left): (V.O.) Six rewrites at eight in the morning. Okay. Good to know I'm not the only person on this campus starting Monday with the sky threatening to cave in on their head.
+Maya_Tired_Barn(left): (V.O.) Six rewrites at eight in the morning. Okay. Good to know I'm not the only person on this campus starting Monday with the sky threatening to cave in on their head.
 
 # ------------------------------------------------------------------------------
 # Scene 1B: Monday Afternoon - The Biotech Corridor (Cameo Intersection)
 # ------------------------------------------------------------------------------
 
 Narrator: [Scene 1B: Monday Afternoon - The Biotech Corridor] [HIDE: all]
-Narrator: [BACKGROUND: Life Sciences basement corridor, 5:50 p.m. Dim fluorescent strips flicker overhead. The air smells sharply of 70% ethanol, autoclave steam, and cold waxed tile.]
+Narrator: [BG: Life_Sciences_Corridor.jpg] [BACKGROUND: Life Sciences basement corridor, 5:50 p.m. Dim fluorescent strips flicker overhead. The air smells sharply of 70% ethanol, autoclave steam, and cold waxed tile.]
 Narrator: [AUDIO: The low, rhythmic shudder of industrial air scrubbers and the squeak of rubber soles on linoleum.]
 Narrator: [SPRITE: Maya_Stressed, left] Nine hours later, Maya is deep in her element again. After crushing her afternoon lectures in Animal Nutrition and Advanced Reproductive Physiology -- classes where she now sits in the front row and answers questions that stump the grad students -- she spent four hours in the endocrine wet lab pipetting bovine plasma samples for Dr. Vasquez's herd stress study.
 Narrator: Now, at 5:50 p.m., she is hurrying down the basement service corridor toward the shared core facility, her forearms trembling under a heavy blue styrofoam ice bucket packed with forty-eight microcentrifuge tubes.
@@ -106,14 +107,14 @@ Narrator: [HIDE: middle] Before the runaway tubes can reach the lip of the drain
 Nora_Calm(right): No, that was 100% me. I came through the airlock door too fast without checking the convex mirror. Here -- parafilm's still tight, no cracks in the polypropylene. You're doing cortisol assays?
 Narrator: Maya blinks, her heart still thumping against her ribs as she tucks the rescued tubes back into the crushed ice. The biotech senior across from her has bruised purple shadows of exhaustion under her eyes, yet her posture and hands are uncannily rock-steady.
 Maya_Speaking(left): Yeah. Bovine serum cortisol. How on earth did you know that from looking at the floor?
-Nora_Speaking(right): The blue o-ring screw-caps with the white labeling gaskets. That's the Cayman Chemical competitive ELISA panel, right? My PI used to run the exact same kit on mouse serum before our lab shifted focus entirely to CRISPR-Cas12 diagnostics. Wait -- are you walking toward the core facility plate reader down this hall?
+Nora_Speaking_Hoodie(right): The blue o-ring screw-caps with the white labeling gaskets. That's the Cayman Chemical competitive ELISA panel, right? My PI used to run the exact same kit on mouse serum before our lab shifted focus entirely to CRISPR-Cas12 diagnostics. Wait -- are you walking toward the core facility plate reader down this hall?
 Maya_Tired(left): (groaning softly, resting her forehead against the top of her ice bucket) 'Walking toward' and 'praying to' are the operative words. The Windows XP computer attached to the Life Sciences unit froze three times before lunch today. I think that machine has a personal vendetta against my bloodline.
 Narrator: The biotech girl lets out a dry, knowing snort, a genuine smirk breaking through her composed mask.
-Nora_Smiling(right): That BioTek reader was built during the Pedro Rosselló administration and hasn't seen a calibration technician since 2014. If you feed a 96-well plate into it tonight, it'll eat your standard curve for dinner.
-Nora_Speaking(right): Come on. Our suite's absorbance reader upstairs in Biotech 200 gets optical-calibrated every Monday morning at nine. I'll badge you in and set up your template file.
+Nora_Speaking_Hoodie(right): That BioTek reader was built during the Pedro Rosselló administration and hasn't seen a calibration technician since 2014. If you feed a 96-well plate into it tonight, it'll eat your standard curve for dinner.
+Nora_Calm(right): Come on. Our suite's absorbance reader upstairs in Biotech 200 gets optical-calibrated every Monday morning at nine. I'll badge you in and set up your template file.
 Maya_Smiling(left): (staring at her like she just sprouted wings) Are you serious? You're an actual lifesaver. Like, I will name my firstborn calf after you. I'm Maya, by the way. Animal Science.
-Nora_Smiling(right): Nora. Molecular Biotech. And save the calf naming until we see your R-squared value -- nobody should lose two weeks of wet-lab prep to faulty nineties hardware.
-Narrator: [SPRITE: Nora_Tired, right] As they turn and walk side-by-side toward the freight elevator, a phone buzzes sharply inside the pocket of Nora's charcoal hoodie. Two short vibrations, then a long one.
+Nora_Speaking_Hoodie(right): Nora. Molecular Biotech. And save the calf naming until we see your R-squared value -- nobody should lose two weeks of wet-lab prep to faulty nineties hardware.
+Narrator: [SPRITE: Nora_Calm, right] As they turn and walk side-by-side toward the freight elevator, a phone buzzes sharply inside the pocket of Nora's charcoal hoodie. Two short vibrations, then a long one.
 Narrator: Nora doesn't pull it out to check the screen, but Maya -- who has spent the last two years learning to read both stressed animals and her own anxiety -- immediately catches the fractional, automatic tightening of Nora's jaw and the way her breath pauses for a three-count before exhaling. It's a quiet, practiced brace against whatever sits on the other end of that notification.
 Maya_Thinking(left): Everything okay? If you have somewhere you need to be at six, I can just--
 Nora_Calm(right): (pressing the elevator call button with a steady finger, her voice smooth and even again) No, I've got time. It's just campus noise. Let's get your plates on the scanner before your ice melts.
@@ -123,7 +124,7 @@ Nora_Calm(right): (pressing the elevator call button with a steady finger, her v
 # ------------------------------------------------------------------------------
 
 Narrator: [Scene 2: Tuesday Midday - The Biotech Wing] [HIDE: all]
-Narrator: [BACKGROUND: The shared Life Sciences and Biotechnology laboratory (Biotech 200), Tuesday, 2:15 p.m. Pristine black epoxy counters, humming -80°C ultra-low freezers, and neatly racked micropipettes. Through the tall glass windows, the autumn afternoon sun looks sterile and distant.]
+Narrator: [BG: Biotech_Lab.jpg] [BACKGROUND: The shared Life Sciences and Biotechnology laboratory (Biotech 200), Tuesday, 2:15 p.m. Pristine black epoxy counters, humming -80°C ultra-low freezers, and neatly racked micropipettes. Through the tall glass windows, the autumn afternoon sun looks sterile and distant.]
 Narrator: [AUDIO: The steady white noise of laminar flow hoods and the sharp, rhythmic *click-clack* of a mechanical pipette plunger.]
 Narrator: [SPRITE: Maya_Smiling, left] [SPRITE: Nora_Calm, right] Maya makes good on her Monday evening debt early Tuesday afternoon. Fresh out of her 1:00 p.m. genetics seminar, she badges through the outer hallway doors of Biotech 200 and slides onto a high steel swivel stool near the centrifuge bay at the end of Nora's bench.
 Narrator: With a quiet flourish, she sets down a steaming paper cup of dark roast from *The Mill* and a frosted, ice-cold sixteen-ounce can of white Monster Energy beside Nora's ice bucket.
@@ -185,7 +186,7 @@ Nora_Speaking(right): I can see it written all over your face, Maya. You're a po
 # ------------------------------------------------------------------------------
 
 Narrator: [Scene 3: Tuesday Midnight - The 24/7 Cafe] [HIDE: all]
-Narrator: [BACKGROUND: The Mill, campus 24-hour cafe, 11:45 p.m. Sticky laminate tables under humming amber neon signage. Rain taps steadily against the dark storefront glass. The air smells of burnt dark roast, wet wool, and midnight desperation.]
+Narrator: [BG: The_Mill_Night.jpg] [BACKGROUND: The Mill, campus 24-hour cafe, 11:45 p.m. Sticky laminate tables under humming amber neon signage. Rain taps steadily against the dark storefront glass. The air smells of burnt dark roast, wet wool, and midnight desperation.]
 Narrator: [AUDIO: The rapid-fire mechanical rattle of keyboards and the low hiss of an espresso steam wand.]
 Narrator: [SPRITE: Jules_Stressed, left] [SPRITE: Maya_Tired, right] Nine hours after leaving Nora's lab -- following an evening barn check on Cow 408 and three hours wrestling with fellowship application forms in the library -- Maya pushes into *The Mill* at 11:45 p.m. and drops into a heavy wooden chair like her knees just gave out.
 Narrator: Her silver laptop battery is blinking at 18%, her #2 pencil is barely holding her hair up, and on her screen, the Ansel Center Horizon Fellowship personal statement box is glowing in accusatory bright red: **847 / 750 words**.
@@ -230,14 +231,14 @@ Jules_Stressed(left): Tell him no, Sterling. Right now. You're bleeding out for 
 Narrator: [HIDE: left] [SPRITE: Maya_Tired, left] By 1:45 a.m. Wednesday, Maya finally trims one last unnecessary word from her third paragraph, bringing her personal statement to **750 / 750 words** even. She hits *Submit Application*, watches the green confirmation banner load, and zips her battered laptop into her backpack, leaving Jules entrenched behind an Adidas shoebox of color-coded flashcards and highlighters.
 Narrator: [SPRITE: Nora_Calm, right] As Maya pushes open the heavy glass door of *The Mill* to step out into the pre-dawn drizzle, she nearly collides with Nora Vance arriving in oversized gray sweatpants, hauling a three-foot cardboard tube of poster proofs toward the cafe's ancient wide-carriage laser printer.
 Maya_Smiling(left): (offering Nora a tired two-finger salute in the doorway) Morning shift's all yours, Vance. Careful in the corner booth -- he bites about adjectives and CMake.
-Nora_Smiling(right): Noted. Go get some sleep before the cows wake up, Sterling.
+Nora_Speaking_Hoodie(right): Noted. Go get some sleep before the cows wake up, Sterling.
 
 # ------------------------------------------------------------------------------
 # Scene 4: Wednesday Afternoon - The Hallway
 # ------------------------------------------------------------------------------
 
 Narrator: [Scene 4: Wednesday Afternoon - The Hallway] [HIDE: all]
-Narrator: [BACKGROUND: The main ground-floor artery of the Agricultural Sciences building, 3:50 p.m. Pale fluorescent lights reflect off worn terrazzo tile. Tall glass display cases line the walls, holding vintage brass soil corers, preserved grain jars, and faded purple livestock judging ribbons from the 1980s.]
+Narrator: [BG: Ag_Sci_Hallway.jpg] [BACKGROUND: The main ground-floor artery of the Agricultural Sciences building, 3:50 p.m. Pale fluorescent lights reflect off worn terrazzo tile. Tall glass display cases line the walls, holding vintage brass soil corers, preserved grain jars, and faded purple livestock judging ribbons from the 1980s.]
 Narrator: [AUDIO: The distant murmur of classes letting out, heavy boots echoing down the hall, and the faint rumble of approaching afternoon thunder outside.]
 Narrator: [SPRITE: Maya_Thinking, left] Wednesday afternoon feels thick and pressurized, like the barometer is dropping inside the building as well as outside.
 Narrator: Between her afternoon Endocrinology lab -- where she effortlessly finished her catheterization prep twenty minutes ahead of the rest of the bench -- and her five o'clock barn check, Maya walks down the administrative wing toward the department corkboard outside Room 104, where the official finalized interview schedule for the Ansel Center Horizon Fellowship has just been pinned with brass thumbtacks.
@@ -254,17 +255,17 @@ Dr. Hale: However, the Ansel Center does not award fellowships merely for grit o
 Narrator: [SPRITE: Maya_Distressed, left] He doesn't raise his voice. He doesn't insult her overtly. He simply delivers the surgical strike right into the scar tissue of her sophomore crash, gives a polite nod, and walks past her into the department office suite, the heavy oak door clicking shut behind his tweed shoulders.
 Narrator: Maya stands alone in the fluorescent hallway. The distant chatter of undergrads by the stairwell fades into a high, thin ringing in her ears.
 Narrator: She looks down at her hands. Her knuckles are trembling -- a sudden, visceral aftershock from two years ago, when she walked out of his office holding a 38% blue book and wondering if her brain was broken. Even though she knows she has mastered every advanced course since then, Hale has a way of making her feel like that terrified sophomore all over again.
-Narrator: At 4:00 p.m., needing fresh air to clear the static from her chest, Maya pushes hard through the heavy oak exterior doors onto the wide stone steps of the Agricultural Sciences building, sucking in deep lungfuls of damp, ozone-heavy air as the first fat drops of rain begin to spot the concrete.
-Narrator: [SPRITE: Jules_Stressed, right] Across the courtyard, leaning his forehead against the red brick pillar of the Engineering breezeway, she spots Jules with his cell phone pressed to his ear. Even from fifty yards away through the gray drizzle, she can read the rigid, hollow brace of his shoulders as he stares at the pavement and murmurs into the receiver, *"Yeah, Pa. I remember."*
-Narrator: [SPRITE: Nora_Tired, middle] Seconds later, Nora hurries along the covered concrete walkway cutting between their two buildings, hugging a full-size mock-up poster tube against her chest to keep the rain off the paper. She glances up at Maya on the stone steps, then over at Jules under the brick arch, offering a quiet, shared look of solidarity before heading off-campus toward her apartment.
-Narrator: [HIDE: middle] [HIDE: right] Maya clenches her shaking hands into fists inside her coat pockets until the tremor stops. She stumbled once, and it didn't stop her then. She isn't going to let Arthur Hale's ghost stop her now.
+Narrator: [BG: Campus_Stairs.jpg] [HIDE: all] [SPRITE: Maya_Distressed, left] At 4:00 p.m., needing fresh air to clear the static from her chest, Maya pushes hard through the heavy oak exterior doors onto the wide stone steps of the Agricultural Sciences building, sucking in deep lungfuls of damp, ozone-heavy air as the first fat drops of rain begin to spot the concrete.
+Narrator: [BG: Engineering_Breezeway.jpg] [SPRITE: Jules_Stressed, right] Across the courtyard, leaning his forehead against the red brick pillar of the Engineering breezeway, she spots Jules with his cell phone pressed to his ear. Even from fifty yards away through the gray drizzle, she can read the rigid, hollow brace of his shoulders as he stares at the pavement and murmurs into the receiver, *"Yeah, Pa. I remember."*
+Narrator: [SPRITE: Nora_Calm, middle] Seconds later, Nora hurries along the covered concrete walkway cutting between their two buildings, hugging a full-size mock-up poster tube against her chest to keep the rain off the paper. She glances up at Maya on the stone steps, then over at Jules under the brick arch, offering a quiet, shared look of solidarity before heading off-campus toward her apartment.
+Narrator: [BG: Campus_Stairs.jpg] [HIDE: middle] [HIDE: right] Maya clenches her shaking hands into fists inside her coat pockets until the tremor stops. She stumbled once, and it didn't stop her then. She isn't going to let Arthur Hale's ghost stop her now.
 
 # ------------------------------------------------------------------------------
 # Scene 4B: Wednesday Night - The Lifeline (Cameo Intersection)
 # ------------------------------------------------------------------------------
 
 Narrator: [Scene 4B: Wednesday Night - The Lifeline] [HIDE: all]
-Narrator: [BACKGROUND: The Mill, 10:45 p.m. A full autumn thunderstorm lashes sheets of rain against the tall glass storefront. The cafe is half-empty, drafty, and quiet.]
+Narrator: [BG: The_Mill_Night.jpg] [BACKGROUND: The Mill, 10:45 p.m. A full autumn thunderstorm lashes sheets of rain against the tall glass storefront. The cafe is half-empty, drafty, and quiet.]
 Narrator: [AUDIO: The muffled rumble of distant thunder outside, the hiss of wet tires on pavement, and the squeak of Maya's boots on the tile floor.]
 Narrator: [SPRITE: Maya_Tired, right] By quarter to eleven Wednesday night, after finishing a three-hour review of bovine metabolic pathways in her room, Maya needed to stretch her legs and shake off the lingering echo of Hale's hallway ambush. She threw on her waterproof barn coat and walked three blocks through the downpour to *The Mill* for a late-night decaf and an everything bagel.
 Narrator: [SPRITE: Jules_Distressed, left] As she shakes the rain off her hood inside the door, she glances toward the back corner booth -- and stops dead in her tracks.
@@ -305,7 +306,7 @@ Jules_Smiling(left): (looking up at her, his perfectionist guard dropped complet
 # ------------------------------------------------------------------------------
 
 Narrator: [Scene 4C: Thursday Afternoon - The Carnations] [HIDE: all]
-Narrator: [BACKGROUND: CID Building / Campus Convention Center Atrium, 2:20 p.m. Pale post-storm sunlight pours through the vaulted glass ceiling onto rows of glossy research display boards and bustling faculty.]
+Narrator: [BG: Convention_Center_Atrium.jpg] [BACKGROUND: CID Building / Campus Convention Center Atrium, 2:20 p.m. Pale post-storm sunlight pours through the vaulted glass ceiling onto rows of glossy research display boards and bustling faculty.]
 Narrator: [AUDIO: The echoing hum of academic symposium chatter and intermittent rounds of polite applause.]
 Narrator: [SPRITE: Maya_Thinking, right] By Thursday afternoon at 2:20 p.m., Maya has less than nineteen hours until she has to walk into Conference Room B and face Dr. Hale. Every old, defensive reflex in her body whispers that she should be locked in a library carrel reviewing endocrine cascades.
 Narrator: [SPRITE: Maya_Smiling, right] Instead, she is standing three rows back from the center podium in Section B of the Convention Center Atrium, wearing her clean jeans and mud-free boots, clutching a crinkly, plastic-wrapped bouquet of neon orange and pink carnations that cost $4.99 at the corner Shell gas station.
@@ -315,27 +316,27 @@ Maya_Smiling(right): Well, well. Look who made it out of the engineering bunker 
 Jules_Smiling(left): (a real smile touching his tired eyes) Patched at 1:30, compiled at 2:00, submitted at 3:30 a.m. And I sent Dr. Okoye a three-sentence email that didn't apologize for being a human being. Are those for Nora?
 Maya_Speaking(right): Second place, first place, or honorable mention, she's walking out of this building with flowers.
 Jules_Smiling(left): And archival footage. Shh -- she's up.
-Narrator: [SPRITE: Nora_Speaking, middle] At the podium, Nora Vance adjusts the gooseneck microphone beside her CRISPR-Cas12 sepsis biosensor poster. From the very first sentence, she is magnetic. She doesn't hide her eleven failed prototypes; she walks the judges through the "Graveyard Tab" of her spreadsheet with razor-sharp clarity, showing how each failed electrode chemistry led directly to the sub-hour diagnostic breakthrough on Prototype Twelve.
+Narrator: [BG: Symposium_1A.jpg] [SPRITE: Nora_Speaking, middle] At the podium, Nora Vance adjusts the gooseneck microphone beside her CRISPR-Cas12 sepsis biosensor poster. From the very first sentence, she is magnetic. She doesn't hide her eleven failed prototypes; she walks the judges through the "Graveyard Tab" of her spreadsheet with razor-sharp clarity, showing how each failed electrode chemistry led directly to the sub-hour diagnostic breakthrough on Prototype Twelve.
 Narrator: Maya watches Dr. Okafor beaming with fierce pride against the back wall, and when the judges announce the Callahan Prize finalists at four o'clock, a shiny blue-and-silver Second Place ribbon is clipped to the top corner of Nora's board.
-Narrator: [SPRITE: Nora_Distressed, middle] Then, right as Nora steps down from the podium with the ribbon warm in her fingers, Maya watches her phone buzz twice in rapid succession -- her girlfriend Camille spacing on the presentation entirely due to her own advisor drama, and her mother texting sixty-one glowing words about her brother Daniel's finance job offer followed by a six-word afterthought: *How was your poster thing?*
+Narrator: [BG: Convention_Center_Atrium.jpg] [SPRITE: Nora_Distressed, middle] Then, right as Nora steps down from the podium with the ribbon warm in her fingers, Maya watches her phone buzz twice in rapid succession -- her girlfriend Camille spacing on the presentation entirely due to her own advisor drama, and her mother texting sixty-one glowing words about her brother Daniel's finance job offer followed by a six-word afterthought: *How was your poster thing?*
 Narrator: Maya doesn't let Nora stand alone in that silence for five seconds. She steps right up shoulder-to-shoulder beside her, shoving the crinkly $4.99 Shell carnations into her arms while Jules lowers his phone on her other side and asks softly: *"Do you want to get out of here?"*
-Narrator: [SPRITE: Nora_Smiling, middle] Twenty minutes later, sitting under the warm string lights of *The Mill* patio with a large pepperoni pizza, three coffees, and a shared metal basket of seasoned curly fries, Maya watches Nora laugh with wet eyes as Jules slides his phone across the table to show her the cloud-backed video of her talk.
-Narrator: [SPRITE: Nora_Laughing, middle] Nora suddenly reaches across the table, snatches a crispy double-loop curly fry right out from under Jules's fingers, and pops it in her mouth with a triumphant grin, declaring it the official 'Finder's Fee' of the Second-Place Callahan Sovereign.
-Jules_Smiling(left): (holding up his hands) Unbelievable. Highway robbery under ambient cafe lighting. I'm reporting this to the National Science Foundation.
-Maya_Smiling(right): (stealing the next longest fry and waving it like a conductor's baton) Case dismissed. Now, Jules, status report. Did Dr. Okoye flay you alive?
-Jules_Smiling(left): I survived by playing dead like an opossum. When she walked by, I didn't blink for three minutes so she'd assume I was an interactive statue honoring student debt. But status report: the drone -- sorry, the IMU calibration array -- did not, in fact, kill me. Apparently, I have it on good veterinary authority that the floor exists, and hitting it isn't fatal.
-Maya_Smiling(right): (grinning broadly, raising her coffee cup in a deadpan toast) Look at you, quoting me back to me. Put me in your acknowledgments section when you're rich and working for the drone overlords.
-Jules_Smiling(left): You're already in the header comments of `kalman_bridge.h`.
-Nora_Laughing(middle): (holding up her slice of pepperoni pizza like a shield, making little laser noises) Pew pew! Look at us. A cybernetic bunker commander, a cow whisperer, and a girl with a shiny ribbon making laser noises with pizza. If the College of Sciences had a recruiting poster, this should be the billboard.
-Maya_Smiling(right): (deadpan) Absolutely not. We smell like garlic, 87-octane fuel, and untreated sleep deprivation. They'd revoke the university's accreditation on the spot.
-Narrator: Sitting there between the two of them as the Thursday dusk settles over the patio, Maya feels something deep and unshakeable lock into place inside her chest: living proof that the stumbles in the middle of the story are what make the breakthrough real.
+Narrator: [BG: The_Mill_Patio_Dusk.jpg] [HIDE: all] [BG: Special_Image_1A.jpg] Twenty minutes later, sitting under the warm string lights of *The Mill* patio with a large pepperoni pizza, three coffees, and a shared metal basket of seasoned curly fries, Maya watches Nora laugh with wet eyes as Jules slides his phone across the table to show her the cloud-backed video of her talk.
+Narrator: [BG: Special_Image_1B.jpg] Nora suddenly reaches across the table, snatches a crispy double-loop curly fry right out from under Jules's fingers, and pops it in her mouth with a triumphant grin, declaring it the official 'Finder's Fee' of the Second-Place Callahan Sovereign.
+Jules: (holding up his hands) Unbelievable. Highway robbery under ambient cafe lighting. I'm reporting this to the National Science Foundation.
+Maya: [BG: Special_Image_1C.jpg] (stealing the next longest fry and waving it like a conductor's baton) Case dismissed. Now, Jules, status report. Did Dr. Okoye flay you alive?
+Jules: I survived by playing dead like an opossum. When she walked by, I didn't blink for three minutes so she'd assume I was an interactive statue honoring student debt. But status report: the drone -- sorry, the IMU calibration array -- did not, in fact, kill me. Apparently, I have it on good veterinary authority that the floor exists, and hitting it isn't fatal.
+Maya: (grinning broadly, raising her coffee cup in a deadpan toast) Look at you, quoting me back to me. Put me in your acknowledgments section when you're rich and working for the drone overlords.
+Jules: [BG: Special_Image_1D.jpg] You're already in the header comments of `kalman_bridge.h`.
+Nora: (holding up her slice of pepperoni pizza like a shield, making little laser noises) Pew pew! Look at us. A cybernetic bunker commander, a cow whisperer, and a girl with a shiny ribbon making laser noises with pizza. If the College of Sciences had a recruiting poster, this should be the billboard.
+Maya: (deadpan) Absolutely not. We smell like garlic, 87-octane fuel, and untreated sleep deprivation. They'd revoke the university's accreditation on the spot.
+Narrator: [BG: The_Mill_Patio_Dusk.jpg] [SPRITE: Jules_Smiling, left] [SPRITE: Nora_Hoodie, middle] [SPRITE: Maya_Smiling, right] Sitting there between the two of them as the Thursday dusk settles over the patio, Maya feels something deep and unshakeable lock into place inside her chest: living proof that the stumbles in the middle of the story are what make the breakthrough real.
 
 # ------------------------------------------------------------------------------
 # Scene 5: Thursday Night - The Crucible
 # ------------------------------------------------------------------------------
 
 Narrator: [Scene 5: Thursday Night - The Crucible] [HIDE: all]
-Narrator: [BACKGROUND: Maya's dorm room, 6:45 p.m. The desk lamp casts a warm circle of light over her Veterinary Reproduction textbooks, endocrine pathway charts, and printed journal articles on bovine embryo transfer.]
+Narrator: [BG: Mayas_Dorm_Night.jpg] [BACKGROUND: Maya's dorm room, 6:45 p.m. The desk lamp casts a warm circle of light over her Veterinary Reproduction textbooks, endocrine pathway charts, and printed journal articles on bovine embryo transfer.]
 Narrator: [AUDIO: The steady patter of Thursday evening rain against the windowpane and the quiet hum of a radiator.]
 Narrator: [SPRITE: Maya_Stressed, middle] It is 6:45 p.m. Thursday night. Less than fourteen hours until the Horizon Fellowship panel convenes in Conference Room B.
 Narrator: Just ten minutes ago, right before she zipped up her coat and left Jules and Nora at *The Mill* patio, her phone had buzzed against the metal table with a text from Jordan Reyes:\n*Jordan: Hey Maya. Still okay to meet at the barn whiteboard at 7? Or if you had to stay in to prep for your interview, did you send the PDF notes? My hands are shaking so bad I can't even draw a Punnett square.*
@@ -356,7 +357,7 @@ Narrator: Those shaky memories of her sophomore crash flicker at the edges of he
 :: branch_5a
 Narrator: [SPRITE: Maya_Speaking, middle] Maya looks at the stack of Hale's notes on her desk. She already knows this material; she has been acing upper-division reproductive physiology for two years. She doesn't need to hide in her room nursing old ghosts.
 Narrator: She reaches into her pencil cup, grabs four fresh chisel-tip dry-erase markers -- black, blue, red, and green -- shoves them into the pocket of her heavy canvas barn coat, and walks out the door into the rain.
-Narrator: [BACKGROUND: The dairy barn's small, drafty herd-management office, 7:10 p.m. A scarred eight-foot melamine whiteboard dominates one cinderblock wall. Outside the interior window, the cows shift quietly in the warm straw. The room smells of Timothy hay, horse liniment, and old percolator coffee.]
+Narrator: [BG: Dairy_Barn_Office.jpg] [BACKGROUND: The dairy barn's small, drafty herd-management office, 7:10 p.m. A scarred eight-foot melamine whiteboard dominates one cinderblock wall. Outside the interior window, the cows shift quietly in the warm straw. The room smells of Timothy hay, horse liniment, and old percolator coffee.]
 Narrator: [AUDIO: The gentle, rhythmic drumming of rain on the corrugated tin roof and the squeak of dry-erase markers against melamine.]
 Narrator: [SPRITE: Maya_Calm, left] Jordan is already sitting on an overturned five-gallon feed bucket beside the space heater, his `ANSC 101` binder open across his knees, looking like a kid watching his 4.0 identity crumble in real time. When Maya kicks the office door shut and shakes the rain from her hair, he scrambles to his feet.
 Jordan: You actually came. Oh, thank God. I thought for sure with your fellowship interview tomorrow morning--
@@ -382,7 +383,7 @@ Narrator: [SPRITE: Maya_Tired, middle] Maya packs up her markers and locks the b
 System: [STAT_UPDATE: Mentorship MAXED, Energy DEPLETED, Confidence MAXED]
 
 Narrator: [Scene 6: Friday Morning - The Waiting Area] [HIDE: all]
-Narrator: [BACKGROUND: The narrow antechamber outside the department's main conference room (Room 202B), Friday, 8:50 a.m. The walls are a sterile, institutional beige hung with oil portraits of former deans. Outside the frosted glass window, the week's rain has finally stopped, leaving a crisp, bright morning sky.]
+Narrator: [BG: Ag_Sci_Hallway.jpg] [BACKGROUND: The narrow antechamber outside the department's main conference room (Room 202B), Friday, 8:50 a.m. The walls are a sterile, institutional beige hung with oil portraits of former deans. Outside the frosted glass window, the week's rain has finally stopped, leaving a crisp, bright morning sky.]
 Narrator: [AUDIO: The slow, heavy ticking of a brass pendulum clock in the hallway and the muffled murmur of the three panelists talking behind the heavy oak door.]
 Narrator: [SPRITE: Maya_Tired, middle] Maya sits rigidly in a hard-backed wooden Windsor chair outside Conference Room B. She is wearing a navy wool blazer borrowed from her roommate that pulls slightly too tight across her barn-built shoulders, paired with a clean white button-down and her best black slacks. Her calloused hands rest flat on her knees.
 Narrator: Five hours of sleep wasn't quite enough to erase the deep ache in her calves and lower back from standing at the barn whiteboard until one in the morning. Yet beneath the physical fatigue, her pulse is remarkably slow and steady -- the exact sixty-second metronome rhythm she admired in Nora on Tuesday.
@@ -403,7 +404,7 @@ Narrator: The memory of Dr. Hale's voice by the corkboard -- *"a ceiling you sim
 Narrator: She closes her eyes, takes a sharp breath, and opens her laptop. She pulls up her master review packet from the summer she retook the physiology material -- forty pages of color-coded endocrine diagrams and annotated warnings about Dr. Hale's multiple-choice double-negatives -- attaches the PDF to an email, and sends it to Jordan.
 Narrator: Then she picks up her phone and texts him back:\n*Maya: Jordan, I just emailed you my complete master PDF from when I re-studied that block. Focus on the red-highlighted receptor boxes on pages 12-18 and the epistasis table on 24. Everything you need to pass is in there. I'm really sorry, I have to lock in for the Horizon panel tonight.*
 Narrator: Before she can see the typing bubbles pop up in reply, she holds down the side button, switches her phone completely off, and places it inside her desk drawer. She blocks out the pang of guilt in her chest. She blocks out the barn. She blocks out the world.
-Narrator: [BACKGROUND: Maya's dorm room, 11:30 p.m. The single desk lamp casts a harsh, clinical circle of white light over spread-out textbooks. Outside the window, the Thursday night rain falls in heavy, dark sheets.]
+Narrator: [BG: Mayas_Dorm_Night.jpg] [BACKGROUND: Maya's dorm room, 11:30 p.m. The single desk lamp casts a harsh, clinical circle of white light over spread-out textbooks. Outside the window, the Thursday night rain falls in heavy, dark sheets.]
 Narrator: [AUDIO: The relentless ticking of a desk clock and the crisp rustle of turning textbook pages.]
 Narrator: For the next five hours, Maya puts herself through a brutal, solitary academic boot camp.
 Narrator: She pulls out the bottom drawer of her filing crate and retrieves the actual physical blue-book from her sophomore crash -- the one with **38% / D-** scrawled across the cover in Dr. Hale's unmistakable fountain-pen red ink.
@@ -411,11 +412,11 @@ Narrator: She props the failed exam up against her lamp base like a target on a 
 Maya_Speaking(middle): (voice sharp, clipped, and mechanical in the quiet room) If the luteal phase is prematurely interrupted via exogenous PGF2-alpha administration prior to Day 5, the developing corpus hemorrhagicum lacks sufficient luteal PGF receptor density to undergo complete luteolysis...
 Narrator: She memorizes the molecular weights of gonadotropins. She memorizes the exact publication years of Dr. Hale's three cited papers on follicular waves. She builds a flawless, impenetrable mental fortress around that sophomore dip on her transcript, anticipating every rhetorical trap Hale might lay, every obscure textbook footnote he might weaponize to prove she hit her ceiling.
 Narrator: [SPRITE: Maya_Tired, middle] By 12:15 a.m., her desk is covered in immaculate, color-coded flowcharts. She hasn't wasted a single calorie of energy on anyone else's crisis. She gets seven full hours of sleep, wakes up razor-sharp, and dresses in her borrowed navy blazer like a soldier putting on kevlar.
-Narrator: Yet as she looks out her dorm window into the gray Friday dawn before heading to the Ag building, a quiet, sterile loneliness settles over her shoulders. She wonders, briefly, if Jordan is sitting in the 8:00 a.m. quiz room right now, hitting the exact same wall she hit two years ago, completely alone.
+Narrator: [BG: Mayas_Dorm_Morning.jpg] Yet as she looks out her dorm window into the gray Friday dawn before heading to the Ag building, a quiet, sterile loneliness settles over her shoulders. She wonders, briefly, if Jordan is sitting in the 8:00 a.m. quiz room right now, hitting the exact same wall she hit two years ago, completely alone.
 System: [STAT_UPDATE: Energy MAXED, Confidence HIGH, Mentorship DEPLETED]
 
 Narrator: [Scene 6: Friday Morning - The Waiting Area] [HIDE: all]
-Narrator: [BACKGROUND: The narrow antechamber outside the department's main conference room (Room 202B), Friday, 8:50 a.m. The walls are a sterile, institutional beige. Outside the frosted glass window, the rain has stopped, leaving a flat, overcast sky.]
+Narrator: [BG: Ag_Sci_Hallway.jpg] [BACKGROUND: The narrow antechamber outside the department's main conference room (Room 202B), Friday, 8:50 a.m. The walls are a sterile, institutional beige. Outside the frosted glass window, the rain has stopped, leaving a flat, overcast sky.]
 Narrator: [AUDIO: The slow, heavy ticking of a brass wall clock and the muffled murmur of voices behind the oak door.]
 Narrator: [SPRITE: Maya_Stressed, middle] Maya sits rigidly in the hard-backed wooden chair outside Conference Room B, her borrowed blazer buttoned tight across her chest.
 Narrator: She is rested and hyper-caffeinated, her pulse thrumming with cold, tightly coiled precision behind her eyes. Every textbook pathway, every hormone half-life, and every footnote from Chapter 14 of Dr. Hale's reproductive manual is indexed in her mind like Jules's shoebox of flashcards.
@@ -432,7 +433,7 @@ Dr. Vasquez: We're ready for you, Maya. Come on in.
 
 :: scene_7
 Narrator: [Scene 7: Friday Morning - The Interview] [HIDE: all]
-Narrator: [BACKGROUND: The department conference room (Room 202B), 9:00 a.m. A long, polished mahogany table dominates the center of the room under recessed warm lighting. Framed black-and-white photographs of prizewinning university cattle line the wood-paneled walls. Three porcelain coffee cups and three thick applicant folders sit in front of the panelists.]
+Narrator: [BG: Conference_Room_Interview.jpg] [BACKGROUND: The department conference room (Room 202B), 9:00 a.m. A long, polished mahogany table dominates the center of the room under recessed warm lighting. Framed black-and-white photographs of prizewinning university cattle line the wood-paneled walls. Three porcelain coffee cups and three thick applicant folders sit in front of the panelists.]
 Narrator: [AUDIO: The quiet rustle of transcript pages turning and the soft tap of a silver pen against legal paper.]
 Narrator: [SPRITE: Maya_Neutral, middle] Maya walks across the low-pile carpet, shakes three hands, and takes her seat in the single leather chair at the foot of the mahogany table.
 Narrator: Directly opposite her in the center seat is Dr. Elena Vasquez, wearing a crisp charcoal suit instead of her barn Carhartt, projecting steady, professional encouragement. To Vasquez's left is Dr. Raymond Chen, the visiting Director of Reproductive Genetics from the Ansel Center -- sharp-eyed, energetic, tapping a silver stylus against an iPad Pro.
@@ -476,7 +477,7 @@ Narrator: Maya looks across the polished mahogany at Dr. Hale. His silver pen is
         Narrator: Vasquez isn't frowning. She won't sabotage her own student in front of a visiting director. But as their eyes meet across the mahogany, Maya sees a subtle, unmistakable light go out behind her mentor's eyes. Vasquez knows about Bertha in Stall 9. And she knows she just watched her best barn manager let a two-year-old ghost scare her into choosing freshman recitation over the truth she earned with her own hands.
         System: [STAT_UPDATE: Confidence -1, Standing +Institutional]
         Narrator: [HIDE: all]
-        Narrator: [BACKGROUND: The sterile beige hallway outside Conference Room B, 9:50 a.m. The fluorescent tubes hum quietly overhead.]
+        Narrator: [BG: Ag_Sci_Hallway.jpg] [BACKGROUND: The sterile beige hallway outside Conference Room B, 9:50 a.m. The fluorescent tubes hum quietly overhead.]
         Narrator: Ten minutes later, the interview concludes without a single further hiccup. Maya shakes all three hands, receives a warm, professional nod from Dr. Chen, and steps out into the quiet hallway, pulling the heavy oak door shut behind her.
         Narrator: She leans her back against the cool beige plaster, letting out a long, hollow breath.
         Narrator: She gave Dr. Hale the exact answer he wanted. She proved she memorized the book that once broke her. She knows, with a cold, mathematical certainty, that when the selection emails go out on Monday, her name will be on the Horizon Fellowship roster.
@@ -514,11 +515,11 @@ Narrator: Maya looks across the polished mahogany at Dr. Hale. His silver pen is
         System: [STAT_UPDATE: Confidence MAXED, Standing +Authentic]
 
         Narrator: [HIDE: all]
-        Narrator: [BACKGROUND: The Campus Quad outside the Agricultural Sciences building, 9:55 a.m. The crisp, post-rain Friday morning sky is a brilliant, washed-clean cobalt blue. Golden sunlight glints off the wet grass and the old brick facades.]
+        Narrator: [BG: Campus_Quad_Sunny.jpg] [BACKGROUND: The Campus Quad outside the Agricultural Sciences building, 9:55 a.m. The crisp, post-rain Friday morning sky is a brilliant, washed-clean cobalt blue. Golden sunlight glints off the wet grass and the old brick facades.]
         Narrator: [AUDIO: An uplifting, warm acoustic guitar melody, layered with the lively chatter of students and the ten o'clock bell tower chime.]
         Narrator: [SPRITE: Maya_Smiling, left] When Maya walks out of Conference Room B fifteen minutes later -- after Dr. Chen practically handed her the summer housing packet at the door and whispered that the formal offer letter would hit her inbox on Monday -- the air in the hallway feels completely different. Weightless.
         Narrator: She pushes open the heavy oak double doors of the Agricultural Sciences building, steps out onto the wide stone stairs where she stood shaking in the rain on Wednesday afternoon, and unbuttons her borrowed blazer, tilting her face up into the warm Friday sun.
-        Narrator: [SPRITE: Nora_Smiling, right] Across the wet green grass of the quad, near the center oak benches, Maya spots Nora sitting in the sunlight, lowering her cell phone from her ear with the steady, unburdened posture of someone who just set down a fifty-pound rucksack after carrying it three miles too far.
+        Narrator: [SPRITE: Nora_Hoodie, right] Across the wet green grass of the quad, near the center oak benches, Maya spots Nora sitting in the sunlight, lowering her cell phone from her ear with the steady, unburdened posture of someone who just set down a fifty-pound rucksack after carrying it three miles too far.
         Narrator: Two seconds later, Maya's phone buzzes in her blazer pocket. A new group chat notification pops up from Jules, titled **The Airlock Survivors**, containing a link to a meticulously color-coded Google Doc:\n*PROJECT: SATURDAY OFF-CAMPUS (REV 1.0 - NO COMPILERS ALLOWED).*
         Narrator: Grinning from ear to ear, Maya types back with one thumb as she bounds down the stone steps:\n*Maya: Finally. Please save me from bovine genetics. Also I just bodied Hale's trick question in the interview, first round of coffee at The Mill is on me!!*
         Narrator: She raises her hand and waves across the sunlit grass to Nora, who smiles and waves right back, standing up from the bench to meet her halfway.

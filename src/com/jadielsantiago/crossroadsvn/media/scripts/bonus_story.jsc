@@ -1,0 +1,151 @@
+# ==============================================================================
+# Project Crossroads - Screenplay Script
+# Story: Bonus Story - Saturday Off-Campus (Rev 1.0)
+# Format: JSC (Jadiel Santiago Crossroads Script)
+# Copyright (c) 2026 Jadiel Santiago. All rights reserved.
+# Licensed under CC BY-NC 4.0 (Attribution-NonCommercial - No Monetary Gain).
+# See COPYRIGHT.txt in repository root for full license details.
+# ==============================================================================
+
+@title Bonus Story: Saturday Off-Campus (Rev 1.0)
+@character The Airlock Survivors (Jules, Maya, & Nora)
+@music /com/jadielsantiago/crossroadsvn/media/music/MainMenu_Test.mp3
+@bg El_Mirador_Trailhead.jpg
+
+# ------------------------------------------------------------------------------
+# Scene 1: Saturday 9:00 a.m. - [GREEN] El Mirador Trailhead
+# ------------------------------------------------------------------------------
+
+Narrator: [Scene 1: Saturday Morning - The Trailhead & The Spreadsheet] [HIDE: all]
+Narrator: [BG: El_Mirador_Trailhead.jpg] [BACKGROUND: El Mirador Trailhead parking lot, 8:55 a.m. Crisp, golden autumn sunlight pours through a canopy of mountain oaks. There isn't a single fluorescent tube, cinderblock wall, or brutalist concrete building in sight.]
+Narrator: [AUDIO: The bright chorus of morning birds, wind rustling through dry leaves, and the crunch of gravel underfoot.]
+System: [STATS: Compiler Warnings 0 | Cows Palpated 0 | Airlocks OPEN]
+Narrator: [SPRITE: Jules_Smiling, left] [SPRITE: Maya_Smiling, right] At five minutes to nine on a Saturday morning, Julian "Jules" Rivera is standing in front of an actual, living tree, squinting at it like he's trying to locate its BIOS settings.
+Narrator: For the first time since August, he is not wearing his heavy canvas laptop messenger bag. The groove in his collarbone feels so weirdly weightless that he keeps reaching up to touch his shoulder just to make sure gravity hasn't glitched out.
+Narrator: Instead of three portable IPS monitors and a braided nest of USB-C cables, he is holding a clipboard with a freshly printed, color-coded hard copy of his master itinerary: **PROJECT: SATURDAY OFF-CAMPUS (REV 1.0 - NO COMPILERS ALLOWED)**.
+Maya_Smiling(right): (leaning against a trailhead signpost in her clean jeans and mud-free work boots, arms crossed) Rivera. If you brought a red Sharpie into a state forest, I am legally obligated by the Department of Natural Resources to push you into a bush.
+Jules_Speaking(left): First of all, it's a blue ballpoint pen. Nothing is circled in red today; it's literally in the footer documentation. Second, we are at T-minus four minutes to the 09:00 AM **[GREEN]** deployment block, and I'm just verifying our logistical readiness.
+Maya_Thinking(right): (deadpan, gesturing at the dirt path behind him) Logistical readiness. Jules, it's a four-mile loop in the woods. The squirrels don't care about your Big-O complexity.
+Jules_Smiling(left): You say that now, Sterling, until we hit a thirty-degree incline at mile two and you need an empirical hydration schedule. I packed six electrolyte packets, a first-aid kit, and two backup power banks in case a mountain lion asks to see my telemetry slides.
+Narrator: [SPRITE: Nora_Hoodie2, middle] Gravel crunches at the edge of the lot as Nora Vance strolls up from the turnaround, looking practically unrecognizable without her lab coat or a three-foot cardboard poster tube tucked under her arm.
+Narrator: She is wearing a casual hoodie, sunglasses pushed up into her dark hair, and her shiny blue-and-silver Second Place Callahan Prize rosette ribbon pinned directly to the strap of her mini-backpack -- because Maya threatened via group chat at 8:00 a.m. to superglue it to her forehead if she left it in her apartment. In her right hand, she is cradling an ice-cold sixteen-ounce can of white Monster Energy.
+Nora_Hoodie2(middle): (raising the frosted can in a royal salute) The Second-Place Callahan Sovereign has arrived. Behold my synthetic cardiac arrest.
+Maya_Smiling(right): (grinning) Morning, Vance. Please tell me you actually slept past seven today.
+Nora_Speaking_Hoodie(middle): Eight-fifteen. And I didn't set an alarm. I woke up because a bird outside my window was singing in a rhythm that sounded suspiciously like a benchtop vortex mixer, and then I realized I didn't have to go into Biotech 200. How are the cows?
+Maya_Smiling(right): Cow 408 and I are officially on weekend PTO. Jordan Reyes is covering the morning barn check solo, and he already texted me two photos of a spotless Stall 4.
+Jules_Thinking(left): (glancing at his wristwatch, then looking up at Nora's face with genuine curiosity) Wait. Hold on. Everyone stop talking for five seconds.
+Maya_Thinking(right): What? Did you hear a compiler error in the bushes?
+Jules_Speaking(left): No, look at Vance. It's been seventy-five seconds since she walked up, and she hasn't done the sixty-second metronome sigh once.
+Narrator: [SPRITE: Nora_Calm, middle] Nora blinks, pausing with the Monster can halfway to her mouth. She checks in with her own chest -- waiting for the automatic, three-second nasal exhale she has used to regulate her nervous system for the last eight months.
+Narrator: Nothing happens. Her phone is sitting in her pocket with zero unread crisis texts about crusty pasta bowls or post-structuralist literature reviews. Her lungs just feel like lungs.
+Nora_Hoodie2(middle): (a slow, genuine grin spreading across her face as she reaches out and taps the edge of Jules's clipboard with one finger) Boop. Metronome's offline, Dry Bones Deku. Turns out when you drop a seventy-pound rucksack on Friday morning, your respiratory rate normalizes.
+Jules_Smiling(left): (shaking his head with a warm laugh) Unbelievable. One day of freedom and she's already auditing my hardware.
+Maya_Speaking(right): Alright, bunker commander, before we step onto the dirt, let's establish the ground rules from your Google Doc. Nobody is allowed to say the words *cow*, *CRISPR*, or *C-plus-plus* until Monday morning. Violation of the treaty results in an immediate penalty at the diner.
+
+? Narrator: How should the Airlock Survivors enforce the "No-Shop-Talk" rule on the trail?
+    > Institute the "Syrup Tax." (Every forbidden nerd word costs $1 toward the diner pancake fund)
+        Jules_Speaking(left): Accepted. I propose a hard financial deterrent: the Syrup Tax. Every time one of us slips up and uses major-specific jargon on this hike, that person owes a dollar toward the table's pancake stack at La Estrella.
+        Nora_Laughing(middle): Oh, you are so on, Rivera. You can't go twelve minutes without saying 'latency' or 'heuristic.' You're going to bankroll my entire breakfast.
+        Maya_Smiling(right): (rubbing her hands together) Easiest money of my life. Start walking, nerds.
+        System: [STAT_UPDATE: Banter +2 | Competitive Chaos HIGH]
+    > Institute the "Emotional Support Tuber" Baton. (Whoever slips up has to carry a giant pinecone like a trophy)
+        Nora_Speaking_Hoodie(middle): Forget money, we're broke seniors. I propose the Penalty Pinecone. Whoever breaks the treaty has to carry the largest, sappiest pinecone on the trail like a fragile centrifuge tube until somebody else slips up.
+        Maya_Smiling(right): (snorting) A public walk of shame through the woods. I love it.
+        Jules_Speaking(left): My verbal filter has 99.9% uptime when properly calibrated. Neither of you stands a chance.
+        System: [STAT_UPDATE: Whimsy +2 | Group Cohesion HIGH]
+
+Narrator: [HIDE: all]
+Narrator: [BG: El_Mirador_Overlook.jpg] [BACKGROUND: El Mirador Scenic Overlook, 10:45 a.m. A weathered wooden railing overlooks a sweeping valley of autumn foliage and distant town rooftops bathed in clear morning light.]
+Narrator: [AUDIO: A gentle mountain breeze and the cheerful crunch of boots arriving at the summit.]
+Narrator: [SPRITE: Jules_Tired, left] [SPRITE: Nora_Laughing, middle] [SPRITE: Maya_Smiling, right] Two miles and nine hundred feet of elevation gain later, the empirical reality of the mountain has thoroughly humbled the College of Sciences.
+Narrator: Maya -- who spends twenty hours a week hauling fifty-pound sacks of sweet grain and wrestling twelve-hundred-pound Holsteins in a chute -- isn't even breathing hard.
+Narrator: Jules and Nora, whose primary cardiovascular exercise over the past month has consisted of clicking mechanical switches and depressing micropipette plungers, are leaning over the wooden overlook railing like two Victorian orphans surviving the winter.
+Jules_Tired(left): (panting, clutching his side while refusing to drop his clipboard) Okay... minor revision to Section 1.2 of the itinerary... Why did they build the mountain at a forty-five-degree angle? That's terrible civil engineering.
+Nora_Laughing(middle): (wheezing between laughs, leaning her elbows on the wood) My legs feel like over-centrifuged agarose gel. Wait -- does 'agarose' count as a banned word?
+Maya_Speaking(right): (pointing an accusing finger at Nora) Banned! That's biochem contraband, Vance! And five minutes ago, Jules called a tree root an 'unindexed obstacle in the pathing mesh,' so both of you are officially in the hole.
+Jules_Speaking(left): That wasn't C-plus-plus, Sterling, that was general spatial geometry! And don't act so smug -- at mile one, you looked at a mossy boulder and said it had 'good wall integrity' like it was a bovine ovarian follicle!
+Maya_Smiling(right): (bursting into a bright, unguarded laugh and shoving Jules's shoulder lightly) Okay, fair! I've been staring at an IBEX ultrasound screen at 4:45 in the morning for two years, my brain is permanently wired to grade round objects!
+Narrator: [SPRITE: Jules_Smiling, left] [SPRITE: Nora_Calm, middle] The three of them stand side by side along the wooden rail, looking out over the valley. Down below, about four miles away across the river bend, they can just make out the tiny, toy-sized clock tower of the university quad and the brutalist concrete roof of the Engineering annex.
+Narrator: From up here in the sun, the place that nearly crushed all three of them on Wednesday afternoon looks remarkably small.
+Nora_Calm(middle): (resting her chin on her crossed forearms, her voice warm and quiet) Look at that. From this elevation, you can't even see the Life Sciences basement or Conf Room B.
+Maya_Calm(right): Or Arthur Hale's tweed blazer.
+Jules_Smiling(left): (reaching into the breast pocket of his jacket and pulling out the unlined, blank white 3x5 index card from Tuesday night) Or my compiler logs.
+Narrator: [SPRITE: Nora_Hoodie, middle] Jules holds the card up against the backdrop of the green valley. In the bottom right corner, drawn in glittery lilac gel ink, Nora's derpy potato with big ears and a goofy smile beams out over the trees.
+Jules_Speaking(left): First field test of the Emotional Support Tuber. Zero lines of code written in twenty-four hours. The sky is still attached to the atmosphere.
+Maya_Thinking(right): (leaning in to squint at the card) Hold on. Is *that* what Vance drew on your flashcard at two in the morning? That's the exact same mutant potato she drew on rainbow lab tape and slapped on my coffee cup on Tuesday! She told me its name was Beatrice and it was a prize Holstein!
+Nora_Speaking_Hoodie(middle): (chin held high with supreme artistic dignity) Beatrice has range, Sterling! Without horns, she's an existential tuber for perfectionist engineers. With horns, she's a bovine endocrine mascot. Do not question my studio's creative reuse of assets.
+Jules_Smiling(left): Wait, so my legally binding emotional support contract is a recycled cow doodle?
+Maya_Smiling(right): Everything in Vance's universe is either a cartoon potato or stolen curly fries, Rivera. Come on, my stomach is starting to digest itself. Let's get down this hill before they run out of hashbrowns.
+
+# ------------------------------------------------------------------------------
+# Scene 2: Saturday 12:30 p.m. - [YELLOW] La Estrella Diner
+# ------------------------------------------------------------------------------
+
+Narrator: [Scene 2: Saturday Afternoon - Pancakes & The Graveyard Tab] [HIDE: all]
+Narrator: [BG: La_Estrella_Diner.jpg] [BACKGROUND: La Estrella Diner on Route 4, 12:35 p.m. Red vinyl booths patched with silver duct tape, chrome napkin dispensers, and sun-faded posters of 1990s menu specials. Sunlight streams through the wide roadside windows onto a laminate table crowded with ceramic mugs and syrupy plates.]
+Narrator: [AUDIO: The lively sizzle of a flat-top grill, clinking silverware, warm diner chatter, and upbeat classic rock playing softly from a corner jukebox.]
+Narrator: [SPRITE: Jules_Smiling, left] [SPRITE: Nora_Laughing, middle] [SPRITE: Maya_Smiling, right] By twelve-thirty, the three of them have claimed a large circular booth by the front window of La Estrella Diner -- a glorious, grease-scented sanctuary that is the exact spiritual opposite of *The Mill* at midnight.
+Narrator: There are no laptops on the table. There are no 847-word essay warnings or flashing red error codes. Instead, the center of the table is occupied by a towering, structurally questionable platter of buttermilk pancakes, two double orders of crispy diner hashbrowns, bacon, and three mugs of coffee that nobody is drinking out of desperation.
+Nora_Laughing(middle): (wielding her fork like a surgical instrument as she spears a golden-brown hashbrown wedge right off the edge of Jules's plate) Sovereign's tax! Section 4.2 of the Callahan bylaws clearly states that any hashbrown overhanging the perimeter of an adjacent plate is public domain. Om nom nom.
+Jules_Smiling(left): (guarding his remaining hashbrowns with his forearm) Again?! First the curly fries on Thursday, now my Diner Route 4 rations? You have an entire mountain of chocolate-chip pancakes directly in front of you, Vance!
+Nora_Speaking_Hoodie(middle): Stolen carbohydrates have a 40% higher metabolic flavor profile, Julian. That's just stoichiometry. Ask Maya.
+Maya_Smiling(right): (pouring maple syrup with the steady, unhurried precision of an endocrine titration) Can confirm. In the dairy barn, Cow 408 will ignore ten pounds of fresh Timothy hay in her own bunk just to stretch her neck through the headlocks and steal the exact same hay out of Stall 3. Nora is spiritually a twelve-hundred-pound Holstein.
+Nora_Hoodie(middle): I radiate at a hundred and one degrees and I never send passive-aggressive texts. Honesty and warmth, baby.
+Narrator: For twenty minutes, they demolish the food with the sheer, unapologetic hunger of three people who spent Monday through Friday running on vending-machine pretzels, gas-station coffee, and pure cortisol.
+Narrator: Halfway through his second pancake, Jules leans back against the red vinyl cushion, letting out a breath that doesn't have a single jagged edge left in it. He looks across the table at Maya, then at Nora.
+Jules_Speaking(left): Hey. Can I propose a quick toast? No spreadsheets, I promise.
+Maya_Smiling(right): (picking up her heavy ceramic diner mug) If this is a speech about how we optimized our friendship metrics, I'm pouring maple syrup in your shoes.
+Jules_Smiling(left): (grinning, lifting his coffee mug) Better. On Wednesday afternoon at four o'clock, when it started pouring rain on the quad, I was standing under the Engineering breezeway after getting off the phone with my dad, convinced my entire life was about to implode before Friday.
+Jules_Speaking(left): And I looked across the courtyard and saw Maya standing on the Ag steps after Hale ambushed her, and Nora walking through the middle of the storm holding her poster tube like a shield. Five days ago, we were just three strangers having separate nervous breakdowns in the same zip code.
+Nora_Hoodie(middle): (lifting her mug to meet his, her eyes bright and warm) And by Thursday night, we had a cloud-backed symposium video, $4.99 unleaded carnations, and a permanent citation in `kalman_bridge.h`.
+Maya_Smiling(right): (clinking her mug firmly against both of theirs) To the Airlock Survivors. And to proving that the floor exists -- and hitting it just gives you something solid to push off from.
+Narrator: Three ceramic mugs clink together over the syrup bottles.
+Narrator: As they set their cups down, Nora pulls the lilac dinosaur-topper gel pen out of her pocket and flips over Jules's printed Saturday itinerary on the table.
+Nora_Speaking_Hoodie(middle): Speaking of the Graveyard Tab -- before we hit the 3:00 PM block, we need to officially log the week's casualties on the back of Rivera's chart so we never have to carry them again.
+Maya_Thinking(right): Oh, I like this. An official decommission log. Give me the pen first.
+Narrator: Maya takes the glittery lilac pen and writes in bold, decisive strokes across the blank white back of the page:\n*1. One sophomore-year ANSC 101 D-minus (Officially retired after bodying Dr. Hale with Cow 214's liver enzymes)*.
+Narrator: She slides the paper to Nora. Nora doesn't hesitate for a second:\n*2. One four-hundred-mile one-way therapy hotline & waiting for people who don't show up (Replaced by Row 3 at the CID Atrium)*.
+Narrator: Nora slides the paper and the dinosaur pen across the laminate to Jules. Jules looks at the two lines, smiles, and writes underneath them:\n*3. The 3.92 illusion & Rewrite #7 (Traded for a 3.88, arroz con habichuelas, and two friends in a corner booth)*.
+
+? Narrator: What should they do with the official Decommission Log?
+    > Have Nora crown it with a Triple-Beatrice doodle and let Jules file it in his shoebox.
+        Nora_Laughing(middle): (snatching the pen back with a flourish) Hold on, it's not legally binding until it's notarized!
+        Narrator: Right beneath the three items, Nora draws three tiny, derpy cartoon potatoes standing shoulder-to-shoulder: one wearing a headset, one wearing barn boots and crooked cow horns, and one holding a miniature micropipette.
+        Jules_Smiling(left): (carefully folding the sheet and sliding it into his jacket pocket right beside Tuesday's index card) Going straight to the front of the Adidas shoebox. Right in front of the pink RTX behavioral cards.
+    > Pin it to the diner's community corkboard by the register on the way out.
+        Maya_Smiling(right): You know what? Don't hide that in a dorm room. Every stressed-out undergrad who drives out to Route 4 at midnight needs to see that you can bomb a class, crash a compiler, and still eat pancakes on Saturday.
+        Nora_Speaking_Hoodie(middle): Agreed. We're pinning it right over the flyer for tractors by the cash register. Public service announcement from the College of Sciences.
+        Jules_Smiling(left): An empirical case study in surviving the week. I'll allow it.
+
+# ------------------------------------------------------------------------------
+# Scene 3: Saturday 3:00 p.m. - [BLUE] Do Literally Nothing (And A Little Music)
+# ------------------------------------------------------------------------------
+
+Narrator: [Scene 3: Saturday Late Afternoon - The Sunset & The Horizon] [HIDE: all]
+Narrator: [BG: Lake_Hill_Sunset.jpg] [BACKGROUND: The grassy hill overlooking the town lake just off Route 4, 4:30 p.m. The afternoon sun is beginning to dip toward the western hills, painting the sky in warm gradients of amber, tangerine, and soft violet. Maya's pickup truck is parked on the gravel shoulder with the tailgate dropped open.]
+Narrator: [AUDIO: A warm, unhurried acoustic guitar melody, gentle lakeside breeze, and early evening crickets starting up in the tall grass.]
+Narrator: [SPRITE: Jules_Smiling, left] [SPRITE: Nora_Hoodie, middle] [SPRITE: Maya_Calm, right] The 03:00 PM **[BLUE]** block of Jules's schedule -- *Nap / Do Literally Nothing* -- turns out to be the single most productive item any of them has executed all semester.
+Narrator: Stuffed with pancakes and warm from the afternoon sun, they drive ten minutes down the road to the quiet overlook by the lake, drop the tailgate of Maya's truck, and spread out an old plaid blanket over the bed liner.
+Narrator: For a whole hour, nobody fixes a problem. Maya sits propped against the cab window with her boots kicked off, eyes closed as the breeze cools her face. Nora lies flat on her back on the blanket, watching the clouds drift past without a single phone alarm set. And Jules sits on the edge of the tailgate, swinging his legs lazily over the bumper, his mind completely quiet.
+Narrator: Around four-thirty, as the sky begins to turn that bruised, golden-orange shade of late autumn dusk, Nora props herself up on one elbow and spots an old bluetooth speaker and a familiar plastic cup tucked into the corner of Maya's truck cab.
+Nora_Speaking_Hoodie(middle): Wait a second. Sterling, did you bring the Shell gas-station carnations from The Mill patio?
+Maya_Smiling(right): (opening one eye, grinning unapologetically) I rescued them before we left on Thursday night and put them in a mason jar with two aspirin! Look at them on the dashboard -- they still look radioactive and they barely smell like 87-octane anymore!
+Jules_Smiling(left): Those flowers have higher fault tolerance than my capstone hardware. They're going to outlive the university.
+Nora_Laughing(middle): (grabbing the bluetooth speaker and switching it on with a triumphant beep) Okay, executive decision from the Sovereign: we have twenty minutes of golden hour left, zero homework until Sunday afternoon, and a speaker. Jules, earlier on the trail I joked about your voice impressions. Connect your phone and put on a backing track. It is officially terrible tailgate karaoke time.
+Jules_Thinking(left): (blinking, a theatrical grin immediately tugging at the corner of his mouth) Terrible? Speak for yourself, Vance. My vocal telemetry is calibrated to the exact resonant frequency of early-2000s rock ballads.
+Maya_Smiling(right): (sitting up fast, laughing) Oh, I have to see this. The guy who was ready to become a public monument to academic debt on Tuesday night does karaoke?
+Jules_Smiling(left): Only when the compiler is off and I'm surrounded by fellow survivors. Pick a song, Nora.
+Narrator: [SPRITE: Jules_Smiling, left] [SPRITE: Nora_Laughing, middle] [SPRITE: Maya_Smiling, right] Nora pairs her phone, queues up an absurdly dramatic throwback chorus at full volume, and hands an empty water bottle to Jules like a stadium microphone.
+Narrator: Jules doesn't hold back for half a second. He hops down off the tailgate onto the gravel, squares his shoulders like he's presenting to the National Science Foundation, and belts the opening verse with genuinely impressive tenor resonance and zero shame -- complete with a deadpan Dr. Okoye impression on the spoken-word bridge.
+Narrator: Within thirty seconds, Maya is laughing so hard her stomach hurts, drumming the rhythm against the steel tailgate, and Nora is standing up in the truck bed using her rolled-up Saturday itinerary as a trumpet while singing backup harmony at the top of her lungs.
+Narrator: They go through three songs as the tangerine sun dips below the ridge. They miss half the lyrics. They invent an entire verse about Cow 408 kicking Arthur Hale into low Earth orbit. Nobody grades the pitch. Nobody checks a rubric.
+Narrator: [SPRITE: Jules_Smiling, left] [SPRITE: Nora_Hoodie, middle] [SPRITE: Maya_Smiling, right] Finally, as the music fades out into the gentle chirping of evening crickets and the first stars begin to prick through the violet sky, the three of them collapse back onto the tailgate side by side, catching their breath.
+Narrator: Maya leans her head lightly against Nora's shoulder. On Nora's other side, Jules leans back on his palms, looking up at the clear sky without calculating a single thing.
+Maya_Calm(right): (quietly, watching the amber light reflect off the lake) Hey, guys?
+Jules_Speaking(left): Yeah, Sterling?
+Maya_Smiling(right): Monday's still coming. You've got the RTX panel at ten. Nora's got manuscript revisions with Okafor. I've got forty heifers and a summer housing packet to fill out.
+Nora_Hoodie(middle): (smiling softly, resting her cheek against the top of Maya's head while nudging Jules's knee with her boot) Yeah. Monday's coming.
+Jules_Smiling(left): (looking between the two of them, the heavy iron band around his chest gone for good) Let it come. We know where the corner booth is.
+Narrator: [HIDE: all] Nobody checks the time. Nobody packs up early. Under the wide, open autumn sky, the three of them sit together on the tailgate as the stars come out -- no longer bracing for the storm, just enjoying the view from the house they built.
+System: [FINAL STATS: Chosen Family MAXED | Burnout ZERO | The Horizon SHARED]
+System: *Bonus Ending: Nothing Circled in Red.*

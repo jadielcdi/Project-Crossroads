@@ -149,6 +149,7 @@ public class ProgressManager {
                 case 1 -> "Jules's Story (Julian \"Jules\" Rivera)";
                 case 2 -> "Maya's Story (Maya Sterling)";
                 case 3 -> "Nora's Story (Nora Vance)";
+                case 4 -> "Bonus Story: Saturday Off-Campus (The Airlock Survivors)";
                 default -> "Story #" + storyId;
             };
         }
@@ -197,6 +198,9 @@ public class ProgressManager {
      * Checks if a specific story has been completed at least once.
      */
     public static synchronized boolean isStoryCompleted(int storyId) {
+        if (!initialized) {
+            loadProgress();
+        }
         return completedStories.contains(storyId);
     }
 
@@ -204,6 +208,9 @@ public class ProgressManager {
      * Returns how many times a specific story has been completed.
      */
     public static synchronized int getStoryCompletionCount(int storyId) {
+        if (!initialized) {
+            loadProgress();
+        }
         return storyCompletionCounts.getOrDefault(storyId, 0);
     }
 
@@ -211,15 +218,21 @@ public class ProgressManager {
      * Returns total number of story completions across all playthroughs.
      */
     public static synchronized int getTotalCompletions() {
+        if (!initialized) {
+            loadProgress();
+        }
         return totalCompletions;
     }
 
     /**
      * Checks if all three core stories (1: Jules, 2: Maya, 3: Nora) have been
      * completed.
-     * This is the requirement for unlocking the upcoming secret 4th story.
+     * This is the requirement for unlocking the bonus 4th story.
      */
     public static synchronized boolean areAllStoriesCompleted() {
+        if (!initialized) {
+            loadProgress();
+        }
         return completedStories.contains(1) &&
                 completedStories.contains(2) &&
                 completedStories.contains(3);
@@ -237,6 +250,9 @@ public class ProgressManager {
      * Returns an unmodifiable set of completed story IDs.
      */
     public static synchronized Set<Integer> getCompletedStoryIds() {
+        if (!initialized) {
+            loadProgress();
+        }
         return Collections.unmodifiableSet(new HashSet<>(completedStories));
     }
 
@@ -244,6 +260,9 @@ public class ProgressManager {
      * Returns an unmodifiable list of all completion log entries.
      */
     public static synchronized List<String> getCompletionHistoryLog() {
+        if (!initialized) {
+            loadProgress();
+        }
         return Collections.unmodifiableList(new ArrayList<>(completionHistory));
     }
 

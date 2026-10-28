@@ -28,6 +28,7 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
 import javafx.scene.media.AudioClip;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
@@ -65,7 +66,9 @@ public class Main extends Application {
     private CharacterManager characterManager;
     private MainMenuController mainMenuController;
     private VBox dialogueBox;
+    private StackPane dialogueContentStack;
     private Region dialogueHoverZone;
+    private Text textMeasureProbe;
     private boolean isDialogueHidden = false;
     private PauseTransition hoverUnhideTimer;
     private Label speakerNameLabel;
@@ -409,9 +412,8 @@ public class Main extends Application {
         dialogueBox.setMinWidth(1140);
         dialogueBox.setPrefWidth(1140);
         dialogueBox.setMaxWidth(1140);
-        dialogueBox.setMinHeight(155);
-        dialogueBox.setPrefHeight(165);
-        dialogueBox.setMaxHeight(175);
+        dialogueBox.setMinHeight(165);
+        dialogueBox.setMaxHeight(Region.USE_PREF_SIZE);
         dialogueBox.setOpacity(1.0);
         dialogueBox.setVisible(true);
         StackPane.setAlignment(dialogueBox, Pos.BOTTOM_CENTER);
@@ -466,6 +468,9 @@ public class Main extends Application {
         dialogueTextLabel.setTextFill(Color.web("#E6ECE8"));
         dialogueTextLabel.setLineSpacing(4.0);
         dialogueTextLabel.setWrapText(true);
+        dialogueTextLabel.setMinWidth(1084);
+        dialogueTextLabel.setPrefWidth(1084);
+        dialogueTextLabel.setMaxWidth(1084);
 
         // Blinking Continue Indicator (▾)
         continuePromptLabel = new Label("▾");
@@ -480,13 +485,21 @@ public class Main extends Application {
         continuePromptPulse.setAutoReverse(true);
         continuePromptPulse.play();
 
-        StackPane dialogueContentStack = new StackPane();
+        dialogueContentStack = new StackPane();
         dialogueContentStack.setAlignment(Pos.TOP_LEFT);
         dialogueContentStack.getChildren().addAll(dialogueTextLabel, continuePromptLabel);
         StackPane.setAlignment(continuePromptLabel, Pos.BOTTOM_RIGHT);
         StackPane.setMargin(continuePromptLabel, new Insets(0, 4, 0, 0));
 
         dialogueBox.getChildren().setAll(headerRow, dialogueContentStack);
+
+        if (textMeasureProbe == null) {
+            textMeasureProbe = new Text();
+            textMeasureProbe.setFont(Font.font("Segoe UI", FontWeight.MEDIUM, 17.5));
+            textMeasureProbe.setLineSpacing(4.0);
+            textMeasureProbe.setWrappingWidth(1084);
+        }
+        updateDialogueBoxDimensions(currentLine != null ? currentLine.getText() : "");
 
         // Initialize TextAnimator
         textAnimator = new TextAnimator(dialogueTextLabel, charTickClip);
@@ -513,9 +526,9 @@ public class Main extends Application {
         dialogueHoverZone.setMinWidth(1140);
         dialogueHoverZone.setPrefWidth(1140);
         dialogueHoverZone.setMaxWidth(1140);
-        dialogueHoverZone.setMinHeight(155);
-        dialogueHoverZone.setPrefHeight(165);
-        dialogueHoverZone.setMaxHeight(175);
+        dialogueHoverZone.minHeightProperty().bind(dialogueBox.heightProperty());
+        dialogueHoverZone.prefHeightProperty().bind(dialogueBox.heightProperty());
+        dialogueHoverZone.maxHeightProperty().bind(dialogueBox.heightProperty());
         dialogueHoverZone.setPickOnBounds(true);
         dialogueHoverZone.setVisible(false); // Only active while dialogue is hidden
         StackPane.setAlignment(dialogueHoverZone, Pos.BOTTOM_CENTER);
@@ -798,6 +811,7 @@ public class Main extends Application {
             case 1 -> "Jules's Story";
             case 2 -> "Maya's Story";
             case 3 -> "Nora's Story";
+            case 4 -> "Bonus Story: Saturday Off-Campus";
             default -> "Project Crossroads";
         };
 
@@ -863,6 +877,7 @@ public class Main extends Application {
         }
 
         updateSpeakerBadge(state.getCurrentSpeaker());
+        updateDialogueBoxDimensions(state.getCurrentText());
         dialogueTextLabel.setText(state.getCurrentText());
 
         if (textAnimator != null) {
@@ -907,6 +922,8 @@ public class Main extends Application {
                 currentMusicTrack = MAYA_MUSIC;
             } else if (storyId == 3) {
                 currentMusicTrack = NORA_MUSIC;
+            } else if (storyId == 4) {
+                currentMusicTrack = MENU_MUSIC;
             }
         }
 
@@ -953,6 +970,7 @@ public class Main extends Application {
             }
 
             updateSpeakerBadge(parsed.cleanSpeaker());
+            updateDialogueBoxDimensions(parsed.cleanText());
 
             if (characterManager != null) {
                 characterManager.highlightSpeaker(parsed.cleanSpeaker());
@@ -1068,6 +1086,25 @@ public class Main extends Application {
             speakerNameLabel.getStyleClass().add("m3-speaker-pill");
             speakerNameLabel.setText(speaker);
         }
+    }
+
+    /**
+     * Dynamically sizes the dialogue content container and outer box to accommodate
+     * extensive dialogue without text clipping, preserving a clean baseline height
+     * for standard-length dialogue lines.
+     */
+    private void updateDialogueBoxDimensions(String text) {
+        if (textMeasureProbe == null || dialogueContentStack == null) {
+            return;
+        }
+        textMeasureProbe.setText(text != null ? text : "");
+        double measuredHeight = textMeasureProbe.getLayoutBounds().getHeight();
+
+        // Base content height for standard 1-3 line dialogue: 84px (gives total box height ~165px).
+        // For extensive dialogue (e.g. 4-6 lines), dynamically grow contentStack to fit all lines + buffer for prompt.
+        double contentHeight = Math.max(84.0, measuredHeight + 16.0);
+        dialogueContentStack.setMinHeight(contentHeight);
+        dialogueContentStack.setPrefHeight(contentHeight);
     }
 
     private void presentChoices(Choice choice) {
@@ -1197,7 +1234,7 @@ public class Main extends Application {
         // "Jules(Stressed, left)"
         // Pattern A: Character_Expression(position) -> e.g. Jules_Stressed(left)
         java.util.regex.Pattern patA = java.util.regex.Pattern
-                .compile("^([A-Za-z0-9_]+)_([A-Za-z0-9_]+)\\s*\\(\\s*([A-Za-z]+)\\s*\\)$");
+                .compile("^([A-Za-z0-9]+)_([A-Za-z0-9_]+)\\s*\\(\\s*([A-Za-z]+)\\s*\\)$");
         java.util.regex.Matcher matA = patA.matcher(rawSpeaker.trim());
         if (matA.matches()) {
             String charId = matA.group(1);
@@ -1222,7 +1259,7 @@ public class Main extends Application {
                 }
             } else {
                 // Pattern C: Character_Expression -> e.g. Jules_Stressed
-                java.util.regex.Pattern patC = java.util.regex.Pattern.compile("^([A-Za-z0-9_]+)_([A-Za-z0-9_]+)$");
+                java.util.regex.Pattern patC = java.util.regex.Pattern.compile("^([A-Za-z0-9]+)_([A-Za-z0-9_]+)$");
                 java.util.regex.Matcher matC = patC.matcher(rawSpeaker.trim());
                 if (matC.matches()) {
                     String charId = matC.group(1);

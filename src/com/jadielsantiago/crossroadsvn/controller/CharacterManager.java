@@ -375,7 +375,8 @@ public class CharacterManager {
         candidates.add(CHARACTERS_DIR + folder + "/" + expr + ".jpg");
         candidates.add(CHARACTERS_DIR + folder + "/" + capitalizedExpr + ".jpg");
 
-        // Standard reference image fallbacks
+        // Standard neutral / reference image fallbacks
+        candidates.add(CHARACTERS_DIR + folder + "/" + folder + "_Neutral.png");
         candidates.add(CHARACTERS_DIR + folder + "/" + folder + "_Reference.png");
         candidates.add(CHARACTERS_DIR + folder + "/" + folder + "_Reference.jpeg");
         candidates.add(CHARACTERS_DIR + folder + "/" + folder + "_Reference.jpg");
